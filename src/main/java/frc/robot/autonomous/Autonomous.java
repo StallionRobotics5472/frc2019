@@ -4,7 +4,8 @@ import frc.robot.autonomous.commands.paths.CSWLX;
 import frc.robot.autonomous.commands.paths.CSWRX;
 import frc.robot.autonomous.commands.paths.ExtremeLeft;
 import frc.robot.autonomous.commands.paths.ExtremeRight;
-import frc.robot.autonomous.commands.paths.LBOLL;
+import frc.robot.autonomous.commands.paths.LBOLL;                                                                                                                                                                                                                                                                                                                                                                               
+
 import frc.robot.autonomous.commands.paths.LSCXL;
 import frc.robot.autonomous.commands.paths.LSCXR;
 import frc.robot.autonomous.commands.paths.LSWLX;
@@ -73,7 +74,6 @@ public class Autonomous {
 		plan.addOption(Plan.STRAIGHT.toString(), Plan.STRAIGHT);
 		plan.addOption(Plan.SCALE_OUTER.toString(), Plan.SCALE_OUTER);
 		plan.addOption(Plan.DRIVE_STRAIGHT_MOTION_PROFILE.toString(), Plan.DRIVE_STRAIGHT_MOTION_PROFILE);
-		
 		SmartDashboard.putData("Autonomous Starting Position", starting);
 		SmartDashboard.putData("Autonomous Task", plan);
 		
@@ -178,6 +178,8 @@ public class Autonomous {
 					command = new LSWLX();
 				else
 					command = new PassAutoLine();
+			case DRIVE_STRAIGHT_MOTION_PROFILE:
+				command = new StraightPath();
 		}
 	}
 	
@@ -223,6 +225,8 @@ public class Autonomous {
 					command = new RSWRX();
 				else
 					command = new PassAutoLine();
+			case DRIVE_STRAIGHT_MOTION_PROFILE:
+				command = new StraightPath();
 		}
 	}
 

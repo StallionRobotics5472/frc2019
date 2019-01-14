@@ -63,16 +63,16 @@ public class Autonomous {
 	private String gameSpecificData = "";
 
 	public Autonomous() {
-		starting.addDefault(StartingPosition.CENTER.toString(), StartingPosition.CENTER);
-		starting.addObject(StartingPosition.LEFT.toString(), StartingPosition.LEFT);
-		starting.addObject(StartingPosition.RIGHT.toString(), StartingPosition.RIGHT);
+		starting.setDefaultOption(StartingPosition.CENTER.toString(), StartingPosition.CENTER);
+		starting.addOption(StartingPosition.LEFT.toString(), StartingPosition.LEFT);
+		starting.addOption(StartingPosition.RIGHT.toString(), StartingPosition.RIGHT);
 		
-		plan.addDefault(Plan.BOTH.toString(), Plan.BOTH);
-		plan.addObject(Plan.SWITCH.toString(), Plan.SWITCH);
-		plan.addObject(Plan.SCALE.toString(), Plan.SCALE);
-		plan.addObject(Plan.STRAIGHT.toString(), Plan.STRAIGHT);
-		plan.addObject(Plan.SCALE_OUTER.toString(), Plan.SCALE_OUTER);
-		plan.addObject(Plan.DRIVE_STRAIGHT_MOTION_PROFILE.toString(), Plan.DRIVE_STRAIGHT_MOTION_PROFILE);
+		plan.setDefaultOption(Plan.BOTH.toString(), Plan.BOTH);
+		plan.addOption(Plan.SWITCH.toString(), Plan.SWITCH);
+		plan.addOption(Plan.SCALE.toString(), Plan.SCALE);
+		plan.addOption(Plan.STRAIGHT.toString(), Plan.STRAIGHT);
+		plan.addOption(Plan.SCALE_OUTER.toString(), Plan.SCALE_OUTER);
+		plan.addOption(Plan.DRIVE_STRAIGHT_MOTION_PROFILE.toString(), Plan.DRIVE_STRAIGHT_MOTION_PROFILE);
 		
 		SmartDashboard.putData("Autonomous Starting Position", starting);
 		SmartDashboard.putData("Autonomous Task", plan);

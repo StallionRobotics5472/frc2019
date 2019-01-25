@@ -11,9 +11,6 @@ import java.util.HashMap;
 
 import frc.robot.autonomous.Autonomous;
 import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.subsystems.LedSubsystem;
-import frc.robot.subsystems.LiftSubsystem;
 
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.RobotController;
@@ -27,11 +24,6 @@ public class Robot extends TimedRobot implements DataProvider{
 
 	public static Controls controls;
 	public static DriveSubsystem drive;
-	public static IntakeSubsystem intake;
-	public static LiftSubsystem lift;
-	public static LedSubsystem led;
-	public static Limelight limelight;
-	public static Cameras cameras;
 	private static DataLogger logger;
 	
 	private AnalogInput pressureSensor;
@@ -39,11 +31,6 @@ public class Robot extends TimedRobot implements DataProvider{
 	@Override
 	public void robotInit() {
 		drive = new DriveSubsystem();
-		intake = new IntakeSubsystem();
-		lift = new LiftSubsystem();
-		led = new LedSubsystem();
-		limelight = new Limelight();
-		cameras = new Cameras();
 		auto = new Autonomous();
 		controls = new Controls();
 		logger = new DataLogger();
@@ -58,24 +45,12 @@ public class Robot extends TimedRobot implements DataProvider{
 		drive.resetEncoders();
 		drive.resetHeading();
 		drive.drive(0.0, 0.0);
-		lift.resetEncoder();
-		lift.disableClosedLoop();
-		intake.stop();
 		logger.end();
-		
-		limelight.setLed(false);
 	}
 
 	@Override
 	public void disabledPeriodic() {
-		if (auto != null)
-			auto.checkGameSpecificData();
-		
 		SmartDashboard.putNumber("Pressure", getPressure());
-		SmartDashboard.putBoolean("Upper Lift Limit", controls.highLimit.get());
-		SmartDashboard.putBoolean("Lower Lift Limit", controls.lowLimit.get());
-		
-		limelight.setLed(false);
 	}
 
 	@Override
@@ -83,9 +58,6 @@ public class Robot extends TimedRobot implements DataProvider{
 		drive.resetEncoders();
 		drive.resetHeading();
 		drive.drive(0.0, 0.0);
-		lift.resetEncoder();
-		lift.autoPeakOutput();
-		lift.enableClosedLoop();
 		logger.start();
 		auto.start();
 	}
@@ -94,19 +66,10 @@ public class Robot extends TimedRobot implements DataProvider{
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
 		logger.appendData(drive);
-		logger.appendData(lift);
-		logger.appendData(intake);
-		logger.appendData(limelight);
-		logger.appendData(led);
 		logger.appendData(this);
 		logger.writeFrame();
 		
-		SmartDashboard.putNumber("Lift Closed-Loop Error", lift.getError());
-		
 		SmartDashboard.putNumber("Pressure", getPressure());
-		SmartDashboard.putBoolean("Upper Lift Limit", controls.highLimit.get());
-		SmartDashboard.putBoolean("Lower Lift Limit", controls.lowLimit.get());
-		
 		SmartDashboard.putNumber("Left Encoder", drive.getLeftPosition());
 		SmartDashboard.putNumber("Right Encoder", drive.getRightPosition());
 	}
@@ -114,12 +77,9 @@ public class Robot extends TimedRobot implements DataProvider{
 	@Override
 	public void teleopInit() {
 		auto.end();
-		limelight.setLed(false);
 		drive.resetEncoders();
 		drive.resetHeading();
 		drive.drive(0.0, 0.0);
-		lift.disableClosedLoop();
-		lift.teleopPeakOutput();
 		drive.highGear();
 		logger.start();
 		
@@ -129,16 +89,10 @@ public class Robot extends TimedRobot implements DataProvider{
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		logger.appendData(drive);
-		logger.appendData(lift);
-		logger.appendData(intake);
-		logger.appendData(limelight);
-		logger.appendData(led);
 		logger.appendData(this);
 		logger.writeFrame();
 		
 		SmartDashboard.putNumber("Pressure", getPressure());
-		SmartDashboard.putBoolean("Upper Lift Limit", controls.highLimit.get());
-		SmartDashboard.putBoolean("Lower Lift Limit", controls.lowLimit.get());
 		SmartDashboard.putNumber("Heading", Robot.drive.getHeading());
 	}
 	
@@ -168,12 +122,6 @@ public class Robot extends TimedRobot implements DataProvider{
 		});
 		toReturn.put("Pressure", new double[] {
 				getPressure()
-		});
-		toReturn.put("Low Limit Switch", new double[] {
-				controls.lowLimit.get() ? 1.0 : 0.0
-		});
-		toReturn.put("Low Limit Switch", new double[] {
-				controls.highLimit.get() ? 1.0 : 0.0
 		});
 		return toReturn;
 	}

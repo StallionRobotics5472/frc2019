@@ -7,6 +7,7 @@
 
 package frc.robot;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import frc.robot.autonomous.Autonomous;
@@ -18,6 +19,7 @@ import frc.robot.subsystems.LiftSubsystem;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -35,6 +37,9 @@ public class Robot extends TimedRobot implements DataProvider{
 	private static DataLogger logger;
 	
 	private AnalogInput pressureSensor;
+	ArrayList<Double> positions = new ArrayList<Double>();
+    ArrayList<Double> times = new ArrayList<Double>();
+
 	
 	@Override
 	public void robotInit() {
@@ -64,6 +69,45 @@ public class Robot extends TimedRobot implements DataProvider{
 		logger.end();
 		
 		limelight.setLed(false);
+		if (positions.size() > 0) {
+            double[] velocities = new double[positions.size() - 1];
+            double[] velTimes = new double[positions.size() - 1];
+            double maxVelocity = 0.0;
+            for (int i = 0; i < velocities.length; i++) {
+                velocities[i] = (positions.get(i + 1) - positions.get(i))
+                        / (times.get(i + 1) - times.get(i));
+                velTimes[i] = (times.get(i) + times.get(i + 1)) / 2.0;
+                if (velocities[i] > maxVelocity)
+                    maxVelocity = velocities[i];
+            }
+
+            double[] accelerations = new double[velocities.length - 1];
+            double[] accelTimes = new double[velocities.length - 1];
+            double maxAccel = 0.0;
+
+            for (int i = 0; i < accelerations.length; i++) {
+                accelerations[i] = (velocities[i + 1] - velocities[i])
+                        / (velTimes[i + 1] - velTimes[i]);
+                accelTimes[i] = (velTimes[i] + velTimes[i + 1]) / 2.0;
+                if (accelerations[i] > maxAccel)
+                    maxAccel = accelerations[i];
+            }
+
+            double[] jerks = new double[accelerations.length - 1];
+            double maxJerk = 0.0;
+
+            for (int i = 0; i < jerks.length; i++) {
+                jerks[i] = (accelerations[i + 1] - accelerations[i])
+                        / (accelTimes[i + 1] - accelTimes[i]);
+                if (jerks[i] > maxJerk)
+                    maxJerk = jerks[i];
+            }
+
+
+            SmartDashboard.putNumber("Max Velocity", maxVelocity);
+            SmartDashboard.putNumber("Max Acceleration", maxAccel);
+            SmartDashboard.putNumber("Max Jerk", maxJerk);
+        }
 	}
 
 	@Override
@@ -89,7 +133,9 @@ public class Robot extends TimedRobot implements DataProvider{
 		logger.start();
 		auto.start();
 	}
-
+	double lastVelocity = 0.0;
+    double lastAccel = 0.0;
+    double lastTime = 0.0;
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
@@ -109,6 +155,20 @@ public class Robot extends TimedRobot implements DataProvider{
 		
 		SmartDashboard.putNumber("Left Encoder", drive.getLeftPosition());
 		SmartDashboard.putNumber("Right Encoder", drive.getRightPosition());
+	
+
+        double time = Timer.getFPGATimestamp();
+
+        double velocity = (drive.getLeftVelocity() + drive.getRightVelocity()) / 2.0;
+        double accel = (velocity - lastVelocity) / (time - lastTime);
+        double jerk = (accel - lastAccel) / (time - lastTime);
+        SmartDashboard.putNumber("Instantaneous Velocity", velocity);
+        SmartDashboard.putNumber("\"Instantaneous\" Acceleration", accel);
+        SmartDashboard.putNumber("\"Instantaneous\" Jerk", jerk);
+        lastAccel = accel;
+        lastVelocity = velocity;
+		lastTime = time;
+
 	}
 
 	@Override
@@ -136,10 +196,21 @@ public class Robot extends TimedRobot implements DataProvider{
 		logger.appendData(this);
 		logger.writeFrame();
 		
-		SmartDashboard.putNumber("Pressure", getPressure());
-		SmartDashboard.putBoolean("Upper Lift Limit", controls.highLimit.get());
-		SmartDashboard.putBoolean("Lower Lift Limit", controls.lowLimit.get());
-		SmartDashboard.putNumber("Heading", Robot.drive.getHeading());
+		// SmartDashboard.putNumber("Pressure", getPressure());
+		// SmartDashboard.putBoolean("Upper Lift Limit", controls.highLimit.get());
+		// SmartDashboard.putBoolean("Lower Lift Limit", controls.lowLimit.get());
+		// SmartDashboard.putNumber("Heading", Robot.drive.getHeading());
+		// double time = Timer.getFPGATimestamp();
+
+        // double velocity = (drive.getLeftVelocity() + drive.getRightVelocity()) / 2.0;
+        // double accel = (velocity - lastVelocity) / (time - lastTime);
+        // double jerk = (accel - lastAccel) / (time - lastTime);
+        // SmartDashboard.putNumber("Instantaneous Velocity", velocity);
+        // SmartDashboard.putNumber("\"Instantaneous\" Acceleration", accel);
+        // SmartDashboard.putNumber("\"Instantaneous\" Jerk", jerk);
+        // lastAccel = accel;
+        // lastVelocity = velocity;
+        // lastTime = time;
 	}
 	
 	@Override

@@ -178,6 +178,10 @@ public class DriveSubsystem extends Subsystem implements DataProvider{
 		return -navx.getAngle();
 	}
 
+	public void setHeading(double heading){
+		navx.setAngleAdjustment(-heading);
+	}
+
 	public void resetHeading() {
 		navx.zeroYaw();
 	}

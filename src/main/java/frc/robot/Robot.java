@@ -168,7 +168,6 @@ public class Robot extends TimedRobot implements DataProvider{
         lastAccel = accel;
         lastVelocity = velocity;
 		lastTime = time;
-
 	}
 
 	@Override

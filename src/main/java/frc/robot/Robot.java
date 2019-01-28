@@ -10,6 +10,7 @@ package frc.robot;
 import java.util.HashMap;
 
 import frc.robot.autonomous.Autonomous;
+import frc.robot.subsystems.DiskPushSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.LedSubsystem;
@@ -33,13 +34,13 @@ public class Robot extends TimedRobot implements DataProvider{
 	public static Limelight limelight;
 	public static Cameras cameras;
 	private static DataLogger logger;
-	
+	public static DiskPushSubsystem diskPush;
 	private AnalogInput pressureSensor;
 	
 	@Override
 	public void robotInit() {
 		drive = new DriveSubsystem();
-		intake = new IntakeSubsystem();
+		//intake = new IntakeSubsystem();
 		lift = new LiftSubsystem();
 		led = new LedSubsystem();
 		limelight = new Limelight();
@@ -47,7 +48,7 @@ public class Robot extends TimedRobot implements DataProvider{
 		auto = new Autonomous();
 		controls = new Controls();
 		logger = new DataLogger();
-		
+		diskPush = new DiskPushSubsystem();
 		pressureSensor = new AnalogInput(0);
 		
 	}

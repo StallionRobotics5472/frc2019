@@ -28,7 +28,7 @@ public class Robot extends TimedRobot implements DataProvider{
 
 	public static Controls controls;
 	public static DriveSubsystem drive;
-	public static IntakeSubsystem intake;
+	//public static IntakeSubsystem intake;
 	public static LiftSubsystem lift;
 	public static LedSubsystem led;
 	public static Limelight limelight;
@@ -40,7 +40,6 @@ public class Robot extends TimedRobot implements DataProvider{
 	@Override
 	public void robotInit() {
 		drive = new DriveSubsystem();
-		//intake = new IntakeSubsystem();
 		lift = new LiftSubsystem();
 		led = new LedSubsystem();
 		limelight = new Limelight();
@@ -61,7 +60,6 @@ public class Robot extends TimedRobot implements DataProvider{
 		drive.drive(0.0, 0.0);
 		lift.resetEncoder();
 		lift.disableClosedLoop();
-		intake.stop();
 		logger.end();
 		
 		limelight.setLed(false);
@@ -96,7 +94,6 @@ public class Robot extends TimedRobot implements DataProvider{
 		Scheduler.getInstance().run();
 		logger.appendData(drive);
 		logger.appendData(lift);
-		logger.appendData(intake);
 		logger.appendData(limelight);
 		logger.appendData(led);
 		logger.appendData(this);
@@ -131,7 +128,6 @@ public class Robot extends TimedRobot implements DataProvider{
 		Scheduler.getInstance().run();
 		logger.appendData(drive);
 		logger.appendData(lift);
-		logger.appendData(intake);
 		logger.appendData(limelight);
 		logger.appendData(led);
 		logger.appendData(this);

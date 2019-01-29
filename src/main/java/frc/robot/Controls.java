@@ -1,12 +1,7 @@
 package frc.robot;
 
-import frc.robot.commands.GripToggle;
+import frc.robot.commands.DiskPushCommand;
 import frc.robot.commands.HighGear;
-import frc.robot.commands.IntakePull;
-import frc.robot.commands.IntakePullSlow;
-import frc.robot.commands.IntakePush;
-import frc.robot.commands.IntakePushSlow;
-import frc.robot.commands.IntakeStop;
 import frc.robot.commands.LiftStop;
 import frc.robot.commands.LiftZeroEncoder;
 import frc.robot.commands.ReportIntakeLimit;
@@ -46,17 +41,9 @@ public class Controls {
 		shiftGear.whenReleased(new ShiftGear());
 		highButton.whenPressed(new HighGear());
 		
-		intakeHighSpeedIn.whenPressed(new IntakePull());
-		intakeHighSpeedIn.whenReleased(new IntakeStop());
-		intakeHighSpeedOut.whenPressed(new IntakePush());
-		intakeHighSpeedOut.whenReleased(new IntakeStop());
 		
-		intakeLowSpeedIn.whenPressed(new IntakePullSlow());
-		intakeLowSpeedIn.whenReleased(new IntakeStop());
-		intakeLowSpeedOut.whenPressed(new IntakePushSlow());
-		intakeLowSpeedOut.whenReleased(new IntakeStop());
 
-		toggleGrip.whenPressed(new GripToggle());
+		toggleGrip.whenPressed(new DiskPushCommand());
 		
 		takeSnapshot.whenPressed(new TakeSnapshot());
 		

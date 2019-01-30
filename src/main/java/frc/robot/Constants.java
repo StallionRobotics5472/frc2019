@@ -69,4 +69,5 @@ public class Constants
 	public static final int LED_RED_DIO = 0;
 	public static final int LED_GREEN_DIO = 1;
 	public static final int LED_BLUE_DIO = 2;
+	public static final int BALL_INTAKE = 5;
 }

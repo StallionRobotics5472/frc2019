@@ -1,10 +1,12 @@
 package frc.robot;
 
 import frc.robot.commands.BallInCommand;
+import frc.robot.commands.BallOutCommand;
 import frc.robot.commands.DiskPushCommand;
 import frc.robot.commands.HighGear;
 import frc.robot.commands.LiftStop;
 import frc.robot.commands.LiftZeroEncoder;
+import frc.robot.commands.LowBallCommand;
 import frc.robot.commands.ReportIntakeLimit;
 import frc.robot.commands.ShiftGear;
 import frc.robot.commands.TakeSnapshot;
@@ -23,6 +25,8 @@ public class Controls {
 	private JoystickButton ballLowSpeedOut = new JoystickButton(playerOne, 6); // Right Shoulder
 	private TriggerButton ballHighSpeedIn = new TriggerButton(playerOne, 2); // Left Bottom
 	private TriggerButton ballHighSpeedOut = new TriggerButton(playerOne, 3); // Right Bottom
+
+	private JoystickButton lowBall = new JoystickButton(playerOne, 6);
 	
 	private JoystickButton toggleGrip = new JoystickButton(playerOne, 1); // A Button
 	
@@ -54,6 +58,9 @@ public class Controls {
 		intakeLimit.whenReleased(new ReportIntakeLimit());
 
 		ballHighSpeedIn.whenPressed(new BallInCommand());
+		ballHighSpeedOut.whenPressed(new BallOutCommand());
+
+		lowBall.whenPressed(new LowBallCommand());
 	}
 
 	public Joystick getPlayerOne() {

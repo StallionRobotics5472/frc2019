@@ -25,12 +25,23 @@ public class BallSubsystem extends Subsystem {
     //     ballMotor.set(MODE, speed);
     // }
 
-    public void start(boolean slow) {
-		double speed = slow ? Constants.INTAKE_INPUT_SLOW_SPEED : Constants.INTAKE_INPUT_SPEED;
+    public void startIn(boolean slow) {
+        double speed = slow ? Constants.INTAKE_INPUT_SLOW_SPEED : Constants.INTAKE_INPUT_SPEED;
+        ballMotor.setInverted(false);
 		ballMotor.set(MODE, speed);
-	}
+    }
+    
+    public void startOut(boolean slow) {
+        double speed = slow ? Constants.INTAKE_INPUT_SLOW_SPEED : Constants.INTAKE_INPUT_SPEED;
+        ballMotor.setInverted(true);
+		ballMotor.set(MODE, speed);
+    }
 
 
+    public void end()
+    {
+        ballMotor.set(MODE, 0);
+    }
 
 
 }

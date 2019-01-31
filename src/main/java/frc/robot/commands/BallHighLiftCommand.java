@@ -8,14 +8,11 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.Constants;
 import frc.robot.Robot;
-import frc.robot.autonomous.commands.Delay;
 
-public class BallInCommand extends Command {
-
-  private boolean finished = false;
-  public BallInCommand() {
-    
+public class BallHighLiftCommand extends Command {
+  public BallHighLiftCommand() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }
@@ -23,27 +20,24 @@ public class BallInCommand extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    Robot.lift.enableClosedLoop();
+    Robot.lift.setSetpoint(Constants.HIGH_BALL_HEIGHT);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-      Robot.balls.startIn(false);
-      finished = true;
-      new Delay(500);
-      
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return finished;
+    return Robot.lift.getPosition() > Constants.HIGH_BALL_HEIGHT;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.balls.end();
   }
 
   // Called when another command which requires one or more of the same

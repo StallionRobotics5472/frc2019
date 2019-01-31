@@ -51,6 +51,11 @@ public class Constants
 	public static final double INTAKE_OUTPUT_SPEED = 1.00;
 	public static final double INTAKE_OUTPUT_SLOW_SPEED = 0.40;
 
+	public static final int LOW_BALL_HEIGHT = 10000;
+	public static final int HIGH_BALL_HEIGHT = 20000;
+	public static final int LOW_HATCH_HEIGHT = 9000;
+	public static final int HIGH_HATCH_HEIGHT = 18000;
+
 	
 	public static final int LIFT_TALON_CAN_LEFT = 10;
 	public static final int LIFT_TALON_CAN_RIGHT = 8;

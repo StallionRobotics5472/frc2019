@@ -11,11 +11,11 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.robot.autonomous.commands.Delay;
 
-public class BallInCommand extends Command {
+public class BallOutCommand extends Command {
 
   private boolean finished = false;
-  public BallInCommand() {
-    
+
+  public BallOutCommand() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }
@@ -28,10 +28,9 @@ public class BallInCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-      Robot.balls.startIn(false);
-      finished = true;
-      new Delay(500);
-      
+    Robot.balls.startOut(false);
+    new Delay(100);
+    finished = true;
   }
 
   // Make this return true when this Command no longer needs to run execute()

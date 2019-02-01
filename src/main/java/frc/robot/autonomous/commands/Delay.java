@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class Delay extends Command{
-	
+
 	private boolean finished;
 	private double time;
 	

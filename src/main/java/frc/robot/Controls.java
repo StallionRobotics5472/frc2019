@@ -52,13 +52,15 @@ public class Controls {
 		intakeLimit.whenPressed(new ReportIntakeLimit());
 		intakeLimit.whenReleased(new ReportIntakeLimit());
 		
-		fastBallIn.whileHeld(new BallCommand(-Constants.HIGH_BALL, false));
-		
+		fastBallIn.whileHeld(new BallCommand(-Constants.HIGH_BALL, true));
+		fastBallOut.whileHeld(new BallCommand(-Constants.HIGH_BALL, false));
 		slowBallIn.whileHeld(new BallCommand(-Constants.LOW_BALL, true));
+		slowBallOut.whileHeld(new BallCommand(-Constants.LOW_BALL, false));
 		
 		fastBallIn.whenReleased(new StopBall());
 		slowBallIn.whenReleased(new StopBall());
-		
+		fastBallOut.whenReleased(new StopBall());
+		slowBallOut.whenReleased(new StopBall());
 	}
 
 	public Joystick getPlayerOne() {

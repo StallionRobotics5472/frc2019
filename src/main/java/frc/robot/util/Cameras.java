@@ -1,4 +1,4 @@
-package frc.robot;
+package frc.robot.util;
 
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
@@ -11,5 +11,4 @@ public class Cameras {
 		cam0 = CameraServer.getInstance().startAutomaticCapture(0);
 		cam0.setResolution(320, 240);
 	}
-	
 }

@@ -156,6 +156,8 @@ gradle-app.setting
 .settings/
 bin/
 .idea/
+*.ipr
+*.iws
 
 
 

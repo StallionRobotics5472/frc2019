@@ -17,8 +17,10 @@ import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.util.DataLogger;
+import frc.robot.util.DataProvider;
 
-public class Robot extends TimedRobot implements DataProvider{
+public class Robot extends TimedRobot implements DataProvider {
 
 	private Autonomous auto;
 
@@ -36,15 +38,19 @@ public class Robot extends TimedRobot implements DataProvider{
 		logger = new DataLogger();
 		
 		pressureSensor = new AnalogInput(0);
-		
+	}
+
+	private void resetBearings(){
+		drive.resetEncoders();
+		drive.resetHeading();
+		drive.drive(0.0, 0.0);
 	}
 
 	@Override
 	public void disabledInit() {
 		auto.end();
-		drive.resetEncoders();
-		drive.resetHeading();
-		drive.drive(0.0, 0.0);
+		resetBearings();
+		drive.stopStateEstimation();
 		logger.end();
 	}
 
@@ -55,9 +61,7 @@ public class Robot extends TimedRobot implements DataProvider{
 
 	@Override
 	public void autonomousInit() {
-		drive.resetEncoders();
-		drive.resetHeading();
-		drive.drive(0.0, 0.0);
+		resetBearings();
 		logger.start();
 		auto.start();
 	}
@@ -77,12 +81,10 @@ public class Robot extends TimedRobot implements DataProvider{
 	@Override
 	public void teleopInit() {
 		auto.end();
-		drive.resetEncoders();
-		drive.resetHeading();
-		drive.drive(0.0, 0.0);
+		resetBearings();
 		drive.highGear();
+		drive.startStateEstimation();
 		logger.start();
-		
 	}
 	
 	@Override

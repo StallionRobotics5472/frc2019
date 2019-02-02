@@ -1,9 +1,11 @@
 package frc.robot.subsystems;
 
 import java.util.HashMap;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import frc.robot.Constants;
-import frc.robot.DataProvider;
+import frc.robot.util.DataProvider;
 import frc.robot.commands.JoystickDriveCommand;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -12,13 +14,10 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
 
-import edu.wpi.first.wpilibj.PIDController;
-import edu.wpi.first.wpilibj.PIDOutput;
-import edu.wpi.first.wpilibj.PIDSource;
-import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.util.Vec;
 
 public class DriveSubsystem extends Subsystem implements DataProvider{
 
@@ -27,37 +26,14 @@ public class DriveSubsystem extends Subsystem implements DataProvider{
 	private ControlMode controlMode;
 	private Solenoid shiftSolenoid;
 	
-	
-	
-	private final PIDOutput driveOutput = (double output) -> {
-		drive(output, output);
-	};
 
-	private final PIDOutput turnOutput = (double output) -> {
-		drive(-output, output);
-	};
+	private Timer stateTimer = new Timer();
+	private TimerTask updateStateEstimate;
+	private boolean updatingStateEstimate;
+	private Vec estState = new Vec();
+	private Vec lastReadings = new Vec();
+	private static final double stateEstimateDt = 0.01;
 	
-	private final PIDSource drivePositionSource = new PIDSource() {
-		public double pidGet() {
-			return (getLeftPosition() + getRightPosition()) / 2;
-		}
-		public PIDSourceType getPIDSourceType() {return PIDSourceType.kDisplacement;}
-		public void setPIDSourceType(PIDSourceType t) {}
-	};
-	
-	private final PIDSource driveAngleSource = new PIDSource() {
-		public double pidGet() {
-			return getHeading();
-		}
-		public PIDSourceType getPIDSourceType() {return PIDSourceType.kDisplacement;}
-		public void setPIDSourceType(PIDSourceType t) {}
-	};
-	
-	public final PIDController drivePositionController = new PIDController(Constants.DRIVE_FOLLOWER_P, Constants.DRIVE_FOLLOWER_I, Constants.DRIVE_FOLLOWER_D,
-			Constants.DRIVE_FOLLOWER_F, drivePositionSource, driveOutput);
-	public final PIDController turnAngleController = new PIDController(Constants.DRIVE_AUTO_TURN_P, Constants.DRIVE_AUTO_TURN_I, Constants.DRIVE_AUTO_TURN_D, driveAngleSource, turnOutput);
-
-
 	public DriveSubsystem() {
 
 		left = new TalonSRX(Constants.DRIVE_LEFT_TALON_CAN);
@@ -89,13 +65,20 @@ public class DriveSubsystem extends Subsystem implements DataProvider{
 		right.set(controlMode, 0);
 		rightFollower.set(controlMode, 0);
 		
-		
-		turnAngleController.setInputRange(-180.0, 180.0);
-		turnAngleController.setContinuous(true);
-		turnAngleController.setOutputRange(-Constants.DRIVE_AUTO_OUTPUT_LIMIT, Constants.DRIVE_AUTO_OUTPUT_LIMIT);
-		turnAngleController.setAbsoluteTolerance(2);
-		
 		highGear();
+
+		updateStateEstimate = new TimerTask() {
+			@Override
+			public void run() {
+				Vec dEnc = new Vec(getLeftPosition(), getRightPosition(), 0).subtract(lastReadings);
+				double ds = dEnc.dot(Vec.ONES) / 2.0;
+				double theta = Math.toRadians(getHeading());
+				double dx = ds * Math.cos(theta);
+				double dy = ds * Math.sin(theta);
+				estState.add(new Vec(dx, dy, 0));
+				estState.setZ(theta);
+			}
+		};
 	}
 
 	public void setControlMode(ControlMode newMode) {
@@ -119,6 +102,29 @@ public class DriveSubsystem extends Subsystem implements DataProvider{
 	@Override
 	protected void initDefaultCommand() {
 		setDefaultCommand(new JoystickDriveCommand());
+	}
+
+	public void startStateEstimation(){
+		if(updatingStateEstimate)
+			return;
+		updatingStateEstimate = true;
+
+		estState.set(0, 0, 0);
+		lastReadings.set(getLeftPosition(), getRightPosition(), 0);
+
+		stateTimer.scheduleAtFixedRate(updateStateEstimate, 0, (long)(stateEstimateDt * 1000));
+		updatingStateEstimate = true;
+	}
+
+	public void stopStateEstimation(){
+		if(!updatingStateEstimate)
+			return;
+		updateStateEstimate.cancel();
+
+		estState.set(0, 0, 0);
+		lastReadings.set(getLeftPosition(), getRightPosition(), 0);
+
+		updatingStateEstimate = false;
 	}
 
 	public void shiftGear() {
@@ -188,7 +194,7 @@ public class DriveSubsystem extends Subsystem implements DataProvider{
 		right.setNeutralMode(NeutralMode.Brake);
 		rightFollower.setNeutralMode(NeutralMode.Brake);
 	}
-	
+
 	public void setCoast() {
 		left.setNeutralMode(NeutralMode.Coast);
 		leftFollower.setNeutralMode(NeutralMode.Coast);

@@ -21,7 +21,7 @@ public class BallSubsystem extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
   private TalonSRX motor = new TalonSRX(5);
-  private LimitSwitch ballLimit = new LimitSwitch(9, true);
+  private LimitSwitch ballLimit = new LimitSwitch(9, false);
 
   public BallSubsystem(){
     motor.setInverted(true);

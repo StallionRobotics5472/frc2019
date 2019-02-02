@@ -1,5 +1,4 @@
 package frc.robot;
-
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.buttons.Button;
 
@@ -25,5 +24,7 @@ public class LimitSwitch extends Button{
 	public boolean getRaw() {
 		return di.get();
 	}
+
+
 	
 }

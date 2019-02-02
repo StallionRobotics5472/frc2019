@@ -65,4 +65,7 @@ public class Constants {
 	public static final int PUSH_DOUBLESOLENOID1 = 1;
 	public static final int PUSH_DOUBLESOLENOID2 = 2;
 	public static final int BALL_MOTOR = 5;
+
+	public static final int ARM_TALON = 6;
+	public static final int WRIST_TALON = 9;
 }

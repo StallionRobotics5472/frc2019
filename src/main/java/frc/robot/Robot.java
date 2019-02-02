@@ -11,7 +11,6 @@ import java.util.HashMap;
 import java.util.Random;
 
 import frc.robot.autonomous.Autonomous;
-import frc.robot.subsystems.BallSubsystem;
 import frc.robot.subsystems.DiskPushSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -35,7 +34,7 @@ public class Robot extends TimedRobot implements DataProvider{
 	public static LedSubsystem led;
 	public static Limelight limelight;
 	public static Cameras cameras;
-	public static BallSubsystem balls;
+	
 	private static DataLogger logger;
 	public static DiskPushSubsystem diskPush;
 	private AnalogInput pressureSensor;
@@ -52,7 +51,7 @@ public class Robot extends TimedRobot implements DataProvider{
 		logger = new DataLogger();
 		diskPush = new DiskPushSubsystem();
 		pressureSensor = new AnalogInput(0);
-		balls = new BallSubsystem();
+	
 	}
 
 	@Override

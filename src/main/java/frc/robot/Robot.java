@@ -8,6 +8,7 @@
 package frc.robot;
 
 import java.util.HashMap;
+import java.util.Random;
 
 import frc.robot.autonomous.Autonomous;
 import frc.robot.subsystems.BallSubsystem;
@@ -127,7 +128,6 @@ public class Robot extends TimedRobot implements DataProvider{
 	
 	@Override
 	public void teleopPeriodic() {
-		Scheduler.getInstance().run();
 		logger.appendData(drive);
 		logger.appendData(lift);
 		logger.appendData(limelight);
@@ -139,6 +139,8 @@ public class Robot extends TimedRobot implements DataProvider{
 		SmartDashboard.putBoolean("Upper Lift Limit", controls.highLimit.get());
 		SmartDashboard.putBoolean("Lower Lift Limit", controls.lowLimit.get());
 		SmartDashboard.putNumber("Heading", Robot.drive.getHeading());
+		
+
 	}
 	
 	@Override

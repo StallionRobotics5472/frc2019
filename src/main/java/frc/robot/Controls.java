@@ -60,6 +60,7 @@ public class Controls {
 		ballHighSpeedIn.whenPressed(new BallInCommand());
 		ballHighSpeedOut.whenPressed(new BallOutCommand());
 
+
 		lowBall.whenPressed(new LowBallCommand());
 	}
 

@@ -11,6 +11,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.LimitSwitch;
 import frc.robot.commands.StopBall;
 
 /**
@@ -20,6 +21,7 @@ public class BallSubsystem extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
   private TalonSRX motor = new TalonSRX(5);
+  private LimitSwitch ballLimit = new LimitSwitch(9, true);
 
   public BallSubsystem(){
     motor.setInverted(true);
@@ -33,6 +35,12 @@ public class BallSubsystem extends Subsystem {
   public void spin(double speed){
     motor.set(ControlMode.PercentOutput, speed);
   }
+
+  public boolean getLimit(){
+    return ballLimit.get();
+  }
+
+  
 
   
 

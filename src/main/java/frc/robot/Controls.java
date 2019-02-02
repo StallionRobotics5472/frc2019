@@ -49,10 +49,10 @@ public class Controls {
 		lowLimit.whileActive(new LiftZeroEncoder());
 		intakeLimit.whenPressed(new ReportIntakeLimit());
 		intakeLimit.whenReleased(new ReportIntakeLimit());
-		fastBallOut.whenPressed(new BallCommand(Constants.HIGH_BALL));
-		fastBallIn.whenPressed(new BallCommand(-Constants.HIGH_BALL));
-		slowBallIn.whenPressed(new BallCommand(Constants.LOW_BALL));
-		slowBallOut.whenPressed(new BallCommand(-Constants.LOW_BALL));
+		fastBallOut.whileHeld(new BallCommand(Constants.HIGH_BALL));
+		fastBallIn.whileHeld(new BallCommand(-Constants.HIGH_BALL));
+		slowBallIn.whileHeld(new BallCommand(Constants.LOW_BALL));
+		slowBallOut.whileHeld(new BallCommand(-Constants.LOW_BALL));
 		fastBallOut.whenReleased(new StopBall());
 		fastBallIn.whenReleased(new StopBall());
 		slowBallOut.whenReleased(new StopBall());

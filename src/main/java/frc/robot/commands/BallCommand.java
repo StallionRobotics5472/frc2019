@@ -1,49 +1,4 @@
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /*----------------------------------------------------------------------------*/
 /* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
@@ -68,8 +23,13 @@ public class BallCommand extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    if(Robot.ball.getLimit()){
+      Robot.ball.spin(0);
+      isFinished = true;
+    }else{
     Robot.ball.spin(s);
     isFinished = true;
+    }
   }
 
   // Called repeatedly when this Command is scheduled to run

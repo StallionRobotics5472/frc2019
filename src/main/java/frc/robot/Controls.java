@@ -1,12 +1,8 @@
 package frc.robot;
 
-import frc.robot.commands.GripToggle;
+
+import frc.robot.commands.DiskPushCommand;
 import frc.robot.commands.HighGear;
-import frc.robot.commands.IntakePull;
-import frc.robot.commands.IntakePullSlow;
-import frc.robot.commands.IntakePush;
-import frc.robot.commands.IntakePushSlow;
-import frc.robot.commands.IntakeStop;
 import frc.robot.commands.LiftStop;
 import frc.robot.commands.LiftZeroEncoder;
 import frc.robot.commands.ReportIntakeLimit;
@@ -23,10 +19,9 @@ public class Controls {
 
 	private JoystickButton shiftGear = new JoystickButton(playerOne, 3); // X Button
 
-	private JoystickButton intakeLowSpeedIn = new JoystickButton(playerOne, 5); // Left Shoulder
-	private JoystickButton intakeLowSpeedOut = new JoystickButton(playerOne, 6); // Right Shoulder
-	private TriggerButton intakeHighSpeedIn = new TriggerButton(playerOne, 2); // Left Bottom
-	private TriggerButton intakeHighSpeedOut = new TriggerButton(playerOne, 3); // Right Bottom
+	
+
+	
 	
 	private JoystickButton toggleGrip = new JoystickButton(playerOne, 1); // A Button
 	
@@ -46,17 +41,9 @@ public class Controls {
 		shiftGear.whenReleased(new ShiftGear());
 		highButton.whenPressed(new HighGear());
 		
-		intakeHighSpeedIn.whenPressed(new IntakePull());
-		intakeHighSpeedIn.whenReleased(new IntakeStop());
-		intakeHighSpeedOut.whenPressed(new IntakePush());
-		intakeHighSpeedOut.whenReleased(new IntakeStop());
 		
-		intakeLowSpeedIn.whenPressed(new IntakePullSlow());
-		intakeLowSpeedIn.whenReleased(new IntakeStop());
-		intakeLowSpeedOut.whenPressed(new IntakePushSlow());
-		intakeLowSpeedOut.whenReleased(new IntakeStop());
 
-		toggleGrip.whenPressed(new GripToggle());
+		toggleGrip.whenPressed(new DiskPushCommand());
 		
 		takeSnapshot.whenPressed(new TakeSnapshot());
 		
@@ -64,6 +51,10 @@ public class Controls {
 		lowLimit.whileActive(new LiftZeroEncoder());
 		intakeLimit.whenPressed(new ReportIntakeLimit());
 		intakeLimit.whenReleased(new ReportIntakeLimit());
+
+	
+
+		
 	}
 
 	public Joystick getPlayerOne() {

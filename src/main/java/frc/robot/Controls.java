@@ -32,10 +32,10 @@ public class Controls {
 	public LimitSwitch highLimit = new LimitSwitch(Constants.LIMIT_SWITCH_HIGH, true);
 	public LimitSwitch lowLimit = new LimitSwitch(Constants.LIMIT_SWITCH_LOW, false);
 	public LimitSwitch intakeLimit = new LimitSwitch(Constants.LIMIT_SWITCH_INTAKE, true);
-	private JoystickButton fastBallOut = new JoystickButton(playerOne, 6);
+
 	private JoystickButton fastBallIn = new JoystickButton(playerOne, 5);
 	private JoystickButton slowBallOut = new JoystickButton(playerOne, 7);
-	private JoystickButton slowBallIn = new JoystickButton(playerOne, 8);
+	
 	public Controls() {
 		shiftGear.whenPressed(new ShiftGear());
 		shiftGear.whenReleased(new ShiftGear());
@@ -49,14 +49,14 @@ public class Controls {
 		lowLimit.whileActive(new LiftZeroEncoder());
 		intakeLimit.whenPressed(new ReportIntakeLimit());
 		intakeLimit.whenReleased(new ReportIntakeLimit());
-		fastBallOut.whileHeld(new BallCommand(Constants.HIGH_BALL, true));
+		
 		fastBallIn.whileHeld(new BallCommand(-Constants.HIGH_BALL, false));
-		slowBallIn.whileHeld(new BallCommand(Constants.LOW_BALL, false));
+		
 		slowBallOut.whileHeld(new BallCommand(-Constants.LOW_BALL, true));
-		fastBallOut.whenReleased(new StopBall());
+		
 		fastBallIn.whenReleased(new StopBall());
 		slowBallOut.whenReleased(new StopBall());
-		slowBallIn.whenReleased(new StopBall());
+		
 	}
 
 	public Joystick getPlayerOne() {

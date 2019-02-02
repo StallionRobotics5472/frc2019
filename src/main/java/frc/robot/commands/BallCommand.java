@@ -31,7 +31,7 @@ public class BallCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if(Robot.ball.getLimit() && !out){
+    if(Robot.ball.getLimit() && out){
       Robot.ball.spin(0);
       isFinished = true;
     }else{

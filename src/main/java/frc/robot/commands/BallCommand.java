@@ -14,10 +14,12 @@ import frc.robot.Robot;
 public class BallCommand extends Command {
   private double s;
   private boolean isFinished = false;
+  private boolean out = false;
   public BallCommand(double speed, boolean isOut) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     s = speed;
+    out = isOut;
   }
 
   // Called just before this Command runs the first time
@@ -29,7 +31,7 @@ public class BallCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if(Robot.ball.getLimit()){
+    if(Robot.ball.getLimit() && !out){
       Robot.ball.spin(0);
       isFinished = true;
     }else{

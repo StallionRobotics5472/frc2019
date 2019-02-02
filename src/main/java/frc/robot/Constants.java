@@ -59,4 +59,7 @@ public class Constants {
 	public static final int LED_GREEN_DIO = 1;
 	public static final int LED_BLUE_DIO = 2;
 	
+	public static final int PUSH_DOUBLESOLENOID1 = 1;
+	public static final int PUSH_DOUBLESOLENOID2 = 2;
+	public static final int BALL_MOTOR = 5;
 }

@@ -1,17 +1,13 @@
 package frc.robot;
-
-import frc.robot.commands.GripToggle;
 import frc.robot.commands.HighGear;
-import frc.robot.commands.IntakePull;
-import frc.robot.commands.IntakePullSlow;
-import frc.robot.commands.IntakePush;
-import frc.robot.commands.IntakePushSlow;
-import frc.robot.commands.IntakeStop;
 import frc.robot.commands.LiftStop;
 import frc.robot.commands.LiftZeroEncoder;
 import frc.robot.commands.ReportIntakeLimit;
 import frc.robot.commands.ShiftGear;
+import frc.robot.commands.StopBall;
 import frc.robot.commands.TakeSnapshot;
+import frc.robot.commands.BallCommand;
+import frc.robot.commands.DiskPushCommand;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -23,40 +19,28 @@ public class Controls {
 
 	private JoystickButton shiftGear = new JoystickButton(playerOne, 3); // X Button
 
-	private JoystickButton intakeLowSpeedIn = new JoystickButton(playerOne, 5); // Left Shoulder
-	private JoystickButton intakeLowSpeedOut = new JoystickButton(playerOne, 6); // Right Shoulder
-	private TriggerButton intakeHighSpeedIn = new TriggerButton(playerOne, 2); // Left Bottom
-	private TriggerButton intakeHighSpeedOut = new TriggerButton(playerOne, 3); // Right Bottom
-	
-	private JoystickButton toggleGrip = new JoystickButton(playerOne, 1); // A Button
 	
 	private JoystickButton highButton = new JoystickButton(playerOne, 4); // Y Button
 	
 	//temporary
 	private JoystickButton takeSnapshot = new JoystickButton(playerTwo, 4); // Y Button
 	//temporary
-	
+
+	private JoystickButton diskPush = new JoystickButton(playerOne, 1);
 	
 	public LimitSwitch highLimit = new LimitSwitch(Constants.LIMIT_SWITCH_HIGH, true);
 	public LimitSwitch lowLimit = new LimitSwitch(Constants.LIMIT_SWITCH_LOW, false);
 	public LimitSwitch intakeLimit = new LimitSwitch(Constants.LIMIT_SWITCH_INTAKE, true);
-	
+	private JoystickButton fastBallOut = new JoystickButton(playerOne, 5);
+	private JoystickButton fastBallIn = new JoystickButton(playerOne, 6);
+	private JoystickButton slowBallOut = new JoystickButton(playerOne, 7);
+	private JoystickButton slowBallIn = new JoystickButton(playerOne, 8);
 	public Controls() {
 		shiftGear.whenPressed(new ShiftGear());
 		shiftGear.whenReleased(new ShiftGear());
 		highButton.whenPressed(new HighGear());
 		
-		intakeHighSpeedIn.whenPressed(new IntakePull());
-		intakeHighSpeedIn.whenReleased(new IntakeStop());
-		intakeHighSpeedOut.whenPressed(new IntakePush());
-		intakeHighSpeedOut.whenReleased(new IntakeStop());
-		
-		intakeLowSpeedIn.whenPressed(new IntakePullSlow());
-		intakeLowSpeedIn.whenReleased(new IntakeStop());
-		intakeLowSpeedOut.whenPressed(new IntakePushSlow());
-		intakeLowSpeedOut.whenReleased(new IntakeStop());
-
-		toggleGrip.whenPressed(new GripToggle());
+		diskPush.whenPressed(new DiskPushCommand());
 		
 		takeSnapshot.whenPressed(new TakeSnapshot());
 		
@@ -64,6 +48,14 @@ public class Controls {
 		lowLimit.whileActive(new LiftZeroEncoder());
 		intakeLimit.whenPressed(new ReportIntakeLimit());
 		intakeLimit.whenReleased(new ReportIntakeLimit());
+		fastBallOut.whenPressed(new BallCommand(0.8));
+		fastBallIn.whenPressed(new BallCommand(-0.8));
+		slowBallIn.whenPressed(new BallCommand(0.4));
+		slowBallOut.whenPressed(new BallCommand(-0.4));
+		fastBallOut.whenReleased(new StopBall());
+		fastBallIn.whenReleased(new StopBall());
+		slowBallOut.whenReleased(new StopBall());
+		slowBallIn.whenReleased(new StopBall());
 	}
 
 	public Joystick getPlayerOne() {

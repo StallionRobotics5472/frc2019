@@ -14,7 +14,7 @@ import frc.robot.Robot;
 public class BallCommand extends Command {
   private double s;
   private boolean isFinished = false;
-  public BallCommand(double speed) {
+  public BallCommand(double speed, boolean isOut) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     s = speed;

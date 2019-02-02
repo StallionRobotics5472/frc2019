@@ -1,3 +1,49 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*----------------------------------------------------------------------------*/
 /* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
@@ -12,6 +58,7 @@ import frc.robot.Robot;
 
 public class BallCommand extends Command {
   private double s;
+  private boolean isFinished = false;
   public BallCommand(double speed) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
@@ -21,18 +68,20 @@ public class BallCommand extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    Robot.ball.spin(s);
+    isFinished = true;
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.ball.spin(s);
+   
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return isFinished;
   }
 
   // Called once after isFinished returns true

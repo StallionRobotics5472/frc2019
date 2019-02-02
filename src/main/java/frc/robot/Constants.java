@@ -45,6 +45,9 @@ public class Constants {
 	public static final int LIFT_TALON_CAN_RIGHT = 8;
 	public static final double LIFT_REVERSE_OUTPUT_LIMIT = -0.5;
 	
+	public static final double HIGH_BALL = 0.8;
+	public static final double LOW_BALL = 0.5;
+
 	public static final double LIFT_PIDF_P = 0.00040;
 	public static final double LIFT_PIDF_I = 0.00000;
 	public static final double LIFT_PIDF_D = 0.00000;

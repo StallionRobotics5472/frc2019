@@ -11,6 +11,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.commands.StopBall;
 
 /**
  * Add your docs here.
@@ -18,10 +19,15 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class BallSubsystem extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
-private TalonSRX motor = new TalonSRX(5);
+  private TalonSRX motor = new TalonSRX(5);
+
+  public BallSubsystem(){
+    motor.setInverted(true);
+  }
+
   @Override
   public void initDefaultCommand() {
-    
+   
   }
 
   public void spin(double speed){

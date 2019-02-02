@@ -16,7 +16,8 @@ public class StopBall extends Command {
   public StopBall() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(Robot.ball);
+    
+   
   }
 
   // Called just before this Command runs the first time

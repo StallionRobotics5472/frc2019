@@ -29,6 +29,12 @@ public class Vec {
         this.z = z;
     }
 
+    public void set(Vec v){
+        x = v.x;
+        y = v.y;
+        z = v.z;
+    }
+
     public void setX(double val) {
         x = val;
     }

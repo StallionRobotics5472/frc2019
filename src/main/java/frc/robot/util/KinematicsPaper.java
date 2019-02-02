@@ -12,30 +12,25 @@ package frc.robot.util;
 
 public class KinematicsPaper {
 
-    public double eq5_2_vd(double targetVelX, double targetVelY) {
+    public static Vec eq5_3_vwd(Vec dest_vel, Vec dest_acc) {
         /**
-         * Implements equation 5.2, returning the magnitude of the velocity of the trajectory at time t.
-         * given dx/dt and dy/dt, finds ds/dt
+         * Implements equations 5.2 and 5.3, returning the time derivative of the angle of the trajectory and the velocity.
          */
-        return Math.sqrt(targetVelX * targetVelX + targetVelY * targetVelY);
+        return new Vec(
+                dest_vel.mag(),
+                (dest_acc.getY() * dest_vel.getX() - dest_acc.getX() * dest_vel.getY()) /
+                        dest_vel.mag(),
+                0);
     }
 
-    public double eq5_3_wd(double targetVelX, double targetAccX, double targetVelY, double targetAccY) {
-        /**
-         * Implements equation 5.3, returning the time derivative of the angle of the trajectory.
-         */
-        return (targetAccY * targetVelX - targetAccX * targetVelY) /
-                (targetVelX * targetVelX + targetVelY * targetVelY);
-    }
-
-    public double eq5_4_thetad(double targetVelX, double targetVelY, int k) {
+    public static double eq5_4_thetad(Vec dest_vel, int k) {
         /**
          * Implements equation 5.4, returning the angle of the trajectory.
          */
-        return Math.atan2(targetVelY, targetVelX) + Math.PI * k;
+        return Math.atan2(dest_vel.getY(), dest_vel.getX()) + Math.PI * k;
     }
 
-    public Vec eq5_5_error(Vec destination, Vec position) {
+    public static Vec eq5_5_error(Vec destination, Vec position) {
         /**
          * Implements equation 5.5, returning a vector containing e_1, e_2, and e_3
          */
@@ -52,7 +47,7 @@ public class KinematicsPaper {
         );
     }
 
-    public Vec eq5_6_vw(Vec error, Vec vw_dest, Vec u_input) {
+    public static Vec eq5_6_vw(Vec error, Vec vw_dest, Vec u_input) {
         /** Implements equation 5.6, returning v and w. I do not know the purpose of these inputs, I think they are
          * intended to be used like the target linear and angular velocities (vw_dest). However, they are labeled v and
          * omega, instead of v_d nad omaga_d
@@ -61,7 +56,7 @@ public class KinematicsPaper {
         return vw_dest.clone().hadamardProduct(intermediary).subtract(u_input);
     }
 
-    public Vec eq5_7_edot(Vec error, Vec vw_dest, Vec u_input) {
+    public static Vec eq5_7_edot(Vec error, Vec vw_dest, Vec u_input) {
         /**
          * Implements equation 5.7, returning the error dynamics of the system (idk what it does)
          * it is supposedly derived from tangent linearization of the state error, e (i think).
@@ -77,7 +72,7 @@ public class KinematicsPaper {
         return e_dot;
     }
 
-    public Vec eq5_8_uinput(Vec k_gains, Vec error, Vec vw_dest) {
+    public static Vec eq5_8_uinput(Vec k_gains, Vec error, Vec vw_dest) {
         /**
          * Implements equation 5.8, which relates the inputs u_1 and u_2 to the state error and target velocity.
          */
@@ -89,7 +84,7 @@ public class KinematicsPaper {
         );
     }
 
-    public Vec eq5_9_kgains(Vec vw_dest, double damp_coef, double chr_eq_b) {
+    public static Vec eq5_9_kgains(Vec vw_dest, double damp_coef, double chr_eq_b) {
         /** Implements equation 5.9, which adds gain scheduling for the gains k_1, k_2, and k_3.
          * damp_coef is the damping coefficient (labeled Zeta in the paper)
          * chr_eq_b is the variable introduced in the gain scheduling equations (labeled b in the paper)
@@ -102,7 +97,7 @@ public class KinematicsPaper {
         return new Vec(k1, k2, k1);
     }
 
-    public Vec eq5_10_nonlincontroller(Vec pos, Vec dest, Vec vw_dest, Vec k_gains) {
+    public static Vec eq5_10_nonlincontroller(Vec pos, Vec dest, Vec vw_dest, Vec k_gains) {
         /** Implements equation 5.10, which details a nonlinear controller.
          *  pos: current position
          *  dest: destination
@@ -122,7 +117,7 @@ public class KinematicsPaper {
         return new Vec(v_result, w_result, 0);
     }
 
-    public Vec eq5_11_ctrllaw(Vec vw_dest, Vec error, Vec k_gains) {
+    public static Vec eq5_11_ctrllaw(Vec vw_dest, Vec error, Vec k_gains) {
         /** Implements equation 5.11, returning inputs u_1 and u_2.
          * The paper calls this equation the "control law," but I don't know what that means.
          */
@@ -133,7 +128,7 @@ public class KinematicsPaper {
         return new Vec(u1, u2, 0);
     }
 
-    public Vec eq5_12_unified_ctrllaw(Vec pos, Vec dest, Vec vw_dest, Vec k_gains) {
+    public static Vec eq5_12_unified_ctrllaw(Vec pos, Vec dest, Vec vw_dest, Vec k_gains) {
         /** Implements equation 5.12, which combines 5.5 and 5.6 with 5.11 to get something better (i think).
          * It's mostly equivalent to 5.11, so I've copied and pasted most of it.
          *  pos: current position
@@ -160,7 +155,7 @@ public class KinematicsPaper {
         return new Vec(v_result, w_result, 0);
     }
 
-    public Vec eq5_15_dynamic_comp(Vec u_inputs, Vec pos, double integrator, double dt){
+    public static Vec eq5_15_dynamic_comp(Vec u_inputs, Vec pos, Vec comp, double dt) {
         /** Implements equation 5.15, which relates u_inputs to the desired linear and angular velocities of the robot
          * returns a vector containing Zeta-dot (acceleration), v (integrated acceleration, with v(0) = v_d(0), and w
          *
@@ -169,12 +164,12 @@ public class KinematicsPaper {
 
         double cos = Math.cos(pos.getZ()), sin = Math.sin(pos.getZ());
         double zeta_dot = u_inputs.dot(new Vec(cos, sin, 0));
-        double v = integrator + zeta_dot * dt;
-        double w = u_inputs.dot(new Vec(cos, -sin, 0)) / zeta_dot;
+        double v = comp.getY() + zeta_dot * dt;
+        double w = u_inputs.dot(new Vec(cos, -sin, 0)) / v;
         return new Vec(zeta_dot, v, w);
     }
 
-    public Vec eq5_18_feedback_controller(Vec pos, Vec vel, Vec dest_pos, Vec dest_vel, Vec dest_acc, Vec P, Vec D){
+    public static Vec eq5_18_feedback_controller(Vec pos, Vec vel, Vec dest_pos, Vec dest_vel, Vec dest_acc, Vec P, Vec D) {
         /** Implements equations 5.18, which provides the inputs for trajectory following based on dynamic feedback
          * linearization.
          *  pos: Robot position
@@ -190,7 +185,7 @@ public class KinematicsPaper {
         return dest_acc.clone().add(dpos).add(dvel);
     }
 
-    public Vec eq4_1_wheel_velocities(Vec outputs, double radius, double width){
+    public static Vec eq4_1_wheel_velocities(Vec outputs, double radius, double width) {
         /** Solves the system introduced in equation 4.1 to transform (linear velocity, angular velocity) to angular
          * velocities for the left and right wheels respectively.
          *

@@ -22,7 +22,7 @@ public class StraightPath extends Command {
 	private double d;
 	private double v;
 	private double a;
-	private double GYRO_CONST = 0;
+	private double g;
 	
 	EncoderFollower rightEncoder;
 	EncoderFollower leftEncoder;
@@ -34,11 +34,13 @@ public class StraightPath extends Command {
 		createSmashboardNumber("D_CONST", 0);
 		createSmashboardNumber("V_CONST", 0);
 		createSmashboardNumber("A_CONST", 0);
+		createSmashboardNumber("G_CONST", 0);
 
 		p = SmartDashboard.getNumber("P_CONST", 0);
 		d = SmartDashboard.getNumber("D_CONST", 0);
 		v = SmartDashboard.getNumber("V_CONST", 0);
 		a = SmartDashboard.getNumber("A_CONST", 0);
+		g = SmartDashboard.getNumber("G_CONST", 0);
 
 		File leftFilePath = Paths.get("/home/lvuser/Paths/straight_left.csv").toFile();
 		Trajectory leftTrajectory = Pathfinder.readFromCSV(leftFilePath);
@@ -68,7 +70,7 @@ public class StraightPath extends Command {
 				
 				
 				// When we need to turn left, turnValue and headingDiff should be positive.
-				double turnValue = headingDiff * GYRO_CONST * (1.0 / 90.0);
+				double turnValue = headingDiff * g * (1.0 / 90.0);
 				
 				rightOutput += turnValue;
 				leftOutput -= turnValue;

@@ -8,28 +8,34 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 
 public class ArmCommand extends Command {
 
   private boolean isFinished = false;
-  private double s;
-  public ArmCommand(double speed) {
+  
+  public ArmCommand() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    s = speed;
+    requires(Robot.arm);
+    Robot.arm.setBrake();
+  
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.arm.moveArm(s);
-    isFinished = true;
+    double downspeed = -Robot.controls.getPlayerOne().getRawAxis(2);
+    double upspeed = Robot.controls.getPlayerOne().getRawAxis(3);
+    Robot.arm.moveArm((downspeed+upspeed)/4);
+    SmartDashboard.putNumber("Current Arm", Robot.arm.getCurrent());
   }
 
   // Make this return true when this Command no longer needs to run execute()

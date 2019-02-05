@@ -75,6 +75,9 @@ public class Autonomous {
 			startingRight(thePlan);
 			break;
 		}
+
+
+		
 		
 		if (command != null)
 			command.start();

@@ -31,8 +31,8 @@ public class Constants {
 	public static final double DRIVE_AUTO_TURN_D = 6.0 / 45.0;
 	public static final double LIMELIGHT_APPROACH_BOX_KP = 0.015;
  
-	public static final int INTAKE_LEFT_MOTOR_CAN = 6;
-	public static final int INTAKE_RIGHT_MOTOR_CAN = 7;
+	// public static final int INTAKE_LEFT_MOTOR_CAN = 6;
+	// public static final int INTAKE_RIGHT_MOTOR_CAN = 7;
 	public static final int INTAKE_SOLENOID_ID_FORW = 1;
 	public static final int INTAKE_SOLENOID_ID_BACK = 2;
 	public static final double INTAKE_INPUT_SPEED = 1.00;
@@ -67,5 +67,6 @@ public class Constants {
 	public static final int BALL_MOTOR = 5;
 
 	public static final int ARM_TALON = 6;
-	public static final int WRIST_TALON = 9;
+	// public static final int WRIST_TALON = 8;
+	public static final int ARM_TALON_2 = 7;
 }

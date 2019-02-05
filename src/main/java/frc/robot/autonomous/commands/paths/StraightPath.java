@@ -57,6 +57,19 @@ public class StraightPath extends Command {
         leftEncoder.configureEncoder(0, Constants.TICKS_PER_REV, Constants.WHEEL_DIAMETER);
         leftEncoder.setTrajectory(leftTrajectory);
 
+    }
+
+    public void end()
+    {
+        encoderTask.cancel();
+        Robot.drive.drive(0, 0);
+    }
+
+    public void initialize()
+    {
+        Robot.drive.setBrake();
+        Robot.drive.resetEncoders();
+        Timer timer = new Timer();
         encoderTask = new TimerTask() {
             public void run() {
                 double leftOutput = leftEncoder.calculate(Robot.drive.getLeftRaw());
@@ -87,19 +100,6 @@ public class StraightPath extends Command {
                 }
             }
         };
-    }
-
-    public void end()
-    {
-        encoderTask.cancel();
-        Robot.drive.drive(0, 0);
-    }
-
-    public void initialize()
-    {
-        Robot.drive.setBrake();
-        Robot.drive.resetEncoders();
-        Timer timer = new Timer();
         timer.scheduleAtFixedRate(encoderTask, 0, 50L);
         Robot.drive.resetHeading();
     }

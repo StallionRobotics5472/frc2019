@@ -3,7 +3,13 @@ package frc.robot.autonomous;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.autonomous.commands.FollowTrajectory;
 import frc.robot.autonomous.commands.paths.StraightPath;
+import jaci.pathfinder.Pathfinder;
+import jaci.pathfinder.Trajectory;
+
+import java.io.File;
+import java.nio.file.Paths;
 
 public class Autonomous {
 
@@ -56,20 +62,25 @@ public class Autonomous {
         StartingPosition startPos = starting.getSelected();
         Plan thePlan = plan.getSelected();
 
-        switch (startPos) {
-            case CENTER:
-                startingCenter(thePlan);
-                break;
-            case LEFT:
-                startingLeft(thePlan);
-                break;
-            case RIGHT:
-                startingRight(thePlan);
-                break;
-        }
+//        switch (startPos) {
+//            case CENTER:
+//                startingCenter(thePlan);
+//                break;
+//            case LEFT:
+//                startingLeft(thePlan);
+//                break;
+//            case RIGHT:
+//                startingRight(thePlan);
+//                break;
+//        }
 
-        if (command != null)
-            command.start();
+        File trajectory = Paths.get("/home/lvuser/Paths/straight_left.csv").toFile();
+        Trajectory traj = Pathfinder.readFromCSV(trajectory);
+
+        command = new FollowTrajectory(traj, FollowTrajectory.Algorithm.LINEAR);
+        command.start();
+//        if (command != null)
+//            command.start();
     }
 
     public void startingCenter(Plan task) {

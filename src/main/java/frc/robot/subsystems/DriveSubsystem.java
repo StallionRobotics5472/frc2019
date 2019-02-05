@@ -7,6 +7,7 @@ import java.util.TimerTask;
 import com.ctre.phoenix.motorcontrol.can.TalonSRXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.TalonSRXPIDSetConfigUtil;
 import com.ctre.phoenix.motorcontrol.can.TalonSRXPIDSetConfiguration;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.util.DataProvider;
 import frc.robot.commands.JoystickDriveCommand;
@@ -51,21 +52,10 @@ public class DriveSubsystem extends Subsystem implements DataProvider {
         right.setInverted(true);
         rightFollower.setInverted(true);
 
-        //This got flipped around for some reason.
-
         left.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 10);
         left.setSensorPhase(true);
         right.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 10);
         right.setSensorPhase(true);
-
-        TalonSRXConfiguration config = new TalonSRXConfiguration();
-        config.slot0.kP = 1;
-        config.slot0.kI = 0;
-        config.slot0.kD = 0.3;
-        config.slot0.kF = 0.5;
-
-        left.configurePID(config.primaryPID);
-        right.configurePID(config.primaryPID);
 
         setCoast();
 
@@ -76,18 +66,7 @@ public class DriveSubsystem extends Subsystem implements DataProvider {
 
         highGear();
 
-        updateStateEstimate = new TimerTask() {
-            @Override
-            public void run() {
-                Vec dEnc = new Vec(getLeftPosition(), getRightPosition(), 0).subtract(lastReadings);
-                double ds = dEnc.dot(Vec.ONES) / 2.0;
-                double theta = Math.toRadians(getHeading());
-                double dx = ds * Math.cos(theta);
-                double dy = ds * Math.sin(theta);
-                estState.add(new Vec(dx, dy, 0));
-                estState.setZ(theta);
-            }
-        };
+        reassignEstimationTask();
     }
 
     public void setControlMode(ControlMode newMode) {
@@ -102,7 +81,7 @@ public class DriveSubsystem extends Subsystem implements DataProvider {
     public Vec angularToCTRE(Vec angularVel){
         // rad * 1 sec     * 1 rev    * 4096 native units
         // sec * 10 (100ms)  2pi rads   1 rev
-        double multiplier = (1.0 / 10.0) * (Constants.TICKS_PER_REV / Math.PI / 2.0);
+        double multiplier = (Constants.TICKS_PER_REV / Math.PI / 2.0);
         return angularVel.clone().multiply(multiplier);
     }
 
@@ -113,6 +92,9 @@ public class DriveSubsystem extends Subsystem implements DataProvider {
 
     public void driveAngular(Vec speeds){
         Vec converted = angularToCTRE(speeds);
+        SmartDashboard.putNumber("Command Left", converted.getX());
+        SmartDashboard.putNumber("Command Right", converted.getY());
+        SmartDashboard.putNumber("Timestamp", edu.wpi.first.wpilibj.Timer.getFPGATimestamp());
         left.set(ControlMode.Velocity, converted.getX());
         right.set(ControlMode.Velocity, converted.getY());
     }
@@ -122,10 +104,29 @@ public class DriveSubsystem extends Subsystem implements DataProvider {
         setDefaultCommand(new JoystickDriveCommand());
     }
 
+    private void reassignEstimationTask(){
+        updateStateEstimate = new TimerTask() {
+            @Override
+            public void run() {
+                Vec dEnc = new Vec(getLeftPosition(), getRightPosition(), 0).subtract(lastReadings);
+                double ds = dEnc.dot(Vec.ONES) / 2.0;
+                double theta = Math.toRadians(getHeading());
+                double dx = ds * Math.cos(theta);
+                double dy = ds * Math.sin(theta);
+                estState.add(new Vec(dx, dy, 0));
+                estState.setZ(theta);
+            }
+        };
+    }
+
     public void startStateEstimation() {
         if (updatingStateEstimate)
             return;
         updatingStateEstimate = true;
+
+        stateTimer = new Timer();
+
+        reassignEstimationTask();
 
         estState.set(0, 0, 0);
         lastReadings.set(getLeftPosition(), getRightPosition(), 0);
@@ -200,6 +201,14 @@ public class DriveSubsystem extends Subsystem implements DataProvider {
 
     public double getRightVelocity() {
         return right.getSelectedSensorVelocity(0) / Constants.RIGHT_ENCODER_TICKS_PER_METER;
+    }
+
+    public Vec getAngularVelocities(){
+        return new Vec(
+                2.0 * getLeftVelocity() / Constants.WHEEL_DIAMETER,
+                2.0 * getRightVelocity() / Constants.WHEEL_DIAMETER,
+                0
+        );
     }
 
     public Vec getVelocity() {

@@ -1,6 +1,7 @@
 package frc.robot.autonomous.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.subsystems.DriveSubsystem;
@@ -18,7 +19,7 @@ public class FollowTrajectory extends Command {
     public static enum Algorithm {JACI, FEEDFORWARD, LINEAR, NONLINEAR, DYNAMIC}
 
 
-    private static final double TRAJECTORY_DT = 0.01;
+    private static final double TRAJECTORY_DT = 0.05;
 
 
     private static final double JACI_P = 0.0;
@@ -66,13 +67,15 @@ public class FollowTrajectory extends Command {
             case FEEDFORWARD:
                 updateTask = new TimerTask() {
                     private int index = 0;
+
                     @Override
                     public void run() {
-                        if(index >= traj.segments.length){
+                        if (index >= traj.segments.length) {
+                            isFinished = true;
                             this.cancel();
                             return;
                         }
-                        Segment current = traj.segments[index];
+                        Segment current = traj.segments[index++];
                         updateFeedforward(current);
                     }
                 };
@@ -80,13 +83,15 @@ public class FollowTrajectory extends Command {
             case LINEAR:
                 updateTask = new TimerTask() {
                     private int index = 0;
+
                     @Override
                     public void run() {
-                        if(index >= traj.segments.length){
+                        if (index >= traj.segments.length) {
+                            isFinished = true;
                             this.cancel();
                             return;
                         }
-                        Segment current = traj.segments[index];
+                        Segment current = traj.segments[index++];
                         updateLinear(current);
                     }
                 };
@@ -94,9 +99,11 @@ public class FollowTrajectory extends Command {
             case NONLINEAR:
                 updateTask = new TimerTask() {
                     private int index = 0;
+
                     @Override
                     public void run() {
-                        if(index >= traj.segments.length){
+                        if (index >= traj.segments.length) {
+                            isFinished = true;
                             this.cancel();
                             return;
                         }
@@ -109,14 +116,15 @@ public class FollowTrajectory extends Command {
                 updateTask = new TimerTask() {
                     private int index = 0;
                     private Vec compensator = new Vec();
+
                     @Override
                     public void run() {
-                        if(index >= traj.segments.length){
+                        if (index >= traj.segments.length) {
                             this.cancel();
                             isFinished = true;
                             return;
                         }
-                        if(index == 0){
+                        if (index == 0) {
                             compensator.setY(traj.segments[0].velocity);
                         }
                         Segment current = traj.segments[index];
@@ -125,26 +133,27 @@ public class FollowTrajectory extends Command {
                 };
                 break;
         }
+
     }
 
     @Override
-    protected void initialize(){
+    protected void initialize() {
         instance.startStateEstimation();
         timer.scheduleAtFixedRate(updateTask, 0, (long) (1000 * TRAJECTORY_DT));
     }
 
     @Override
-    protected void interrupted(){
+    protected void interrupted() {
         updateTask.cancel();
     }
 
     @Override
-    protected boolean isFinished(){
+    protected boolean isFinished() {
         return isFinished;
     }
 
     @Override
-    protected void end(){
+    protected void end() {
         instance.drive(0, 0);
     }
 

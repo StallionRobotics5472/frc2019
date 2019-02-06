@@ -10,7 +10,7 @@ package frc.robot;
 import java.util.HashMap;
 
 import frc.robot.autonomous.Autonomous;
-import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.ArmPIDSubsystem;
 import frc.robot.subsystems.BallSubsystem;
 import frc.robot.subsystems.DiskPushSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
@@ -37,7 +37,7 @@ public class Robot extends TimedRobot implements DataProvider{
 	private static DataLogger logger;
 	public static DiskPushSubsystem diskPush;
 	public static BallSubsystem ball;
-	public static ArmSubsystem arm;
+	public static ArmPIDSubsystem arm;
 	private AnalogInput pressureSensor;
 	
 	@Override
@@ -53,7 +53,7 @@ public class Robot extends TimedRobot implements DataProvider{
 		ball = new BallSubsystem();
 		pressureSensor = new AnalogInput(0);
 		diskPush = new DiskPushSubsystem();
-		arm = new ArmSubsystem();
+		arm = new ArmPIDSubsystem();
 		
 		
 	}

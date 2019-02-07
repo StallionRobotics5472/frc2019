@@ -23,18 +23,21 @@ public class StraightPath extends Command {
 	private double v;
 	private double a;
 	private double g;
+
+	private double startingAngle = 90;
 	
 	EncoderFollower rightEncoder;
 	EncoderFollower leftEncoder;
 	TimerTask encoderTask;
 	
-	public StraightPath()
+	public StraightPath(String fileName)
 	{
 		createSmashboardNumber("P_CONST", 0);
 		createSmashboardNumber("D_CONST", 0);
 		createSmashboardNumber("V_CONST", 0);
 		createSmashboardNumber("A_CONST", 0);
 		createSmashboardNumber("G_CONST", 0);
+	
 
 		p = SmartDashboard.getNumber("P_CONST", 0);
 		d = SmartDashboard.getNumber("D_CONST", 0);
@@ -42,9 +45,9 @@ public class StraightPath extends Command {
 		a = SmartDashboard.getNumber("A_CONST", 0);
 		g = SmartDashboard.getNumber("G_CONST", 0);
 
-		File leftFilePath = Paths.get("/home/lvuser/Paths/straight_left.csv").toFile();
+		File leftFilePath = Paths.get(fileName + "_left.csv").toFile();
 		Trajectory leftTrajectory = Pathfinder.readFromCSV(leftFilePath);
-		File rightFilePath = Paths.get("/home/lvuser/Paths/straight_right.csv").toFile();
+		File rightFilePath = Paths.get(fileName + "_right.csv").toFile();
 		Trajectory rightTrajectory = Pathfinder.readFromCSV(rightFilePath);
 		
 //		Robot.drive.resetEncoders();
@@ -81,6 +84,13 @@ public class StraightPath extends Command {
 				SmartDashboard.putNumber("Actual Heading", Robot.drive.getHeading());
 				SmartDashboard.putNumber("Desired Heading", desiredHeading);
 				Robot.drive.drive(leftOutput, rightOutput);
+				SmartDashboard.putNumber("AutoRawLeft", Robot.drive.getLeftRaw());
+				SmartDashboard.putNumber("AutoRawRight", Robot.drive.getRightRaw());
+				SmartDashboard.putNumber("AutoLeftPositon", Robot.drive.getLeftPosition());
+				SmartDashboard.putNumber("AutoLeftVelocity", Robot.drive.getLeftVelocity());
+				SmartDashboard.putNumber("AutoRightPosition", Robot.drive.getRightPosition());
+				SmartDashboard.putNumber("AutoRightVelocity", Robot.drive.getRightVelocity());
+				
 				
 				
 				if(isFinished()) {
@@ -104,6 +114,7 @@ public class StraightPath extends Command {
 		Timer timer = new Timer();
 		timer.scheduleAtFixedRate(encoderTask, 0, 50L);
 		Robot.drive.resetHeading();
+	
 	}
 	
 	protected boolean isFinished() {

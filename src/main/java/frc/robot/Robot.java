@@ -25,6 +25,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends TimedRobot implements DataProvider{
 
+
+	public static enum State{
+		DISABLED, USERCONTROL, ROBOTCONTROL;
+	}
+
+
 	private Autonomous auto;
 
 	public static Controls controls;
@@ -38,6 +44,16 @@ public class Robot extends TimedRobot implements DataProvider{
 	private static DataLogger logger;
 	public static DiskPushSubsystem diskPush;
 	private AnalogInput pressureSensor;
+
+	private static State currentState = State.DISABLED;
+
+	public static State getState(){
+		return currentState;
+	}
+
+	public static void setState(State newState){
+		currentState = newState;
+	}
 	
 	@Override
 	public void robotInit() {
@@ -51,11 +67,11 @@ public class Robot extends TimedRobot implements DataProvider{
 		logger = new DataLogger();
 		diskPush = new DiskPushSubsystem();
 		pressureSensor = new AnalogInput(0);
-	
 	}
 
 	@Override
 	public void disabledInit() {
+		setState(State.DISABLED);
 		auto.end();
 		drive.resetEncoders();
 		drive.resetHeading();
@@ -69,6 +85,7 @@ public class Robot extends TimedRobot implements DataProvider{
 
 	@Override
 	public void disabledPeriodic() {
+		setState(State.DISABLED);
 		if (auto != null)
 			auto.checkGameSpecificData();
 		
@@ -81,6 +98,7 @@ public class Robot extends TimedRobot implements DataProvider{
 
 	@Override
 	public void autonomousInit() {
+		setState(State.ROBOTCONTROL);
 		drive.resetEncoders();
 		drive.resetHeading();
 		drive.drive(0.0, 0.0);
@@ -113,6 +131,7 @@ public class Robot extends TimedRobot implements DataProvider{
 
 	@Override
 	public void teleopInit() {
+		setState(State.USERCONTROL);
 		auto.end();
 		limelight.setLed(false);
 		drive.resetEncoders();
@@ -122,7 +141,6 @@ public class Robot extends TimedRobot implements DataProvider{
 		lift.teleopPeakOutput();
 		drive.highGear();
 		logger.start();
-		
 	}
 	
 	@Override
@@ -138,8 +156,6 @@ public class Robot extends TimedRobot implements DataProvider{
 		SmartDashboard.putBoolean("Upper Lift Limit", controls.highLimit.get());
 		SmartDashboard.putBoolean("Lower Lift Limit", controls.lowLimit.get());
 		SmartDashboard.putNumber("Heading", Robot.drive.getHeading());
-		
-
 	}
 	
 	@Override

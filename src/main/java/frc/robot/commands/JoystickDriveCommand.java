@@ -1,10 +1,8 @@
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Controls;
 import frc.robot.Robot;
-
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.command.Command;
 
 public class JoystickDriveCommand extends Command{
 	
@@ -20,7 +18,7 @@ public class JoystickDriveCommand extends Command{
 	
 	@Override
 	public void execute() {
-		if(!DriverStation.getInstance().isAutonomous()) {
+		if(Robot.getState() == Robot.State.USERCONTROL) {
 			double y = -controls.getDriveVerticalAxis();
 			double x = controls.getDriveHorizontalAxis() / 2;
 			

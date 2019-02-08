@@ -36,7 +36,6 @@ public class StraightPath extends Command {
 		Trajectory rightTrajectory = Pathfinder.readFromCSV(rightFilePath);
 		
 //		Robot.drive.resetEncoders();
-		
 		rightEncoder = new EncoderFollower();
 		rightEncoder.configurePIDVA(P_CONST, 0.0, D_CONST, V_CONST, A_CONST);
 		rightEncoder.configureEncoder(0, Constants.TICKS_PER_REV, Constants.WHEEL_DIAMETER);

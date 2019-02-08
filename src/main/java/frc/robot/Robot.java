@@ -7,24 +7,18 @@
 
 package frc.robot;
 
-import java.io.File;
-import java.nio.file.Paths;
-import java.util.HashMap;
-
-import edu.wpi.first.wpilibj.Compressor;
-import frc.robot.autonomous.Autonomous;
-import frc.robot.subsystems.DriveSubsystem;
-
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.autonomous.Autonomous;
+import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.util.DataLogger;
 import frc.robot.util.DataProvider;
 import frc.robot.util.Vec;
-import jaci.pathfinder.Pathfinder;
-import jaci.pathfinder.Trajectory;
+
+import java.util.HashMap;
 
 public class Robot extends TimedRobot implements DataProvider {
 
@@ -79,9 +73,9 @@ public class Robot extends TimedRobot implements DataProvider {
         logger.appendData(this);
         logger.writeFrame();
 
-        SmartDashboard.putNumber("Pressure", getPressure());
-        SmartDashboard.putNumber("Left Encoder", drive.getLeftPosition());
-        SmartDashboard.putNumber("Right Encoder", drive.getRightPosition());
+        Vec angulars = drive.getAngularVelocities();
+        SmartDashboard.putNumber("Left Velocity", angulars.getX());
+        SmartDashboard.putNumber("Rght Velocity", angulars.getY());
     }
 
     @Override
@@ -100,12 +94,7 @@ public class Robot extends TimedRobot implements DataProvider {
         logger.appendData(this);
         logger.writeFrame();
 
-        SmartDashboard.putNumber("Pressure", getPressure());
         SmartDashboard.putNumber("Heading", Robot.drive.getHeading());
-
-        drive.driveAngular(new Vec(6, 0, 0));
-        Vec feedback = drive.getAngularVelocities();
-        SmartDashboard.putNumber("Left Whel Velocity: ", feedback.getX());
     }
 
     @Override

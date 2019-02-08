@@ -20,8 +20,7 @@ public class JoystickDriveCommand extends Command{
 	
 	@Override
 	public void execute() {
-//		if(!DriverStation.getInstance().isAutonomous()) {
-		if(false) {
+		if(!DriverStation.getInstance().isAutonomous()) {
 			double y = -controls.getDriveVerticalAxis();
 			double x = controls.getDriveHorizontalAxis() / 2;
 			

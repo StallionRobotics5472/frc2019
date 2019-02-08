@@ -4,7 +4,6 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.autonomous.commands.FollowTrajectory;
-import frc.robot.autonomous.commands.paths.StraightPath;
 import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.Trajectory;
 
@@ -49,11 +48,15 @@ public class Autonomous {
     private Command command = null;
 
     public Autonomous() {
+        for(StartingPosition sp : StartingPosition.values())
+            starting.addOption(sp.toString(), sp);
         starting.setDefaultOption(StartingPosition.CENTER.toString(), StartingPosition.CENTER);
-        starting.addOption(StartingPosition.LEFT.toString(), StartingPosition.LEFT);
-        starting.addOption(StartingPosition.RIGHT.toString(), StartingPosition.RIGHT);
 
+        for(Plan p : Plan.values())
+            plan.addOption(p.toString(), p);
         plan.setDefaultOption(Plan.DRIVE_STRAIGHT_MOTION_PROFILE.toString(), Plan.DRIVE_STRAIGHT_MOTION_PROFILE);
+
+
         SmartDashboard.putData("Autonomous Starting Position", starting);
         SmartDashboard.putData("Autonomous Task", plan);
     }
@@ -62,46 +65,31 @@ public class Autonomous {
         StartingPosition startPos = starting.getSelected();
         Plan thePlan = plan.getSelected();
 
-//        switch (startPos) {
-//            case CENTER:
-//                startingCenter(thePlan);
-//                break;
-//            case LEFT:
-//                startingLeft(thePlan);
-//                break;
-//            case RIGHT:
-//                startingRight(thePlan);
-//                break;
-//        }
-
         File trajectory = Paths.get("/home/lvuser/Paths/straight_left.csv").toFile();
         Trajectory traj = Pathfinder.readFromCSV(trajectory);
 
-        command = new FollowTrajectory(traj, FollowTrajectory.Algorithm.LINEAR);
+        command = new FollowTrajectory(traj, FollowTrajectory.Algorithm.FEEDFORWARD);
         command.start();
-//        if (command != null)
-//            command.start();
     }
 
     public void startingCenter(Plan task) {
         switch (task) {
-            case DRIVE_STRAIGHT_MOTION_PROFILE:
-                command = new StraightPath();
+            default:
                 break;
         }
     }
 
     public void startingLeft(Plan task) {
         switch (task) {
-            case DRIVE_STRAIGHT_MOTION_PROFILE:
-                command = new StraightPath();
+            default:
+                break;
         }
     }
 
     public void startingRight(Plan task) {
         switch (task) {
-            case DRIVE_STRAIGHT_MOTION_PROFILE:
-                command = new StraightPath();
+            default:
+                break;
         }
     }
 

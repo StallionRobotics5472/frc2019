@@ -1,9 +1,8 @@
 package frc.robot.autonomous.commands;
 
+import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.robot.subsystems.DriveSubsystem;
-
-import edu.wpi.first.wpilibj.command.Command;
 
 public class EnableCoast extends Command{
 	

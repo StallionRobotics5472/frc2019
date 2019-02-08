@@ -1,27 +1,22 @@
 package frc.robot.subsystems;
 
-import java.util.HashMap;
-import java.util.Timer;
-import java.util.TimerTask;
-
-import com.ctre.phoenix.motorcontrol.can.TalonSRXConfiguration;
-import com.ctre.phoenix.motorcontrol.can.TalonSRXPIDSetConfigUtil;
-import com.ctre.phoenix.motorcontrol.can.TalonSRXPIDSetConfiguration;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.Constants;
-import frc.robot.util.DataProvider;
-import frc.robot.commands.JoystickDriveCommand;
-
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
-
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Constants;
+import frc.robot.commands.JoystickDriveCommand;
+import frc.robot.util.DataProvider;
 import frc.robot.util.Vec;
+
+import java.util.HashMap;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class DriveSubsystem extends Subsystem implements DataProvider {
 
@@ -75,10 +70,11 @@ public class DriveSubsystem extends Subsystem implements DataProvider {
 
     /**
      * Converts from rad/sec to native units / 100ms
+     *
      * @param angularVel angular velocities of left and right wheels, respectively
      * @return CTRE velocities for left and right wheels, respectively
      */
-    public Vec angularToCTRE(Vec angularVel){
+    public Vec angularToCTRE(Vec angularVel) {
         // rad * 1 sec     * 1 rev    * 4096 native units
         // sec * 10 (100ms)  2pi rads   1 rev
         double multiplier = (Constants.TICKS_PER_REV / Math.PI / 2.0);
@@ -90,7 +86,7 @@ public class DriveSubsystem extends Subsystem implements DataProvider {
         this.right.set(ControlMode.PercentOutput, right);
     }
 
-    public void driveAngular(Vec speeds){
+    public void driveAngular(Vec speeds) {
         Vec converted = angularToCTRE(speeds);
         SmartDashboard.putNumber("Command Left", converted.getX());
         SmartDashboard.putNumber("Command Right", converted.getY());
@@ -104,7 +100,7 @@ public class DriveSubsystem extends Subsystem implements DataProvider {
         setDefaultCommand(new JoystickDriveCommand());
     }
 
-    private void reassignEstimationTask(){
+    private void reassignEstimationTask() {
         updateStateEstimate = new TimerTask() {
             @Override
             public void run() {
@@ -203,7 +199,7 @@ public class DriveSubsystem extends Subsystem implements DataProvider {
         return right.getSelectedSensorVelocity(0) / Constants.RIGHT_ENCODER_TICKS_PER_METER;
     }
 
-    public Vec getAngularVelocities(){
+    public Vec getAngularVelocities() {
         return new Vec(
                 2.0 * getLeftVelocity() / Constants.WHEEL_DIAMETER,
                 2.0 * getRightVelocity() / Constants.WHEEL_DIAMETER,

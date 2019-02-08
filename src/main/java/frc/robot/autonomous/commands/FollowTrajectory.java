@@ -1,7 +1,6 @@
 package frc.robot.autonomous.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.subsystems.DriveSubsystem;
@@ -9,10 +8,10 @@ import frc.robot.util.KinematicsPaper;
 import frc.robot.util.Vec;
 import jaci.pathfinder.Trajectory;
 
-import static jaci.pathfinder.Trajectory.Segment;
-
 import java.util.Timer;
 import java.util.TimerTask;
+
+import static jaci.pathfinder.Trajectory.Segment;
 
 public class FollowTrajectory extends Command {
 
@@ -29,16 +28,16 @@ public class FollowTrajectory extends Command {
     private static final double JACI_G = 0.0;
 
 
-    private static final double LINEAR_ZETA = 0.0;  // Damping Coefficient: (0, 1)
-    private static final double LINEAR_B = 0.0;  // b > 0
+    private static final double LINEAR_ZETA = 0.2;  // Damping Coefficient: (0, 1)
+    private static final double LINEAR_B = 1.0;  // b > 0
 
 
-    private static final double NONLINEAR_ZETA = 0.0;  // Damping Coefficient: (0, 1)
-    private static final double NONLINEAR_B = 0.0;  // b > 0
+    private static final double NONLINEAR_ZETA = 0.2;  // Damping Coefficient: (0, 1)
+    private static final double NONLINEAR_B = 1.0;  // b > 0
 
 
-    private static final Vec DYNAMIC_P = new Vec(1.0, 1.0, 0.0);
-    private static final Vec DYNAMIC_D = new Vec(1.0, 1.0, 0.0);
+    private static final Vec DYNAMIC_P = new Vec(0.0, 0.0, 0.0);
+    private static final Vec DYNAMIC_D = new Vec(0.7, 0.7, 0.0);
 
 
     private boolean isFinished;
@@ -107,7 +106,7 @@ public class FollowTrajectory extends Command {
                             this.cancel();
                             return;
                         }
-                        Segment current = traj.segments[index];
+                        Segment current = traj.segments[index++];
                         updateNonlinear(current);
                     }
                 };
@@ -127,13 +126,12 @@ public class FollowTrajectory extends Command {
                         if (index == 0) {
                             compensator.setY(traj.segments[0].velocity);
                         }
-                        Segment current = traj.segments[index];
+                        Segment current = traj.segments[index++];
                         updateDynamic(current, compensator);
                     }
                 };
                 break;
         }
-
     }
 
     @Override

@@ -8,8 +8,10 @@
 package frc.robot;
 
 import java.util.HashMap;
+import java.util.Random;
 
 import frc.robot.autonomous.Autonomous;
+import frc.robot.subsystems.DiskPushSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.LedSubsystem;
@@ -27,19 +29,19 @@ public class Robot extends TimedRobot implements DataProvider{
 
 	public static Controls controls;
 	public static DriveSubsystem drive;
-	public static IntakeSubsystem intake;
+	//public static IntakeSubsystem intake;
 	public static LiftSubsystem lift;
 	public static LedSubsystem led;
 	public static Limelight limelight;
 	public static Cameras cameras;
-	private static DataLogger logger;
 	
+	private static DataLogger logger;
+	public static DiskPushSubsystem diskPush;
 	private AnalogInput pressureSensor;
 	
 	@Override
 	public void robotInit() {
 		drive = new DriveSubsystem();
-		intake = new IntakeSubsystem();
 		lift = new LiftSubsystem();
 		led = new LedSubsystem();
 		limelight = new Limelight();
@@ -47,9 +49,9 @@ public class Robot extends TimedRobot implements DataProvider{
 		auto = new Autonomous();
 		controls = new Controls();
 		logger = new DataLogger();
-		
+		diskPush = new DiskPushSubsystem();
 		pressureSensor = new AnalogInput(0);
-		
+	
 	}
 
 	@Override
@@ -60,7 +62,6 @@ public class Robot extends TimedRobot implements DataProvider{
 		drive.drive(0.0, 0.0);
 		lift.resetEncoder();
 		lift.disableClosedLoop();
-		intake.stop();
 		logger.end();
 		
 		limelight.setLed(false);
@@ -95,7 +96,6 @@ public class Robot extends TimedRobot implements DataProvider{
 		Scheduler.getInstance().run();
 		logger.appendData(drive);
 		logger.appendData(lift);
-		logger.appendData(intake);
 		logger.appendData(limelight);
 		logger.appendData(led);
 		logger.appendData(this);
@@ -127,10 +127,8 @@ public class Robot extends TimedRobot implements DataProvider{
 	
 	@Override
 	public void teleopPeriodic() {
-		Scheduler.getInstance().run();
 		logger.appendData(drive);
 		logger.appendData(lift);
-		logger.appendData(intake);
 		logger.appendData(limelight);
 		logger.appendData(led);
 		logger.appendData(this);
@@ -140,6 +138,8 @@ public class Robot extends TimedRobot implements DataProvider{
 		SmartDashboard.putBoolean("Upper Lift Limit", controls.highLimit.get());
 		SmartDashboard.putBoolean("Lower Lift Limit", controls.lowLimit.get());
 		SmartDashboard.putNumber("Heading", Robot.drive.getHeading());
+		
+
 	}
 	
 	@Override

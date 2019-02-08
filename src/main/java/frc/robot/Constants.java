@@ -1,8 +1,20 @@
 package frc.robot;
 
-public class Constants {
-	
-	public static final double WHEEL_DIAMETER = 0.1016;
+public class Constants
+{
+    // public static final int PUSH_SOLENOID = 3;
+ 
+    public static final int PUSH_DOUBLESOLENOID1 = 1;
+    public static final int PUSH_DOUBLESOLENOID2 = 2;
+    public static final int DRIVE_SHIFT_SOLENOID = 0;
+
+    public static final int JOYSTICK_PLAYER1 = 0;
+
+    public static final int DRIVE_LEFT_TALON = 1;
+    public static final int DRIVE_LEFT_TALON_FOLLOWER = 2;
+    public static final int DRIVE_RIGHT_TALON = 3;
+    public static final int DRIVE_RIGHT_TALON_FOLLOWER = 4;
+    public static final double WHEEL_DIAMETER = 0.1016;
 	public static final double ROBOT_WIDTH = 0.7112;
 	public static final double ROBOT_LENGTH = 0.8382;
 	public static final double V_CONSTANT = 1.20;
@@ -23,7 +35,6 @@ public class Constants {
 	public static final int DRIVE_LEFT_FOLLOWER_CAN = 2;
 	public static final int DRIVE_RIGHT_TALON_CAN = 4;
 	public static final int DRIVE_RIGHT_FOLLOWER_CAN = 3;
-	public static final int DRIVE_SHIFT_SOLENOID = 0;
 	
 	public static final double DRIVE_AUTO_OUTPUT_LIMIT = 1.0;
 	public static final double DRIVE_AUTO_TURN_P = 2.0 / 45.0;
@@ -39,6 +50,11 @@ public class Constants {
 	public static final double INTAKE_INPUT_SLOW_SPEED = 0.40;
 	public static final double INTAKE_OUTPUT_SPEED = 1.00;
 	public static final double INTAKE_OUTPUT_SLOW_SPEED = 0.40;
+
+	public static final int LOW_BALL_HEIGHT = 10000;
+	public static final int HIGH_BALL_HEIGHT = 20000;
+	public static final int LOW_HATCH_HEIGHT = 9000;
+	public static final int HIGH_HATCH_HEIGHT = 18000;
 
 	
 	public static final int LIFT_TALON_CAN_LEFT = 10;
@@ -58,5 +74,5 @@ public class Constants {
 	public static final int LED_RED_DIO = 0;
 	public static final int LED_GREEN_DIO = 1;
 	public static final int LED_BLUE_DIO = 2;
-	
+	public static final int BALL_INTAKE = 5;
 }

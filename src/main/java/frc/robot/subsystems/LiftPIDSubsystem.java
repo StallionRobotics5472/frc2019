@@ -15,9 +15,10 @@ import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.PIDSourceType;
+import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-public class LiftSubsystem extends Subsystem implements DataProvider{
+public class LiftPIDSubsystem extends PIDSubsystem implements DataProvider{
 
 	private TalonSRX leftLiftMotor;
 	private TalonSRX rightLiftMotor;
@@ -26,8 +27,9 @@ public class LiftSubsystem extends Subsystem implements DataProvider{
 	private PIDSource positionSource;
 	private PIDOutput positionOutput;
 	
-	public LiftSubsystem() {
+	public LiftPIDSubsystem() {
 		
+		super("PID Subsystem", 1, 2, 3);
 		leftLiftMotor = new TalonSRX(Constants.LIFT_TALON_CAN_LEFT);
 		leftLiftMotor.setNeutralMode(NeutralMode.Coast);
 		leftLiftMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
@@ -159,6 +161,16 @@ public class LiftSubsystem extends Subsystem implements DataProvider{
 		});
 		toReturn.put("Lift Output Percent", new double[] {leftLiftMotor.getMotorOutputPercent()});
 		return toReturn;
+	}
+
+	@Override
+	protected double returnPIDInput() {
+		return 0;
+	}
+
+	@Override
+	protected void usePIDOutput(double output) {
+
 	}
 	
 	

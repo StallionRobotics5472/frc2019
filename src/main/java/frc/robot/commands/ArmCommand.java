@@ -32,8 +32,8 @@ public class ArmCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double downspeed = -Robot.controls.getPlayerOne().getRawAxis(2);
-    double upspeed = Robot.controls.getPlayerOne().getRawAxis(3);
+    double downspeed = Robot.controls.getPlayerTwo().getRawAxis(1)/2;
+    double upspeed = Robot.controls.getPlayerTwo().getRawAxis(1)/2;
     Robot.arm.moveArm((downspeed+upspeed)/4);
     SmartDashboard.putNumber("Current Arm", Robot.arm.getCurrent());
   }

@@ -16,7 +16,7 @@ import frc.robot.subsystems.DiskPushSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.LedSubsystem;
 import frc.robot.subsystems.LiftSubsystem;
-
+import frc.robot.subsystems.WristSubsystem;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.RobotController;
@@ -39,6 +39,7 @@ public class Robot extends TimedRobot implements DataProvider{
 	public static BallSubsystem ball;
 	public static ArmPIDSubsystem arm;
 	private AnalogInput pressureSensor;
+	public static WristSubsystem wrist;
 	
 	@Override
 	public void robotInit() {
@@ -48,13 +49,13 @@ public class Robot extends TimedRobot implements DataProvider{
 		limelight = new Limelight();
 		cameras = new Cameras();
 		auto = new Autonomous();
-		controls = new Controls();
 		logger = new DataLogger();
 		ball = new BallSubsystem();
 		pressureSensor = new AnalogInput(0);
 		diskPush = new DiskPushSubsystem();
 		arm = new ArmPIDSubsystem();
-		
+		wrist = new WristSubsystem();
+		controls = new Controls();
 		
 	}
 

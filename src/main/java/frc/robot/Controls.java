@@ -5,7 +5,10 @@ import frc.robot.commands.LiftZeroEncoder;
 import frc.robot.commands.ReportIntakeLimit;
 import frc.robot.commands.ShiftGear;
 import frc.robot.commands.StopBall;
+import frc.robot.commands.StopWrist;
 import frc.robot.commands.TakeSnapshot;
+import frc.robot.commands.WristDownCommand;
+import frc.robot.commands.WristUpCommand;
 import frc.robot.commands.BallCommand;
 import frc.robot.commands.DiskPushCommand;
 
@@ -18,13 +21,15 @@ public class Controls {
 	private Joystick playerTwo = new Joystick(1);
 
 	private JoystickButton shiftGear = new JoystickButton(playerOne, 3); // X Button
-
 	
 	private JoystickButton highButton = new JoystickButton(playerOne, 4); // Y Button
 	
 	//temporary
 	private JoystickButton takeSnapshot = new JoystickButton(playerTwo, 4); // Y Button
 	//temporary
+
+	private JoystickButton wristDown = new JoystickButton(playerTwo, 1);
+	private JoystickButton wristUp = new JoystickButton(playerTwo, 2);
 
 	private JoystickButton diskPush = new JoystickButton(playerOne, 1);
 
@@ -46,6 +51,12 @@ public class Controls {
 		diskPush.whenPressed(new DiskPushCommand());
 		
 		takeSnapshot.whenPressed(new TakeSnapshot());
+
+		//the speed should be made into a constant
+		//the speed is just temporary, update when you figure out a good speed
+		wristUp.whileHeld(new WristUpCommand(0.2));
+		wristDown.whileHeld(new WristDownCommand(0.2));
+		wristUp.whenReleased(new StopWrist());
 		
 		highLimit.whileActive(new LiftStop());
 		lowLimit.whileActive(new LiftZeroEncoder());

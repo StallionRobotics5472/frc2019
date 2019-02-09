@@ -67,6 +67,10 @@ public class Constants {
 	public static final int BALL_MOTOR = 5;
 
 	public static final int ARM_TALON = 6;
-	// public static final int WRIST_TALON = 8;
+	public static final int WRIST_TALON = 4;
 	public static final int ARM_TALON_2 = 7;
+
+	public static final int RAMP_SOLENOID = 2;
+
+	public static final int DISK_RELEASE = 1;
 }

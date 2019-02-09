@@ -1,7 +1,4 @@
 package frc.robot.subsystems;
-
-import javax.lang.model.util.ElementScanner6;
-
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;

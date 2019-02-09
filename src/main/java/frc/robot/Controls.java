@@ -43,8 +43,8 @@ public class Controls {
 
 	private JoystickButton fastBallIn = new JoystickButton(playerOne, 5);
 	private JoystickButton fastBallReverse = new JoystickButton(playerOne, 7);
-	private JoystickButton fastBallOut = new JoystickButton(playerOne, 6);
-	private JoystickButton slowBallReverse = new JoystickButton(playerOne, 8);
+	private TriggerButton fastBallOut = new TriggerButton(playerOne, 2);
+	private TriggerButton slowBallReverse = new TriggerButton(playerOne, 3);
 	
 	public Controls() {
 		shiftGear.whenPressed(new ShiftGear());

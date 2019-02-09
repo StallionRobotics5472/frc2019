@@ -10,6 +10,7 @@ import frc.robot.commands.TakeSnapshot;
 import frc.robot.commands.WristDownCommand;
 import frc.robot.commands.WristUpCommand;
 import frc.robot.commands.BallCommand;
+import frc.robot.commands.BottomPistonShift;
 import frc.robot.commands.DiskPushCommand;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -30,6 +31,8 @@ public class Controls {
 
 	private JoystickButton wristDown = new JoystickButton(playerTwo, 1);
 	private JoystickButton wristUp = new JoystickButton(playerTwo, 2);
+
+	private JoystickButton toggleBottomPistons = new JoystickButton(playerOne, 3);
 
 	private JoystickButton diskPush = new JoystickButton(playerOne, 1);
 
@@ -72,6 +75,8 @@ public class Controls {
 		slowBallReverse.whenReleased(new StopBall());
 		fastBallOut.whenReleased(new StopBall());
 		fastBallReverse.whenReleased(new StopBall());
+
+		toggleBottomPistons.whenPressed(new BottomPistonShift());
 	}
 
 	public Joystick getPlayerOne() {

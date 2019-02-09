@@ -70,7 +70,9 @@ public class Constants {
 	public static final int WRIST_TALON = 4;
 	public static final int ARM_TALON_2 = 7;
 
-	public static final int RAMP_SOLENOID = 2;
+	//UNCERTAIN VALUES - CHECK WITH MECHANICAL AT SOME POINT please
+	public static final int RAMP_SOLENOID_RIGHT = 2;
+	public static final int RAMP_SOLENOID_LEFT = 3;
 
 	public static final int DISK_RELEASE = 1;
 }

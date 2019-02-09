@@ -12,6 +12,7 @@ import java.util.HashMap;
 import frc.robot.autonomous.Autonomous;
 import frc.robot.subsystems.ArmPIDSubsystem;
 import frc.robot.subsystems.BallSubsystem;
+import frc.robot.subsystems.BottomPistonSubsystem;
 import frc.robot.subsystems.DiskPushSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.LedSubsystem;
@@ -38,8 +39,9 @@ public class Robot extends TimedRobot implements DataProvider{
 	public static DiskPushSubsystem diskPush;
 	public static BallSubsystem ball;
 	public static ArmPIDSubsystem arm;
-	private AnalogInput pressureSensor;
 	public static WristSubsystem wrist;
+	public static BottomPistonSubsystem bottomPistons;
+	private AnalogInput pressureSensor;
 	
 	@Override
 	public void robotInit() {
@@ -55,6 +57,7 @@ public class Robot extends TimedRobot implements DataProvider{
 		diskPush = new DiskPushSubsystem();
 		arm = new ArmPIDSubsystem();
 		wrist = new WristSubsystem();
+		bottomPistons = new BottomPistonSubsystem();
 		controls = new Controls();
 		
 	}

@@ -1,13 +1,13 @@
 package frc.robot.commands;
 
 import frc.robot.Robot;
-import frc.robot.subsystems.LiftSubsystem;
+import frc.robot.subsystems.LiftPIDSubsystem;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 public class LiftZeroEncoder extends Command{
 	
-	private LiftSubsystem lift;
+	private LiftPIDSubsystem lift;
 	private boolean finished;
 	
 	@Override

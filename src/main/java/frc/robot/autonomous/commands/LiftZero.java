@@ -1,13 +1,13 @@
 package frc.robot.autonomous.commands;
 
 import frc.robot.Robot;
-import frc.robot.subsystems.LiftSubsystem;
+import frc.robot.subsystems.LiftPIDSubsystem;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 public class LiftZero extends Command{
 	
-//	private LiftSubsystem lift;
+//	private LiftPIDSubsystem lift;
 //	private boolean finished;
 //	
 //	public LiftZero() {
@@ -26,7 +26,7 @@ public class LiftZero extends Command{
 //	}
 //	
 	
-	private LiftSubsystem lift;
+	private LiftPIDSubsystem lift;
 	
 	public LiftZero() {
 		lift = Robot.lift;

@@ -4,14 +4,14 @@ import frc.robot.Constants;
 import frc.robot.Controls;
 import frc.robot.LimitSwitch;
 import frc.robot.Robot;
-import frc.robot.subsystems.LiftSubsystem;
+import frc.robot.subsystems.LiftPIDSubsystem;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class LiftDefault extends Command {
 
-	private LiftSubsystem lift;
+	private LiftPIDSubsystem lift;
 	private Controls controls = Robot.controls;
 	private LimitSwitch liftBottom;
 	

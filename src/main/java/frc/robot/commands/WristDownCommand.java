@@ -12,7 +12,7 @@ public class WristDownCommand extends Command
     private boolean isFinished;
 
     public WristDownCommand(double s)
-    {
+    { 
         requires(Robot.wrist);
         speed = -s;
         isFinished = false;
@@ -20,7 +20,7 @@ public class WristDownCommand extends Command
 
     @Override
     protected boolean isFinished() {
-        return false;
+        return isFinished;
     }
 
     protected void execute()

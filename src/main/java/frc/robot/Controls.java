@@ -21,30 +21,27 @@ public class Controls {
 	private Joystick playerOne = new Joystick(0);
 	private Joystick playerTwo = new Joystick(1);
 
-	private JoystickButton shiftGear = new JoystickButton(playerOne, 3); // X Button
+	private JoystickButton shiftGear = new JoystickButton(playerOne, Constants.BUTTON_X); // X Button
 	
-	private JoystickButton highButton = new JoystickButton(playerOne, 4); // Y Button
+	private JoystickButton highButton = new JoystickButton(playerOne, Constants.BUTTON_Y); // Y Button
 	
 	//temporary
-	private JoystickButton takeSnapshot = new JoystickButton(playerTwo, 4); // Y Button
+	private JoystickButton takeSnapshot = new JoystickButton(playerTwo, Constants.BUTTON_Y); // Y Button
 	//temporary
 
-	private JoystickButton wristDown = new JoystickButton(playerTwo, 1);
-	private JoystickButton wristUp = new JoystickButton(playerTwo, 2);
+	private JoystickButton toggleBottomPistons = new JoystickButton(playerOne, Constants.BUTTON_Y);
 
-	private JoystickButton toggleBottomPistons = new JoystickButton(playerOne, 3);
-
-	private JoystickButton diskPush = new JoystickButton(playerOne, 1);
+	private JoystickButton diskPush = new JoystickButton(playerOne, Constants.BUTTON_A);
 
 	
 	public LimitSwitch highLimit = new LimitSwitch(Constants.LIMIT_SWITCH_HIGH, true);
 	public LimitSwitch lowLimit = new LimitSwitch(Constants.LIMIT_SWITCH_LOW, false);
 	public LimitSwitch intakeLimit = new LimitSwitch(Constants.LIMIT_SWITCH_INTAKE, true);
 
-	private JoystickButton fastBallIn = new JoystickButton(playerOne, 5);
-	private JoystickButton fastBallReverse = new JoystickButton(playerOne, 7);
-	private TriggerButton fastBallOut = new TriggerButton(playerOne, 2);
-	private TriggerButton slowBallReverse = new TriggerButton(playerOne, 3);
+	private JoystickButton fastBallIn = new JoystickButton(playerOne, Constants.SHOULDER_BUTTON_LEFT);
+	private JoystickButton fastBallReverse = new JoystickButton(playerOne, Constants.SHOULDER_BUTTON_RIGHT);
+	private TriggerButton fastBallOut = new TriggerButton(playerOne, Constants.BUTTON_B);
+	private TriggerButton slowBallReverse = new TriggerButton(playerOne, Constants.BUTTON_X);
 	
 	public Controls() {
 		shiftGear.whenPressed(new ShiftGear());
@@ -57,9 +54,7 @@ public class Controls {
 
 		//the speed should be made into a constant
 		//the speed is just temporary, update when you figure out a good speed
-		wristUp.whileHeld(new WristUpCommand(0.2));
-		wristDown.whileHeld(new WristDownCommand(0.2));
-		wristUp.whenReleased(new StopWrist());
+		
 		
 		highLimit.whileActive(new LiftStop());
 		lowLimit.whileActive(new LiftZeroEncoder());
@@ -88,11 +83,11 @@ public class Controls {
 	}
 	
 	public double getLiftUpAxis() {
-		return playerTwo.getRawAxis(3);
+		return playerTwo.getRawAxis(2);
 	}
 	
 	public double getLiftDownAxis() {
-		return playerTwo.getRawAxis(2);
+		return playerTwo.getRawAxis(3);
 	}
 	
 	public double getDriveVerticalAxis() {

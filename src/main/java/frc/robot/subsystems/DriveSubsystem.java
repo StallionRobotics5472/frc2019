@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveSubsystem extends Subsystem implements DataProvider{
 
@@ -223,5 +224,17 @@ public class DriveSubsystem extends Subsystem implements DataProvider{
 				getHeading()
 		});
 		return toReturn;
+	}
+
+	public void seeVoltage(){
+		SmartDashboard.putNumber("Voltage Left", (left.getMotorOutputVoltage()));
+		SmartDashboard.putNumber("Voltage Right", (right.getMotorOutputVoltage()));
+		SmartDashboard.putNumber("Current Left", (left.getOutputCurrent()));
+		SmartDashboard.putNumber("Current Right", (right.getOutputCurrent()));
+		SmartDashboard.putNumber("Voltage Left 2", (leftFollower.getMotorOutputVoltage()));
+		SmartDashboard.putNumber("Voltage Right 2", (rightFollower.getMotorOutputVoltage()));
+		SmartDashboard.putNumber("Current Left 2", (leftFollower.getOutputCurrent()));
+		SmartDashboard.putNumber("Current Right 2", (rightFollower.getOutputCurrent()));
+
 	}
 }

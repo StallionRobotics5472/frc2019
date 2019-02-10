@@ -28,6 +28,7 @@ public class JoystickDriveCommand extends Command{
 			x = Math.abs(x) < 0.05 ? 0 : x;
 			
 			Robot.drive.drive(y + x, y - x);
+			Robot.drive.seeVoltage();
 		}
 	}
 	

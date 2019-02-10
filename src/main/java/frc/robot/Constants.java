@@ -21,8 +21,8 @@ public class Constants {
 
 	public static final int DRIVE_LEFT_TALON_CAN = 1;
 	public static final int DRIVE_LEFT_FOLLOWER_CAN = 2;
-	public static final int DRIVE_RIGHT_TALON_CAN = 4;
-	public static final int DRIVE_RIGHT_FOLLOWER_CAN = 3;
+	public static final int DRIVE_RIGHT_TALON_CAN = 9;
+	public static final int DRIVE_RIGHT_FOLLOWER_CAN = 10;
 	public static final int DRIVE_SHIFT_SOLENOID = 0;
 	
 	public static final double DRIVE_AUTO_OUTPUT_LIMIT = 1.0;
@@ -41,7 +41,7 @@ public class Constants {
 	public static final double INTAKE_OUTPUT_SLOW_SPEED = 0.40;
 
 	
-	public static final int LIFT_TALON_CAN_LEFT = 10;
+	public static final int LIFT_TALON_CAN_LEFT = 3;
 	public static final int LIFT_TALON_CAN_RIGHT = 8;
 	public static final double LIFT_REVERSE_OUTPUT_LIMIT = -0.5;
 	
@@ -75,4 +75,16 @@ public class Constants {
 	public static final int RAMP_SOLENOID_LEFT = 3;
 
 	public static final int DISK_RELEASE = 1;
+
+	//button ids
+	public static final int BUTTON_A =  1;
+	public static final int BUTTON_B = 2;
+	public static final int BUTTON_X = 3;
+	public static final int BUTTON_Y = 4;
+	public static final int SHOULDER_BUTTON_LEFT = 5;
+	public static final int SHOULDER_BUTTON_RIGHT = 6;
+	public static final int BUTTON_BACK = 7;
+	public static final int BUTTON_START = 8;
+	public static final int RIGHT_JOYSTICK_PRESS = 9;
+	public static final int LEFT_JOYSTICK_PRESS = 10;
 }

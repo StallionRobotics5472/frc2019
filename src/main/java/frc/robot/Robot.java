@@ -94,7 +94,7 @@ public class Robot extends TimedRobot implements DataProvider{
 		drive.drive(0.0, 0.0);
 		lift.resetEncoder();
 		lift.autoPeakOutput();
-		lift.enableClosedLoop();
+		//lift.enableClosedLoop();
 		logger.start();
 		auto.start();
 	}

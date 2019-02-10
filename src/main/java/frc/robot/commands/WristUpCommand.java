@@ -20,7 +20,7 @@ public class WristUpCommand extends Command
 
     @Override
     protected boolean isFinished() {
-        return false;
+        return isFinished;
     }
 
     protected void execute()

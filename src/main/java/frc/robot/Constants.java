@@ -70,13 +70,13 @@ public class Constants {
 	public static final int WRIST_TALON = 4;
 	public static final int ARM_TALON_2 = 7;
 
-	//UNCERTAIN VALUES - CHECK WITH MECHANICAL AT SOME POINT please
+	//Correct Solenoid values
 	public static final int RAMP_SOLENOID_RIGHT = 2;
 	public static final int RAMP_SOLENOID_LEFT = 3;
 
 	public static final int DISK_RELEASE = 1;
 
-	//button ids
+	//Joystick buttons and Axis
 	public static final int Axis_0 = 0;
 	public static final int Axis_1 = 1;
 	public static final int Axis_2 = 2;

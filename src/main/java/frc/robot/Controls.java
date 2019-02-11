@@ -40,7 +40,8 @@ public class Controls {
 
 	private JoystickButton fastBallIn = new JoystickButton(playerOne, Constants.SHOULDER_BUTTON_LEFT);
 	private JoystickButton fastBallReverse = new JoystickButton(playerOne, Constants.SHOULDER_BUTTON_RIGHT);
-	private TriggerButton fastBallOut = new TriggerButton(playerOne, Constants.BUTTON_B);
+	// I dont think fastBallOut and slowBallReverse are on the correct buttons
+	private TriggerButton fastBallOut = new TriggerButton(playerOne, Constants.BUTTON_B); 
 	private TriggerButton slowBallReverse = new TriggerButton(playerOne, Constants.BUTTON_X);
 	
 	public Controls() {
@@ -97,4 +98,5 @@ public class Controls {
 	public double getDriveHorizontalAxis() {
 		return playerOne.getRawAxis(Constants.Axis_0);
 	}
+
 }

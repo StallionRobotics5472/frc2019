@@ -87,4 +87,5 @@ public class Constants {
 	public static final int BUTTON_START = 8;
 	public static final int RIGHT_JOYSTICK_PRESS = 9;
 	public static final int LEFT_JOYSTICK_PRESS = 10;
+	
 }

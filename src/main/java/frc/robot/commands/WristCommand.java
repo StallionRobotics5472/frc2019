@@ -32,9 +32,9 @@ public class WristCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double downspeed = Robot.controls.getPlayerTwo().getRawAxis(4)/2;
-    double upspeed = Robot.controls.getPlayerTwo().getRawAxis(4)/2;
-    Robot.wrist.spin(downspeed+upspeed);
+    double downspeed = Robot.controls.getPlayerTwo().getRawAxis(5)/2;
+    double upspeed = Robot.controls.getPlayerTwo().getRawAxis(5)/2;
+    Robot.wrist.spin(downspeed+upspeed/16);
     Robot.wrist.showVoltage();
    
   }

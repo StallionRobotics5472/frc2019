@@ -9,6 +9,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Constants;
 import frc.robot.Robot;
 
 public class ArmCommand extends Command {
@@ -32,8 +33,8 @@ public class ArmCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double downspeed = Robot.controls.getPlayerTwo().getRawAxis(1)/2;
-    double upspeed = Robot.controls.getPlayerTwo().getRawAxis(1)/2;
+    double downspeed = Robot.controls.getPlayerTwo().getRawAxis(Constants.Axis_1)/2;
+    double upspeed = Robot.controls.getPlayerTwo().getRawAxis(Constants.Axis_1)/2;
     Robot.arm.moveArm(-(downspeed+upspeed)/2);
     SmartDashboard.putNumber("Current Arm", Robot.arm.getCurrent());
   }

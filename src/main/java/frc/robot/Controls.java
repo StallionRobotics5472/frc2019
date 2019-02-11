@@ -83,18 +83,18 @@ public class Controls {
 	}
 	
 	public double getLiftUpAxis() {
-		return playerTwo.getRawAxis(2);
+		return playerTwo.getRawAxis(Constants.Axis_2);
 	}
 	
 	public double getLiftDownAxis() {
-		return playerTwo.getRawAxis(3);
+		return playerTwo.getRawAxis(Constants.Axis_3);
 	}
 	
 	public double getDriveVerticalAxis() {
-		return playerOne.getRawAxis(1);
+		return playerOne.getRawAxis(Constants.Axis_1);
 	}
 	
 	public double getDriveHorizontalAxis() {
-		return playerOne.getRawAxis(0);
+		return playerOne.getRawAxis(Constants.Axis_0);
 	}
 }

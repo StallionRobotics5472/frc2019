@@ -77,6 +77,12 @@ public class Constants {
 	public static final int DISK_RELEASE = 1;
 
 	//button ids
+	public static final int Axis_0 = 0;
+	public static final int Axis_1 = 1;
+	public static final int Axis_2 = 2;
+	public static final int Axis_3 = 3;
+	public static final int Axis_4 = 4;
+	public static final int Axis_5 = 5;
 	public static final int BUTTON_A =  1;
 	public static final int BUTTON_B = 2;
 	public static final int BUTTON_X = 3;

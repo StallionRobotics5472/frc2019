@@ -8,7 +8,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Constants;
 import frc.robot.Robot;
 
 public class WristCommand extends Command {
@@ -32,8 +32,8 @@ public class WristCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double downspeed = Robot.controls.getPlayerTwo().getRawAxis(5)/2;
-    double upspeed = Robot.controls.getPlayerTwo().getRawAxis(5)/2;
+    double downspeed = Robot.controls.getPlayerTwo().getRawAxis(Constants.Axis_5)/2;
+    double upspeed = Robot.controls.getPlayerTwo().getRawAxis(Constants.Axis_5)/2;
     Robot.wrist.spin(downspeed+upspeed/16);
     Robot.wrist.showVoltage();
    

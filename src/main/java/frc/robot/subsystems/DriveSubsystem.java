@@ -27,6 +27,14 @@ public class DriveSubsystem extends Subsystem implements DataProvider{
 	private TalonSRX left, right, leftFollower, rightFollower;
 	private ControlMode controlMode;
 	private Solenoid shiftSolenoid;
+
+	/* potentially useful current limit example for drive motors.  This example sets the current limit to 10 if the current exceeds 15 for more than 100 ms
+	talon.configContinuousCurrentLimit(10, 0);
+	talon.configPeakCurrentLimit(15, 0);
+	talon.configPeakCurrentDuration(100, 0);
+	talon.enableCurrentLimit(true);
+*/
+
 	
 	
 	
@@ -121,7 +129,7 @@ public class DriveSubsystem extends Subsystem implements DataProvider{
 	protected void initDefaultCommand() {
 		setDefaultCommand(new JoystickDriveCommand());
 	}
-
+	
 	public void shiftGear() {
 		shiftSolenoid.set(!shiftSolenoid.get());
 	}

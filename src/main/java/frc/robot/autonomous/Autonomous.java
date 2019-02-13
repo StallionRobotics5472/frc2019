@@ -70,27 +70,7 @@ public class Autonomous {
 		return paths;
 	}
 
-	public String getAbsolutePath()
-	{
-		String name;
-		switch(paths.getSelected())
-		{
-				case STRAIGHT:
-					name = fileNames[0];
-					break;
 	
-				case LEFT_ROCKET:
-					name = fileNames[1];
-					break;
-	
-				case LEFT_TURN:
-					name = fileNames[2];
-					break;
-				default:
-					name = "You tried to run a motion profile path that doesn't exist!";
-		}
-		return name;
-	}
 
 	public Autonomous() {
 		starting.setDefaultOption(StartingPosition.CENTER.toString(), StartingPosition.CENTER);
@@ -106,7 +86,7 @@ public class Autonomous {
 		paths.addOption(Paths.LEFT_ROCKET.toString(), Paths.LEFT_ROCKET);
 		paths.addOption(Paths.LEFT_TURN.toString(), Paths.LEFT_TURN);
 		SmartDashboard.putData("Path", paths);
-		SmartDashboard.putString("Location of Path:", getAbsolutePath());
+		
 	}
 
 	public void start() {

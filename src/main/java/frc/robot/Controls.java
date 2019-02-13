@@ -6,7 +6,6 @@ import frc.robot.commands.ReportIntakeLimit;
 import frc.robot.commands.ShiftGear;
 import frc.robot.commands.StopBall;
 import frc.robot.commands.TakeSnapshot;
-import frc.robot.autonomous.commands.RaiseArmHalf;
 import frc.robot.commands.BallCommand;
 import frc.robot.commands.BottomPistonShift;
 import frc.robot.commands.DiskPushCommand;
@@ -44,7 +43,7 @@ public class Controls {
 	
 	//private JoystickButton encoderReseter = new JoystickButton(playerTwo, Constants.BUTTON_Y);
 	
-	private JoystickButton raiseArmHalf = new JoystickButton(playerTwo, Constants.BUTTON_Y);
+	
 
 	public Controls() {
 		shiftGear.whenPressed(new ShiftGear());
@@ -76,8 +75,7 @@ public class Controls {
 
 		toggleBottomPistons.whenPressed(new BottomPistonShift());
 
-		//encoderReseter.whenPressed(new ResetArmEncoder());	
-		raiseArmHalf.whenPressed(new RaiseArmHalf());	
+		
 	}
 
 	public Joystick getPlayerOne() {

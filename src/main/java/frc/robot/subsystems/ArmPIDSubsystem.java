@@ -7,79 +7,39 @@
 
 package frc.robot.subsystems;
 
-import frc.robot.Constants;
-import frc.robot.commands.ArmCommand;
-
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
-import edu.wpi.first.wpilibj.PIDController;
-import edu.wpi.first.wpilibj.PIDOutput;
-import edu.wpi.first.wpilibj.PIDSource;
-import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
+import frc.robot.Constants;
+import frc.robot.commands.ArmCommand;
 
 /**
  * Add your docs here.
- * what up youtube 
- * oof man here
- * today we are going to be making a pid 
  */
 public class ArmPIDSubsystem extends PIDSubsystem {
- 
-  private TalonSRX arm = new TalonSRX(Constants.ARM_TALON);
-  private TalonSRX arm2 = new TalonSRX(Constants.ARM_TALON_2);
-  private PIDController positionController;
-	private PIDSource positionSource;
-  private PIDOutput positionOutput;
-  
-  
+  /**
+   * Add your docs here.
+   * 
+   * 
+   */
 
-  
+   private TalonSRX arm;
+   private TalonSRX arm2;
+   
   public ArmPIDSubsystem() {
     // Intert a subsystem name and PID values here
-    super("ArmPIDSubsystem", 1, 2, 3);
-
-
-    arm = new TalonSRX(Constants.ARM_TALON);
-    arm.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute); //absolute was recommended for <360 degree movement
-    arm.setInverted(false);
-    arm.setSensorPhase(true);
-
-    
-
-
+    super("ArmPIDSubsystem", Constants.ARM_PIDF_P, Constants.ARM_PIDF_I, Constants.ARM_PIDF_D);
+    arm = new TalonSRX(Constants.ARM_TALON);;
     arm2 = new TalonSRX(Constants.ARM_TALON_2);
     arm2.setInverted(true);
-
-
-
+    setAbsoluteTolerance(0.05);
+    getPIDController().setContinuous(false);
     // Use these to get going:
     // setSetpoint() - Sets where the PID controller should move the system
     // to
     // enable() - Enables the PID controller.
-
-    positionOutput = (double output) -> {
-			moveArm(output);
-		};
-		
-		positionSource = new PIDSource() {
-			public double pidGet() {
-				return getPosition();
-			}
-			public PIDSourceType getPIDSourceType() {return PIDSourceType.kDisplacement;}
-			public void setPIDSourceType(PIDSourceType t) {}
-		};
-		
-		positionController = new PIDController(
-      Constants.ARM_PIDF_P, Constants.ARM_PIDF_I, Constants.ARM_PIDF_D, Constants.ARM_PIDF_F, positionSource, positionOutput);
-		positionController.setSetpoint(0.0);
-		positionController.setInputRange(0, 0);
-		positionController.setOutputRange(-1.0 , 1.0);
-		positionController.setAbsoluteTolerance(50);
-    
   }
 
   @Override
@@ -89,6 +49,21 @@ public class ArmPIDSubsystem extends PIDSubsystem {
     setDefaultCommand(new ArmCommand());
   }
 
+  @Override
+  protected double returnPIDInput() {
+    // Return your input value for the PID loop
+    // e.g. a sensor, like a potentiometer:
+    // yourPot.getAverageVoltage() / kYourMaxVoltage;
+    return arm.getSelectedSensorPosition(0);
+  }
+
+  @Override
+  protected void usePIDOutput(double output) {
+    // Use output to drive your system, like a motor
+    // e.g. yourMotor.set(output);
+    arm.set(ControlMode.Position, output);
+    arm2.set(ControlMode.PercentOutput, arm.getMotorOutputPercent());
+  }
   public void moveArm(double speed)
   {
     arm.set(ControlMode.PercentOutput, speed);
@@ -113,33 +88,16 @@ public class ArmPIDSubsystem extends PIDSubsystem {
     return (arm.getOutputCurrent() + arm2.getOutputCurrent())/2.0;
   }
 
-
-  public void resetEncoder()
-  {
-      arm.setSelectedSensorPosition(0,0,0);
-  }
-  
-  public double getPosition()
-  {
-    return arm.getSelectedSensorPosition(0);
+  public void setSetpoint(double pos){
+    setSetpoint(pos);
   }
 
-  @Override
-  protected double returnPIDInput() {
-    // Return your input value for the PID loop
-    // e.g. a sensor, like a potentiometer:
-    // yourPot.getAverageVoltage() / kYourMaxVoltage;
-    return 0.0;
-    
+  public void enablePID(){
+    enable();
   }
 
-  @Override
-  protected void usePIDOutput(double output) {
-    // Use output to drive your system, like a motor
-    // e.g. yourMotor.set(output);
+  public void disablePID(){
+    disable();
   }
 
-public void setBrake() {
-
-}
 }

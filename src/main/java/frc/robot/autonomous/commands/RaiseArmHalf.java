@@ -3,7 +3,6 @@ package frc.robot.autonomous.commands;
 import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.subsystems.ArmPIDSubsystem;
-import frc.robot.subsystems.LiftPIDSubsystem;
 
 import edu.wpi.first.wpilibj.command.Command;
 

@@ -94,4 +94,10 @@ public class Constants {
 	public static final int RIGHT_JOYSTICK_PRESS = 9;
 	public static final int LEFT_JOYSTICK_PRESS = 10;
 	
+	public static final int ARM_HALF_HEIGHT = -350000;
+
+	public static final double ARM_PIDF_P = 0.98;
+	public static final double ARM_PIDF_I = 0;
+	public static final double ARM_PIDF_D = 1;
+	public static final double ARM_PIDF_F = 0;
 }

@@ -9,6 +9,8 @@ import frc.robot.commands.StopWrist;
 import frc.robot.commands.TakeSnapshot;
 import frc.robot.commands.WristDownCommand;
 import frc.robot.commands.WristUpCommand;
+import frc.robot.autonomous.commands.RaiseArmHalf;
+import frc.robot.autonomous.commands.ResetArmEncoder;
 import frc.robot.commands.BallCommand;
 import frc.robot.commands.BottomPistonShift;
 import frc.robot.commands.DiskPushCommand;
@@ -44,6 +46,10 @@ public class Controls {
 	private TriggerButton fastBallOut = new TriggerButton(playerOne, Constants.BUTTON_B); 
 	private TriggerButton slowBallReverse = new TriggerButton(playerOne, Constants.BUTTON_X);
 	
+	//private JoystickButton encoderReseter = new JoystickButton(playerTwo, Constants.BUTTON_Y);
+	
+	private JoystickButton raiseArmHalf = new JoystickButton(playerTwo, Constants.BUTTON_Y);
+
 	public Controls() {
 		shiftGear.whenPressed(new ShiftGear());
 		shiftGear.whenReleased(new ShiftGear());
@@ -73,6 +79,9 @@ public class Controls {
 		fastBallReverse.whenReleased(new StopBall());
 
 		toggleBottomPistons.whenPressed(new BottomPistonShift());
+
+		//encoderReseter.whenPressed(new ResetArmEncoder());	
+		raiseArmHalf.whenPressed(new RaiseArmHalf());	
 	}
 
 	public Joystick getPlayerOne() {

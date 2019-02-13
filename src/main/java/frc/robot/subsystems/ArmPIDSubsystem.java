@@ -73,7 +73,8 @@ public class ArmPIDSubsystem extends PIDSubsystem {
 			public void setPIDSourceType(PIDSourceType t) {}
 		};
 		
-		positionController = new PIDController(Constants.LIFT_PIDF_P, Constants.LIFT_PIDF_I, Constants.LIFT_PIDF_D, Constants.LIFT_PIDF_F, positionSource, positionOutput);
+		positionController = new PIDController(
+      Constants.ARM_PIDF_P, Constants.ARM_PIDF_I, Constants.ARM_PIDF_D, Constants.ARM_PIDF_F, positionSource, positionOutput);
 		positionController.setSetpoint(0.0);
 		positionController.setInputRange(0, 0);
 		positionController.setOutputRange(-1.0 , 1.0);
@@ -104,12 +105,14 @@ public class ArmPIDSubsystem extends PIDSubsystem {
   {
       arm.setNeutralMode(NeutralMode.Coast);
       arm2.setNeutralMode(NeutralMode.Coast);
+      
   }
 
   public double getCurrent()
   {
     return (arm.getOutputCurrent() + arm2.getOutputCurrent())/2.0;
   }
+
 
   public void resetEncoder()
   {
@@ -137,5 +140,6 @@ public class ArmPIDSubsystem extends PIDSubsystem {
   }
 
 public void setBrake() {
+
 }
 }

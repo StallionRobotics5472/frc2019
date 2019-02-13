@@ -19,6 +19,7 @@ public class WristSubsystem extends Subsystem
 
     public WristSubsystem()
     {
+        
         motor = new TalonSRX(Constants.WRIST_TALON);
     }
 

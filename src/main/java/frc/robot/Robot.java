@@ -8,12 +8,10 @@
 package frc.robot;
 
 import java.util.HashMap;
-import java.util.Random;
 
 import frc.robot.autonomous.Autonomous;
 import frc.robot.subsystems.DiskPushSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.LedSubsystem;
 import frc.robot.subsystems.LiftSubsystem;
 

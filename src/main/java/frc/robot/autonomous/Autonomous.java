@@ -79,8 +79,7 @@ public class Autonomous {
 	}
 	
 	public void startingCenter(Plan task) {
-		boolean rightSwitchOwnership = gameSpecificData.charAt(0) == 'R';
-		boolean rightScaleOwnership = gameSpecificData.charAt(1) == 'R';
+		
 		
 		switch(task) {
 			
@@ -92,8 +91,7 @@ public class Autonomous {
 	}
 	
 	public void startingLeft(Plan task) {
-		boolean rightSwitchOwnership = gameSpecificData.charAt(0) == 'R';
-		boolean rightScaleOwnership = gameSpecificData.charAt(1) == 'R';
+		
 		
 		switch(task) {
 			
@@ -103,8 +101,7 @@ public class Autonomous {
 	}
 	
 	public void startingRight(Plan task) {
-		boolean rightSwitchOwnership = gameSpecificData.charAt(0) == 'R';
-		boolean rightScaleOwnership = gameSpecificData.charAt(1) == 'R';
+		
 		
 		switch(task) {
 			

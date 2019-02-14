@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveSubsystem extends Subsystem implements DataProvider{
 
@@ -26,6 +27,14 @@ public class DriveSubsystem extends Subsystem implements DataProvider{
 	private TalonSRX left, right, leftFollower, rightFollower;
 	private ControlMode controlMode;
 	private Solenoid shiftSolenoid;
+
+	/* potentially useful current limit example for drive motors.  This example sets the current limit to 10 if the current exceeds 15 for more than 100 ms
+	talon.configContinuousCurrentLimit(10, 0);
+	talon.configPeakCurrentLimit(15, 0);
+	talon.configPeakCurrentDuration(100, 0);
+	talon.enableCurrentLimit(true);
+*/
+
 	
 	
 	
@@ -120,7 +129,7 @@ public class DriveSubsystem extends Subsystem implements DataProvider{
 	protected void initDefaultCommand() {
 		setDefaultCommand(new JoystickDriveCommand());
 	}
-
+	
 	public void shiftGear() {
 		shiftSolenoid.set(!shiftSolenoid.get());
 	}
@@ -223,5 +232,17 @@ public class DriveSubsystem extends Subsystem implements DataProvider{
 				getHeading()
 		});
 		return toReturn;
+	}
+
+	public void seeVoltage(){
+		SmartDashboard.putNumber("Voltage Left", (left.getMotorOutputVoltage()));
+		SmartDashboard.putNumber("Voltage Right", (right.getMotorOutputVoltage()));
+		SmartDashboard.putNumber("Current Left", (left.getOutputCurrent()));
+		SmartDashboard.putNumber("Current Right", (right.getOutputCurrent()));
+		SmartDashboard.putNumber("Voltage Left 2", (leftFollower.getMotorOutputVoltage()));
+		SmartDashboard.putNumber("Voltage Right 2", (rightFollower.getMotorOutputVoltage()));
+		SmartDashboard.putNumber("Current Left 2", (leftFollower.getOutputCurrent()));
+		SmartDashboard.putNumber("Current Right 2", (rightFollower.getOutputCurrent()));
+
 	}
 }

@@ -96,12 +96,12 @@ public class Autonomous {
 		starting.setDefaultOption(StartingPosition.CENTER.toString(), StartingPosition.CENTER);
 		starting.addOption(StartingPosition.LEFT.toString(), StartingPosition.LEFT);
 		starting.addOption(StartingPosition.RIGHT.toString(), StartingPosition.RIGHT);
-	
+		starting.addOption(StartingPosition.MOTION_PROFILE.toString(), StartingPosition.MOTION_PROFILE);
 		plan.addOption(Plan.DRIVE_STRAIGHT_MOTION_PROFILE.toString(), Plan.DRIVE_STRAIGHT_MOTION_PROFILE);
 		SmartDashboard.putData("Autonomous Starting Position", starting);
 		SmartDashboard.putData("Autonomous Task", plan);
 		
-		paths.addDefault("No path", Paths.NO_PATHS);
+		// paths.addDefault("No path", Paths.NO_PATHS);
 		paths.addOption(Paths.STRAIGHT.toString(), Paths.STRAIGHT);
 		paths.addOption(Paths.LEFT_ROCKET.toString(), Paths.LEFT_ROCKET);
 		paths.addOption(Paths.LEFT_TURN.toString(), Paths.LEFT_TURN);

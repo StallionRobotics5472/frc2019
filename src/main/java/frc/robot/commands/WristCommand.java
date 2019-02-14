@@ -6,20 +6,20 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot.commands;
+
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.Robot;
 
-public class ArmCommand extends Command {
+public class WristCommand extends Command {
 
   private boolean isFinished = false;
   
-  public ArmCommand() {
+  public WristCommand() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(Robot.arm);
-    Robot.arm.setBrake();
+    requires(Robot.wrist);
+    Robot.wrist.setBrake();
   
   }
 
@@ -32,11 +32,11 @@ public class ArmCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double downspeed = Robot.controls.getPlayerTwo().getRawAxis(Constants.Axis_1)/2;
-    double upspeed = Robot.controls.getPlayerTwo().getRawAxis(Constants.Axis_1)/2;
-    Robot.arm.moveArm(-(downspeed+upspeed)/2);
-    SmartDashboard.putNumber("Current Arm", Robot.arm.getCurrent());
-    SmartDashboard.putNumber("Current Position", Robot.arm.getPosition());
+    double downspeed = Robot.controls.getPlayerTwo().getRawAxis(Constants.Axis_5)/2;
+    double upspeed = Robot.controls.getPlayerTwo().getRawAxis(Constants.Axis_5)/2;
+    Robot.wrist.spin(downspeed+upspeed/16);
+    Robot.wrist.showVoltage();
+   
   }
 
   // Make this return true when this Command no longer needs to run execute()

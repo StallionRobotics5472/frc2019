@@ -24,7 +24,7 @@ public class StraightPath extends Command {
 	private double a;
 	private double g;
 
-	private double startingAngle = 90;
+	// private double startingAngle = 90;
 	
 	EncoderFollower rightEncoder;
 	EncoderFollower leftEncoder;

@@ -16,10 +16,10 @@ import frc.robot.subsystems.BottomPistonSubsystem;
 import frc.robot.subsystems.DiskPushSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.LedSubsystem;
-import frc.robot.subsystems.LiftSubsystem;
+import frc.robot.subsystems.LiftPIDSubsystem;
 import frc.robot.subsystems.WristSubsystem;
 import edu.wpi.first.wpilibj.AnalogInput;
-import edu.wpi.first.wpilibj.DigitalInput;
+
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -31,7 +31,7 @@ public class Robot extends TimedRobot implements DataProvider{
 
 	public static Controls controls;
 	public static DriveSubsystem drive;
-	public static LiftSubsystem lift;
+	public static LiftPIDSubsystem lift;
 	public static LedSubsystem led;
 	public static Limelight limelight;
 	public static Cameras cameras;
@@ -46,10 +46,10 @@ public class Robot extends TimedRobot implements DataProvider{
 	@Override
 	public void robotInit() {
 		drive = new DriveSubsystem();
-		lift = new LiftSubsystem();
+		lift = new LiftPIDSubsystem();
 		led = new LedSubsystem();
 		limelight = new Limelight();
-		cameras = new Cameras();
+		cameras = new Cameras();  
 		auto = new Autonomous();
 		logger = new DataLogger();
 		ball = new BallSubsystem();
@@ -87,14 +87,14 @@ public class Robot extends TimedRobot implements DataProvider{
 		limelight.setLed(false);
 	}
 
-	@Override
+	@Override  
 	public void autonomousInit() {
 		drive.resetEncoders();
 		drive.resetHeading();
 		drive.drive(0.0, 0.0);
 		lift.resetEncoder();
 		lift.autoPeakOutput();
-		lift.enableClosedLoop();
+		//lift.enableClosedLoop();
 		logger.start();
 		auto.start();
 	}

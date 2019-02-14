@@ -1,3 +1,7 @@
+/*
+Class to store constants that don't change over the course of a competition
+Use these instead of hard-coding so it can be easily changed across the whole robot
+*/
 package frc.robot;
 
 public class Constants {

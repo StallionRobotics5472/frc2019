@@ -34,12 +34,17 @@ public class ArmPIDSubsystem extends PIDSubsystem {
     arm = new TalonSRX(Constants.ARM_TALON);;
     arm2 = new TalonSRX(Constants.ARM_TALON_2);
     arm2.setInverted(true);
-    setAbsoluteTolerance(0.05);
+    setAbsoluteTolerance(50);
     getPIDController().setContinuous(false);
+    getPIDController().setSetpoint(0);
+
+    // setSetpoint(0);
+    
     // Use these to get going:
     // setSetpoint() - Sets where the PID controller should move the system
     // to
     // enable() - Enables the PID controller.
+    
   }
 
   @Override
@@ -61,8 +66,8 @@ public class ArmPIDSubsystem extends PIDSubsystem {
   protected void usePIDOutput(double output) {
     // Use output to drive your system, like a motor
     // e.g. yourMotor.set(output);
-    arm.set(ControlMode.Position, output);
-    arm2.set(ControlMode.PercentOutput, arm.getMotorOutputPercent());
+    arm.set(ControlMode.PercentOutput, output);
+    arm2.set(ControlMode.PercentOutput, output);
   }
   public void moveArm(double speed)
   {
@@ -89,15 +94,36 @@ public class ArmPIDSubsystem extends PIDSubsystem {
   }
 
   public void setSetpoint(double pos){
-    setSetpoint(pos);
+   getPIDController().setSetpoint(pos);
   }
 
   public void enablePID(){
-    enable();
+    getPIDController().enable();
   }
 
   public void disablePID(){
-    disable();
+   getPIDController().disable();
   }
 
+  public void autoPeakOutput(){
+    arm.configPeakOutputForward( 0.5 , 10);
+    
+  }
+
+
+  public void resetEncoders(){
+    arm.setSelectedSensorPosition(0, 0, 0);
+  }                          
+
+  public int getEncoder(){
+    return arm.getSelectedSensorPosition(0);
+  }
+
+  public double getSetPoint(){
+    return getPIDController().getSetpoint();
+  }
+
+  public void usePID(double o){
+    usePIDOutput(0);
+  }
 }

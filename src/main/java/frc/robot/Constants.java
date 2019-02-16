@@ -10,7 +10,7 @@ public class Constants {
 	public static final double ROBOT_WIDTH = 0.7112;
 	public static final double ROBOT_LENGTH = 0.8382;
 	public static final double V_CONSTANT = 1.20;
-	public static final double ROBOT_WHEELBASE_WIDTH = 0.6731;
+	public static final double ROBOT_WHEELBASE_WIDTH = 0.622;
 	
 	public static final double LEFT_ENCODER_TICKS_PER_METER = 12833;
 	public static final double RIGHT_ENCODER_TICKS_PER_METER = 12833;
@@ -104,4 +104,9 @@ public class Constants {
 	public static final double ARM_PIDF_I = 0;
 	public static final double ARM_PIDF_D = 1;
 	public static final double ARM_PIDF_F = 0;
+
+	public static final double WRIST_PIDF_P = 0.98;
+	public static final double WRIST_PIDF_I = 0;
+	public static final double WRIST_PIDF_D = 1;
+	public static final double WRIST_PIDF_F = 0;
 }

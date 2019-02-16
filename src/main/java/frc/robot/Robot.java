@@ -133,7 +133,6 @@ public class Robot extends TimedRobot implements DataProvider{
 	@Override
 	public void teleopInit() {
 		Robot.arm.disablePID();
-		Robot.arm.resetEncoders();
 		auto.end();
 		limelight.setLed(false);
 		drive.resetEncoders();

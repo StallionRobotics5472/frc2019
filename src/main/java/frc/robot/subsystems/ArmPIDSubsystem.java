@@ -34,7 +34,7 @@ public class ArmPIDSubsystem extends PIDSubsystem {
     arm = new TalonSRX(Constants.ARM_TALON);;
     arm2 = new TalonSRX(Constants.ARM_TALON_2);
     arm2.setInverted(true);
-    setAbsoluteTolerance(50);
+    setAbsoluteTolerance(10000);
     getPIDController().setContinuous(false);
     getPIDController().setSetpoint(0);
 
@@ -124,6 +124,6 @@ public class ArmPIDSubsystem extends PIDSubsystem {
   }
 
   public void usePID(double o){
-    usePIDOutput(0);
+    usePIDOutput(o);
   }
 }

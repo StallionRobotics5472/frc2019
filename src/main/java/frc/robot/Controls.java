@@ -1,5 +1,6 @@
 package frc.robot;
 import frc.robot.commands.HighGear;
+import frc.robot.commands.HoldArm;
 import frc.robot.commands.LiftStop;
 import frc.robot.commands.LiftZeroEncoder;
 import frc.robot.commands.ReportIntakeLimit;
@@ -9,6 +10,7 @@ import frc.robot.commands.TakeSnapshot;
 import frc.robot.commands.BallCommand;
 import frc.robot.commands.BottomPistonShift;
 import frc.robot.commands.DiskPushCommand;
+import frc.robot.commands.DisableArmPID;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -40,12 +42,16 @@ public class Controls {
 	// I dont think fastBallOut and slowBallReverse are on the correct buttons
 	private TriggerButton fastBallOut = new TriggerButton(playerOne, Constants.BUTTON_B); 
 	private TriggerButton slowBallReverse = new TriggerButton(playerOne, Constants.BUTTON_X);
-	
+	private JoystickButton holdArm = new JoystickButton(playerTwo, Constants.BUTTON_A);
 	//private JoystickButton encoderReseter = new JoystickButton(playerTwo, Constants.BUTTON_Y);
 	
 	
 
 	public Controls() {
+
+		holdArm.whileHeld(new HoldArm());
+		holdArm.whenReleased(new DisableArmPID());
+
 		shiftGear.whenPressed(new ShiftGear());
 		shiftGear.whenReleased(new ShiftGear());
 		highButton.whenPressed(new HighGear());

@@ -25,8 +25,8 @@ public class Constants {
 
 	public static final int DRIVE_LEFT_TALON_CAN = 1;
 	public static final int DRIVE_LEFT_FOLLOWER_CAN = 2;
-	public static final int DRIVE_RIGHT_TALON_CAN = 9;
-	public static final int DRIVE_RIGHT_FOLLOWER_CAN = 10;
+	public static final int DRIVE_RIGHT_TALON_CAN = 14;
+	public static final int DRIVE_RIGHT_FOLLOWER_CAN = 13;
 	public static final int DRIVE_SHIFT_SOLENOID = 0;
 	
 	public static final double DRIVE_AUTO_OUTPUT_LIMIT = 1.0;
@@ -46,7 +46,7 @@ public class Constants {
 
 	
 	public static final int LIFT_TALON_CAN_LEFT = 3;
-	public static final int LIFT_TALON_CAN_RIGHT = 8;
+	public static final int LIFT_TALON_CAN_RIGHT = 12;
 	public static final double LIFT_REVERSE_OUTPUT_LIMIT = -0.5;
 	
 	public static final double HIGH_BALL = 0.8;
@@ -63,15 +63,15 @@ public class Constants {
 	public static final int LIMIT_SWITCH_INTAKE = 5;
 	
 	public static final int LED_RED_DIO = 0;
-	public static final int LED_GREEN_DIO = 1;
-	public static final int LED_BLUE_DIO = 2;
+	public static final int LED_GREEN_DIO = 2;
+	public static final int LED_BLUE_DIO = 3;
 	
-	public static final int PUSH_DOUBLESOLENOID1 = 1;
-	public static final int PUSH_DOUBLESOLENOID2 = 2;
-	public static final int BALL_MOTOR = 5;
+	public static final int PUSH_DOUBLESOLENOID1 = 4;
+	public static final int PUSH_DOUBLESOLENOID2 = 5;
+	public static final int BALL_MOTOR = 8;
 
 	public static final int ARM_TALON = 6;
-	public static final int WRIST_TALON = 4;
+	public static final int WRIST_TALON = 9;
 	public static final int ARM_TALON_2 = 7;
 
 	//Correct Solenoid values

@@ -16,7 +16,7 @@ import frc.robot.subsystems.BallSubsystem;
 import frc.robot.subsystems.BottomPistonSubsystem;
 import frc.robot.subsystems.DiskPushSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.subsystems.LedSubsystem;
+// import frc.robot.subsystems.LedSubsystem;
 import frc.robot.subsystems.LiftPIDSubsystem;
 import frc.robot.subsystems.WristSubsystem;
 import edu.wpi.first.wpilibj.AnalogInput;
@@ -34,7 +34,7 @@ public class Robot extends TimedRobot implements DataProvider{
 	public static Controls controls;
 	public static DriveSubsystem drive;
 	public static LiftPIDSubsystem lift;
-	public static LedSubsystem led;
+	// public static LedSubsystem led;
 	public static Limelight limelight;
 	public static Cameras cameras;
 	private static DataLogger logger;
@@ -49,7 +49,7 @@ public class Robot extends TimedRobot implements DataProvider{
 	public void robotInit() {
 		drive = new DriveSubsystem();
 		lift = new LiftPIDSubsystem();
-		led = new LedSubsystem();
+		// led = new LedSubsystem();
 		limelight = new Limelight();
 		cameras = new Cameras();  
 		auto = new Autonomous();
@@ -115,7 +115,7 @@ public class Robot extends TimedRobot implements DataProvider{
 		logger.appendData(drive);
 		logger.appendData(lift);
 		logger.appendData(limelight);
-		logger.appendData(led);
+		// logger.appendData(led);
 		logger.appendData(this);
 		logger.writeFrame();
 		
@@ -151,7 +151,7 @@ public class Robot extends TimedRobot implements DataProvider{
 		logger.appendData(drive);
 		logger.appendData(lift);
 		logger.appendData(limelight);
-		logger.appendData(led);
+		// logger.appendData(led);
 		logger.appendData(this);
 		logger.writeFrame();
 		

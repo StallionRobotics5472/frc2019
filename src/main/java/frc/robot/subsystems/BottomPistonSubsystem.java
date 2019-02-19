@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.Constants;
 
 
 public class BottomPistonSubsystem extends Subsystem
@@ -11,7 +12,7 @@ public class BottomPistonSubsystem extends Subsystem
 
     public BottomPistonSubsystem()
     {
-        sole = new DoubleSolenoid(3, 4);
+        sole = new DoubleSolenoid(Constants.RAMP_SOLENOID_RIGHT , Constants.RAMP_SOLENOID_LEFT);
     }
 
     @Override

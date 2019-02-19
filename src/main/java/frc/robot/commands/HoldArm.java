@@ -35,7 +35,7 @@ public class HoldArm extends Command {
     Robot.wrist.enablePID();
     encoderStatusArm = Robot.arm.getEncoder();
     encoderStatusWrist = Robot.arm.getEncoder();
-    Robot.arm.setSetpoint(encoderStatusArm);
+    Robot.arm.setSetpoint(50000);
     Robot.wrist.setSetpoint(encoderStatusWrist);
     Robot.arm.usePID(0.25);
     Robot.wrist.usePID(0.25);

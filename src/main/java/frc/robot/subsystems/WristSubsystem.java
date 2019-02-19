@@ -2,6 +2,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
@@ -10,17 +11,16 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.commands.WristCommand;
 
-public class WristSubsystem extends PIDSubsystem
-{
+public class WristSubsystem extends PIDSubsystem {
 
-    //the motor for the wrist
+    // the motor for the wrist
     private TalonSRX motor;
-    //the speed the motor should spin at
+    // the speed the motor should spin at
 
-    public WristSubsystem()
-    {
+    public WristSubsystem() {
         super("WristSubsystem", Constants.WRIST_PIDF_P, Constants.WRIST_PIDF_I, Constants.WRIST_PIDF_D);
         motor = new TalonSRX(Constants.WRIST_TALON);
+        motor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
     }
 
     @Override
@@ -28,17 +28,15 @@ public class WristSubsystem extends PIDSubsystem
         setDefaultCommand(new WristCommand());
     }
 
-    public void spin(double s)
-    {
+    public void spin(double s) {
         motor.set(ControlMode.PercentOutput, s);
     }
 
-    public void setBrake()
-    {
+    public void setBrake() {
         motor.setNeutralMode(NeutralMode.Brake);
     }
 
-    public void showVoltage(){
+    public void showVoltage() {
         SmartDashboard.putNumber("Wrist Current", motor.getOutputCurrent());
         SmartDashboard.putNumber("Wrist Voltage", motor.getMotorOutputVoltage());
     }
@@ -50,43 +48,48 @@ public class WristSubsystem extends PIDSubsystem
 
     @Override
     protected void usePIDOutput(double output) {
-
+        motor.set(ControlMode.PercentOutput, output);
     }
 
-    public void enablePID(){
+    public void enablePID() {
         getPIDController().enable();
     }
 
-    public double getSetPoint(){
+    public double getSetPoint() {
         return getPIDController().getSetpoint();
     }
-    
-    public void usePID(double o){
+
+    public void usePID(double o) {
         usePIDOutput(o);
     }
 
-    public void setSetpoint(double pos){
+    public void setSetpoint(double pos) {
         getPIDController().setSetpoint(pos);
     }
 
-    public void disablePID(){
+    public void disablePID() {
         getPIDController().disable();
     }
 
-    public void enableBrake()
-    {
-      motor.setNeutralMode(NeutralMode.Brake);
+    public void enableBrake() {
+        motor.setNeutralMode(NeutralMode.Brake);
     }
-  
-    public void enableCoast()
-    {
+
+    public void enableCoast() {
         motor.setNeutralMode(NeutralMode.Coast);
-        
+
     }
-  
-    public double getCurrent()
-    {
-      return motor.getOutputCurrent();
+
+    public double getCurrent() {
+        return motor.getOutputCurrent();
+    }
+
+    public int getEncoderOutput() {
+        return motor.getSensorCollection().getQuadraturePosition();
+    }
+
+    public int getEncoderVelocity() {
+        return motor.getSensorCollection().getQuadratureVelocity();
     }
 
 }

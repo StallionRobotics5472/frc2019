@@ -16,7 +16,10 @@ public class JoystickDriveCommand extends Command{
 	}
 	
 	@Override
-	public void initialize() {}
+	public void initialize() {
+		Robot.drive.setCoast();
+
+	}
 	
 	@Override
 	public void execute() {

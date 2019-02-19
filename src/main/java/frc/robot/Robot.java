@@ -27,7 +27,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class Robot extends TimedRobot implements DataProvider{
+public class Robot extends TimedRobot implements DataProvider {
 
 	private Autonomous auto;
 
@@ -44,14 +44,14 @@ public class Robot extends TimedRobot implements DataProvider{
 	public static WristSubsystem wrist;
 	public static BottomPistonSubsystem bottomPistons;
 	private AnalogInput pressureSensor;
-	
+
 	@Override
 	public void robotInit() {
 		drive = new DriveSubsystem();
 		lift = new LiftPIDSubsystem();
 		// led = new LedSubsystem();
 		limelight = new Limelight();
-		cameras = new Cameras();  
+		cameras = new Cameras();
 		auto = new Autonomous();
 		logger = new DataLogger();
 		ball = new BallSubsystem();
@@ -61,10 +61,8 @@ public class Robot extends TimedRobot implements DataProvider{
 		wrist = new WristSubsystem();
 		bottomPistons = new BottomPistonSubsystem();
 		controls = new Controls();
-		
+
 	}
-
-
 
 	@Override
 	public void disabledInit() {
@@ -83,15 +81,15 @@ public class Robot extends TimedRobot implements DataProvider{
 	public void disabledPeriodic() {
 		if (auto != null)
 			auto.checkGameSpecificData();
-		
+
 		SmartDashboard.putNumber("Pressure", getPressure());
 		SmartDashboard.putBoolean("Upper Lift Limit", controls.highLimit.get());
 		SmartDashboard.putBoolean("Lower Lift Limit", controls.lowLimit.get());
-		
+
 		limelight.setLed(false);
 	}
 
-	@Override  
+	@Override
 	public void autonomousInit() {
 		Robot.arm.resetEncoders();
 		drive.resetEncoders();
@@ -99,12 +97,12 @@ public class Robot extends TimedRobot implements DataProvider{
 		drive.drive(0.0, 0.0);
 		lift.resetEncoder();
 		lift.autoPeakOutput();
-		//lift.enableClosedLoop();
+		// lift.enableClosedLoop();
 		logger.start();
 		// auto.start();
 		Robot.arm.autoPeakOutput();
 		Robot.arm.enablePID();
-		
+
 	}
 
 	@Override
@@ -118,13 +116,13 @@ public class Robot extends TimedRobot implements DataProvider{
 		// logger.appendData(led);
 		logger.appendData(this);
 		logger.writeFrame();
-		
+
 		SmartDashboard.putNumber("Lift Closed-Loop Error", lift.getError());
-		
+
 		SmartDashboard.putNumber("Pressure", getPressure());
 		SmartDashboard.putBoolean("Upper Lift Limit", controls.highLimit.get());
 		SmartDashboard.putBoolean("Lower Lift Limit", controls.lowLimit.get());
-		
+
 		SmartDashboard.putNumber("Left Encoder", drive.getLeftPosition());
 		SmartDashboard.putNumber("Right Encoder", drive.getRightPosition());
 		SmartDashboard.putNumber("Arm Setpoint", Robot.arm.getSetPoint());
@@ -142,9 +140,9 @@ public class Robot extends TimedRobot implements DataProvider{
 		lift.teleopPeakOutput();
 		drive.highGear();
 		logger.start();
-		
+
 	}
-	
+
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
@@ -154,48 +152,41 @@ public class Robot extends TimedRobot implements DataProvider{
 		// logger.appendData(led);
 		logger.appendData(this);
 		logger.writeFrame();
-		
+
 		SmartDashboard.putNumber("Pressure", getPressure());
 		SmartDashboard.putBoolean("Upper Lift Limit", controls.highLimit.get());
 		SmartDashboard.putBoolean("Lower Lift Limit", controls.lowLimit.get());
 		SmartDashboard.putNumber("Heading", Robot.drive.getHeading());
 		SmartDashboard.putBoolean("Ball Limit", Robot.ball.getLimit());
-		SmartDashboard.putNumber("Encoder Value", Robot.arm.getEncoder());
+		SmartDashboard.putNumber("Arm Encoder", Robot.arm.getEncoder());
+
+		SmartDashboard.putNumber("Wrist Encoder", wrist.getEncoderOutput());
+		SmartDashboard.putNumber("Arm Encoder", arm.getEncoder());
+		SmartDashboard.putNumber("Arm Output", arm.getPercentOutput());
+		SmartDashboard.putNumber("Lift Output", lift.getPercentOutput());
 	}
-	
+
 	@Override
 	public void testInit() {
 	}
-	
+
 	@Override
 	public void testPeriodic() {
 		Scheduler.getInstance().run();
 	}
-	
+
 	public double getPressure() {
 		return (250 * (pressureSensor.getVoltage() / 4.95));
 	}
-	
-	public HashMap<String, double[]> getData(){
+
+	public HashMap<String, double[]> getData() {
 		HashMap<String, double[]> toReturn = new HashMap<>();
-		toReturn.put("Battery Voltage", new double[] {
-				RobotController.getBatteryVoltage()
-		});
-		toReturn.put("CAN Bus Utilization", new double[] {
-				RobotController.getCANStatus().percentBusUtilization
-		});
-		toReturn.put("Brown Out", new double[] {
-				RobotController.isBrownedOut() ? 1.0 : 0.0
-		});
-		toReturn.put("Pressure", new double[] {
-				getPressure()
-		});
-		toReturn.put("Low Limit Switch", new double[] {
-				controls.lowLimit.get() ? 1.0 : 0.0
-		});
-		toReturn.put("Low Limit Switch", new double[] {
-				controls.highLimit.get() ? 1.0 : 0.0
-		});
+		toReturn.put("Battery Voltage", new double[] { RobotController.getBatteryVoltage() });
+		toReturn.put("CAN Bus Utilization", new double[] { RobotController.getCANStatus().percentBusUtilization });
+		toReturn.put("Brown Out", new double[] { RobotController.isBrownedOut() ? 1.0 : 0.0 });
+		toReturn.put("Pressure", new double[] { getPressure() });
+		toReturn.put("Low Limit Switch", new double[] { controls.lowLimit.get() ? 1.0 : 0.0 });
+		toReturn.put("Low Limit Switch", new double[] { controls.highLimit.get() ? 1.0 : 0.0 });
 		return toReturn;
 	}
 }

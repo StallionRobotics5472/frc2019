@@ -1,14 +1,13 @@
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Controls;
 import frc.robot.Robot;
 import frc.robot.subsystems.LiftPIDSubsystem;
 
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.command.Command;
+public class LiftStop extends Command {
 
-public class LiftStop extends Command{
-	
 	private LiftPIDSubsystem lift;
 	private Controls controls;
 	private boolean finished;

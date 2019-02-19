@@ -8,6 +8,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
@@ -25,26 +26,23 @@ public class ArmPIDSubsystem extends PIDSubsystem {
    * 
    */
 
-   private TalonSRX arm;
-   private TalonSRX arm2;
-   
+  private TalonSRX arm;
+  private TalonSRX arm2;
+
   public ArmPIDSubsystem() {
     // Intert a subsystem name and PID values here
     super("ArmPIDSubsystem", Constants.ARM_PIDF_P, Constants.ARM_PIDF_I, Constants.ARM_PIDF_D);
-    arm = new TalonSRX(Constants.ARM_TALON);;
+    arm = new TalonSRX(Constants.ARM_TALON);
     arm2 = new TalonSRX(Constants.ARM_TALON_2);
     arm2.setInverted(true);
+    arm2.follow(arm);
+
+    arm.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
+    arm.setSensorPhase(false);
+
     setAbsoluteTolerance(10000);
     getPIDController().setContinuous(false);
     getPIDController().setSetpoint(0);
-
-    // setSetpoint(0);
-    
-    // Use these to get going:
-    // setSetpoint() - Sets where the PID controller should move the system
-    // to
-    // enable() - Enables the PID controller.
-    
   }
 
   @Override
@@ -69,61 +67,59 @@ public class ArmPIDSubsystem extends PIDSubsystem {
     arm.set(ControlMode.PercentOutput, output);
     arm2.set(ControlMode.PercentOutput, output);
   }
-  public void moveArm(double speed)
-  {
+
+  public void moveArm(double speed) {
     arm.set(ControlMode.PercentOutput, speed);
     arm2.set(ControlMode.PercentOutput, speed);
   }
 
-  public void enableBrake()
-  {
+  public void enableBrake() {
     arm.setNeutralMode(NeutralMode.Brake);
     arm2.setNeutralMode(NeutralMode.Brake);
   }
 
-  public void enableCoast()
-  {
-      arm.setNeutralMode(NeutralMode.Coast);
-      arm2.setNeutralMode(NeutralMode.Coast);
-      
+  public void enableCoast() {
+    arm.setNeutralMode(NeutralMode.Coast);
+    arm2.setNeutralMode(NeutralMode.Coast);
   }
 
-  public double getCurrent()
-  {
-    return (arm.getOutputCurrent() + arm2.getOutputCurrent())/2.0;
+  public double getCurrent() {
+    return (arm.getOutputCurrent() + arm2.getOutputCurrent()) / 2.0;
   }
 
-  public void setSetpoint(double pos){
-   getPIDController().setSetpoint(pos);
+  public void setSetpoint(double pos) {
+    getPIDController().setSetpoint(pos);
   }
 
-  public void enablePID(){
+  public void enablePID() {
     getPIDController().enable();
   }
 
-  public void disablePID(){
-   getPIDController().disable();
+  public void disablePID() {
+    getPIDController().disable();
   }
 
-  public void autoPeakOutput(){
-    arm.configPeakOutputForward( 0.5 , 10);
-    
+  public void autoPeakOutput() {
+    arm.configPeakOutputForward(0.5, 10);
   }
 
-
-  public void resetEncoders(){
+  public void resetEncoders() {
     arm.setSelectedSensorPosition(0, 0, 0);
-  }                          
-
-  public int getEncoder(){
-    return arm.getSelectedSensorPosition(0);
   }
 
-  public double getSetPoint(){
+  public int getEncoder() {
+    return arm.getSensorCollection().getQuadraturePosition();
+  }
+
+  public double getSetPoint() {
     return getPIDController().getSetpoint();
   }
 
-  public void usePID(double o){
+  public double getPercentOutput() {
+    return arm.getMotorOutputPercent();
+  }
+
+  public void usePID(double o) {
     usePIDOutput(o);
   }
 }

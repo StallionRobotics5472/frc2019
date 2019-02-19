@@ -1,20 +1,18 @@
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Constants;
 import frc.robot.Controls;
 import frc.robot.LimitSwitch;
 import frc.robot.Robot;
 import frc.robot.subsystems.LiftPIDSubsystem;
 
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.command.Command;
-
 public class LiftDefault extends Command {
 
 	private LiftPIDSubsystem lift;
 	private Controls controls = Robot.controls;
 	private LimitSwitch liftBottom;
-	
+
 	public LiftDefault() {
 		requires(Robot.lift);
 	}
@@ -28,33 +26,34 @@ public class LiftDefault extends Command {
 
 	@Override
 	public void execute() {
-		if(DriverStation.getInstance().isAutonomous())
-			return;
-		
-		
 		double up = controls.getLiftUpAxis();
 		double down = controls.getLiftDownAxis() * Constants.LIFT_REVERSE_OUTPUT_LIMIT;
 		double absdown = Math.abs(down);
-		
-//		if (lift.getPosition() < 3000 && absdown > 0.05) {
-//			//The lift is near the bottom and the operator wishes to lower it
-//			lift.enableBrake();
-////			lift.setPercent(0);
-//		}
-		if(absdown > 0.1)
-			//The lift is not near the bottom and the operator wishes to lower it
+		double desiredOutput = 0;
+
+		// if (lift.getPosition() < 3000 && absdown > 0.05) {
+		// //The lift is near the bottom and the operator wishes to lower it
+		// lift.enableBrake();
+		//// lift.setPercent(0);
+		// }
+		if (absdown > 0.1)
+			// The lift is not near the bottom and the operator wishes to lower it
 			lift.enableCoast();
 		else
 			lift.enableBrake();
-//		
-		if(liftBottom.get() && (up + down) < 0.00)
-			//The lift is at the bottom and the operator does not wish to raise it
-			lift.setPercent(0);
+		//
+		if (liftBottom.get() && (up + down) < 0.00)
+			// The lift is at the bottom and the operator does not wish to raise it
+			desiredOutput = 0;
 		else
-			//Normal operation procedure
-			lift.setPercent(up + down);
+			// Normal operation procedure
+			desiredOutput = up + down;
+
+		if (Robot.controls.highLimit.get() && (up + down) > 0)
+			desiredOutput = 0.2;
+
+		lift.setPercent(desiredOutput);
 	}
-	
 
 	@Override
 	protected boolean isFinished() {

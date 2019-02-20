@@ -52,7 +52,10 @@ public class Controls {
 		shiftGear.whenReleased(new ShiftGear());
 		highButton.whenPressed(new HighGear());
 
+
 		diskPush.whenPressed(new DiskGetCommand());
+
+		diskPush.whileHeld(new DiskGetCommand());
 
 		takeSnapshot.whenPressed(new TakeSnapshot());
 

@@ -9,8 +9,13 @@ package frc.robot;
 
 import java.util.HashMap;
 
+import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.RobotController;
+import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.autonomous.Autonomous;
-
+import frc.robot.commands.WristLevel;
 import frc.robot.subsystems.ArmPIDSubsystem;
 import frc.robot.subsystems.BallSubsystem;
 import frc.robot.subsystems.BottomPistonSubsystem;
@@ -19,13 +24,6 @@ import frc.robot.subsystems.DriveSubsystem;
 // import frc.robot.subsystems.LedSubsystem;
 import frc.robot.subsystems.LiftPIDSubsystem;
 import frc.robot.subsystems.WristSubsystem;
-import edu.wpi.first.wpilibj.AnalogInput;
-
-import edu.wpi.first.wpilibj.RobotController;
-import edu.wpi.first.wpilibj.TimedRobot;
-
-import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends TimedRobot implements DataProvider {
 
@@ -61,19 +59,25 @@ public class Robot extends TimedRobot implements DataProvider {
 		wrist = new WristSubsystem();
 		bottomPistons = new BottomPistonSubsystem();
 		controls = new Controls();
+	}
 
+	public void cleanup() {
+		drive.resetEncoders();
+		drive.resetHeading();
+		drive.drive(0.0, 0.0);
+		lift.resetEncoder();
+		lift.disable();
+		arm.disable();
+		wrist.disable();
+		wrist.resetEncoder();
+		arm.resetEncoder();
 	}
 
 	@Override
 	public void disabledInit() {
 		auto.end();
-		drive.resetEncoders();
-		drive.resetHeading();
-		drive.drive(0.0, 0.0);
-		lift.resetEncoder();
-		lift.disableClosedLoop();
 		logger.end();
-		Robot.arm.disablePID();
+		cleanup();
 		limelight.setLed(false);
 	}
 
@@ -91,25 +95,18 @@ public class Robot extends TimedRobot implements DataProvider {
 
 	@Override
 	public void autonomousInit() {
-		Robot.arm.resetEncoders();
-		drive.resetEncoders();
-		drive.resetHeading();
-		drive.drive(0.0, 0.0);
-		lift.resetEncoder();
+		cleanup();
 		lift.autoPeakOutput();
-		// lift.enableClosedLoop();
 		logger.start();
 		// auto.start();
-		Robot.arm.autoPeakOutput();
-		Robot.arm.enablePID();
-
+		new WristLevel().start();
 	}
 
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
-		Robot.arm.setSetpoint(105000);
-		Robot.arm.usePID(0.3);
+		// Robot.arm.setSetpoint(105000);
+		// Robot.arm.usePID(0.3);
 		logger.appendData(drive);
 		logger.appendData(lift);
 		logger.appendData(limelight);
@@ -117,26 +114,20 @@ public class Robot extends TimedRobot implements DataProvider {
 		logger.appendData(this);
 		logger.writeFrame();
 
-		SmartDashboard.putNumber("Lift Closed-Loop Error", lift.getError());
-
 		SmartDashboard.putNumber("Pressure", getPressure());
 		SmartDashboard.putBoolean("Upper Lift Limit", controls.highLimit.get());
 		SmartDashboard.putBoolean("Lower Lift Limit", controls.lowLimit.get());
 
 		SmartDashboard.putNumber("Left Encoder", drive.getLeftPosition());
 		SmartDashboard.putNumber("Right Encoder", drive.getRightPosition());
-		SmartDashboard.putNumber("Arm Setpoint", Robot.arm.getSetPoint());
+		SmartDashboard.putNumber("Arm Setpoint", Robot.arm.getSetpoint());
 	}
 
 	@Override
 	public void teleopInit() {
-		Robot.arm.disablePID();
 		auto.end();
 		limelight.setLed(false);
-		drive.resetEncoders();
-		drive.resetHeading();
-		drive.drive(0.0, 0.0);
-		lift.disableClosedLoop();
+		cleanup();
 		lift.teleopPeakOutput();
 		drive.highGear();
 		logger.start();
@@ -160,10 +151,11 @@ public class Robot extends TimedRobot implements DataProvider {
 		SmartDashboard.putBoolean("Ball Limit", Robot.ball.getLimit());
 		SmartDashboard.putNumber("Arm Encoder", Robot.arm.getEncoder());
 
-		SmartDashboard.putNumber("Wrist Encoder", wrist.getEncoderOutput());
-		SmartDashboard.putNumber("Arm Encoder", arm.getEncoder());
+		SmartDashboard.putNumber("Wrist Position", wrist.getDisplacement());
+		SmartDashboard.putNumber("Arm Position", arm.getPosition());
 		SmartDashboard.putNumber("Arm Output", arm.getPercentOutput());
 		SmartDashboard.putNumber("Lift Output", lift.getPercentOutput());
+		SmartDashboard.putNumber("Wrist Output", wrist.getPercentOutput());
 	}
 
 	@Override

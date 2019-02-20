@@ -16,16 +16,7 @@ import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import frc.robot.Constants;
 import frc.robot.commands.ArmCommand;
 
-/**
- * Add your docs here.
- */
 public class ArmPIDSubsystem extends PIDSubsystem {
-  /**
-   * Add your docs here.
-   * 
-   * 
-   */
-
   private TalonSRX arm;
   private TalonSRX arm2;
 
@@ -38,11 +29,12 @@ public class ArmPIDSubsystem extends PIDSubsystem {
     arm2.follow(arm);
 
     arm.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
-    arm.setSensorPhase(false);
+    arm.setSensorPhase(true);
 
-    setAbsoluteTolerance(10000);
     getPIDController().setContinuous(false);
-    getPIDController().setSetpoint(0);
+
+    this.setInputRange(-60, 60);
+    this.setOutputRange(-0.4, 0.4);
   }
 
   @Override
@@ -57,7 +49,7 @@ public class ArmPIDSubsystem extends PIDSubsystem {
     // Return your input value for the PID loop
     // e.g. a sensor, like a potentiometer:
     // yourPot.getAverageVoltage() / kYourMaxVoltage;
-    return arm.getSelectedSensorPosition(0);
+    return getPosition();
   }
 
   @Override
@@ -65,61 +57,43 @@ public class ArmPIDSubsystem extends PIDSubsystem {
     // Use output to drive your system, like a motor
     // e.g. yourMotor.set(output);
     arm.set(ControlMode.PercentOutput, output);
-    arm2.set(ControlMode.PercentOutput, output);
   }
 
   public void moveArm(double speed) {
     arm.set(ControlMode.PercentOutput, speed);
-    arm2.set(ControlMode.PercentOutput, speed);
   }
 
   public void enableBrake() {
     arm.setNeutralMode(NeutralMode.Brake);
-    arm2.setNeutralMode(NeutralMode.Brake);
   }
 
   public void enableCoast() {
     arm.setNeutralMode(NeutralMode.Coast);
-    arm2.setNeutralMode(NeutralMode.Coast);
   }
 
   public double getCurrent() {
     return (arm.getOutputCurrent() + arm2.getOutputCurrent()) / 2.0;
   }
 
-  public void setSetpoint(double pos) {
-    getPIDController().setSetpoint(pos);
-  }
-
-  public void enablePID() {
-    getPIDController().enable();
-  }
-
-  public void disablePID() {
-    getPIDController().disable();
-  }
-
   public void autoPeakOutput() {
     arm.configPeakOutputForward(0.5, 10);
   }
 
-  public void resetEncoders() {
-    arm.setSelectedSensorPosition(0, 0, 0);
+  public void resetEncoder() {
+    arm.getSensorCollection().setQuadraturePosition(0, 0);
   }
 
   public int getEncoder() {
-    return arm.getSensorCollection().getQuadraturePosition();
+    return -arm.getSensorCollection().getQuadraturePosition();
   }
 
-  public double getSetPoint() {
-    return getPIDController().getSetpoint();
+  @Override
+  public double getPosition() {
+    return 360 * getEncoder() / 4096.0 / 800.0;
   }
 
   public double getPercentOutput() {
     return arm.getMotorOutputPercent();
   }
 
-  public void usePID(double o) {
-    usePIDOutput(o);
-  }
 }

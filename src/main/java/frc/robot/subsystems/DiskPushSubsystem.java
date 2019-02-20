@@ -34,5 +34,13 @@ public class DiskPushSubsystem extends Subsystem{
         }
     }
 
+    public void forward(){
+        pusher.set(Value.kForward);
+    }
+
+    public void reverse(){
+        pusher.set(Value.kReverse);
+    }
+
 
 }

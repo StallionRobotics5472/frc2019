@@ -1,7 +1,7 @@
 package frc.robot.autonomous;
 
 import frc.robot.autonomous.commands.paths.StraightPath;
-
+import frc.robot.commands.WristLevel;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -86,32 +86,31 @@ public class Autonomous {
 		paths.addOption(Paths.LEFT_ROCKET.toString(), Paths.LEFT_ROCKET);
 		paths.addOption(Paths.LEFT_TURN.toString(), Paths.LEFT_TURN);
 		SmartDashboard.putData("Path", paths);
-		
 	}
 
 	public void start() {
-		StartingPosition startPos = starting.getSelected();
-		Plan thePlan = plan.getSelected();
+		// StartingPosition startPos = starting.getSelected();
+		// Plan thePlan = plan.getSelected();
 		
-		Paths thePath = paths.getSelected();
+		// Paths thePath = paths.getSelected();
 
-		SmartDashboard.putString("Game Data", gameSpecificData);
+		// SmartDashboard.putString("Game Data", gameSpecificData);
 		
-		switch(startPos) {
-		case CENTER:
-			startingCenter(thePlan);
-			break;
-		case LEFT:
-			startingLeft(thePlan);
-			break;
-		case RIGHT:
-			startingRight(thePlan);
-			break;
-		case MOTION_PROFILE:
-			runMotionProfile(thePath);
-			break;
-		}
-		
+		// switch(startPos) {
+		// case CENTER:
+		// 	startingCenter(thePlan);
+		// 	break;
+		// case LEFT:
+		// 	startingLeft(thePlan);
+		// 	break;
+		// case RIGHT:
+		// 	startingRight(thePlan);
+		// 	break;
+		// case MOTION_PROFILE:
+		// 	runMotionProfile(thePath);
+		// 	break;
+		// }
+		command = new WristLevel();
 		if (command != null)
 			command.start();
 	}

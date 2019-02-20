@@ -31,14 +31,14 @@ public class HoldArm extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.arm.enablePID();
-    Robot.wrist.enablePID();
-    encoderStatusArm = Robot.arm.getEncoder();
-    encoderStatusWrist = Robot.arm.getEncoder();
-    Robot.arm.setSetpoint(50000);
-    Robot.wrist.setSetpoint(encoderStatusWrist);
-    Robot.arm.usePID(0.25);
-    Robot.wrist.usePID(0.25);
+    Robot.arm.enable();
+    Robot.wrist.enable();
+    // encoderStatusArm = Robot.arm.getEncoder();
+    // encoderStatusWrist = Robot.arm.getEncoder();
+    // Robot.arm.setSetpoint(50000);
+    // Robot.wrist.setSetpoint(encoderStatusWrist);
+    // Robot.arm.usePID(0.25);
+    // Robot.wrist.usePID(0.25);
     isFinished = true;
   }
 

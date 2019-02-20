@@ -12,7 +12,7 @@ public class BottomPistonSubsystem extends Subsystem
 
     public BottomPistonSubsystem()
     {
-        sole = new DoubleSolenoid(Constants.RAMP_SOLENOID_RIGHT , Constants.RAMP_SOLENOID_LEFT);
+        sole = new DoubleSolenoid(Constants.BOTTOM_PISTON_SOLENOID_RIGHT , Constants.BOTTOM_PISTON_SOLENOID_LEFT);
     }
 
     @Override

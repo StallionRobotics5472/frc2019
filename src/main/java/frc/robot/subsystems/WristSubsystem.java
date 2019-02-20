@@ -14,13 +14,19 @@ import frc.robot.commands.WristCommand;
 public class WristSubsystem extends PIDSubsystem {
 
     // the motor for the wrist
-    private TalonSRX motor;
+    private TalonSRX wristMotor;
     // the speed the motor should spin at
 
     public WristSubsystem() {
         super("WristSubsystem", Constants.WRIST_PIDF_P, Constants.WRIST_PIDF_I, Constants.WRIST_PIDF_D);
-        motor = new TalonSRX(Constants.WRIST_TALON);
-        motor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
+        wristMotor = new TalonSRX(Constants.WRIST_TALON);
+        wristMotor.setInverted(true);
+        wristMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
+        wristMotor.setSensorPhase(true);
+
+        this.setAbsoluteTolerance(5);
+        this.setOutputRange(-0.5, 0.5);
+        this.setInputRange(-90, 0);
     }
 
     @Override
@@ -29,67 +35,59 @@ public class WristSubsystem extends PIDSubsystem {
     }
 
     public void spin(double s) {
-        motor.set(ControlMode.PercentOutput, s);
+        wristMotor.set(ControlMode.PercentOutput, s);
     }
 
     public void setBrake() {
-        motor.setNeutralMode(NeutralMode.Brake);
+        wristMotor.setNeutralMode(NeutralMode.Brake);
     }
 
     public void showVoltage() {
-        SmartDashboard.putNumber("Wrist Current", motor.getOutputCurrent());
-        SmartDashboard.putNumber("Wrist Voltage", motor.getMotorOutputVoltage());
+        SmartDashboard.putNumber("Wrist Current", wristMotor.getOutputCurrent());
+        SmartDashboard.putNumber("Wrist Voltage", wristMotor.getMotorOutputVoltage());
     }
 
     @Override
     protected double returnPIDInput() {
-        return 0;
+        return getDisplacement();
     }
 
     @Override
     protected void usePIDOutput(double output) {
-        motor.set(ControlMode.PercentOutput, output);
-    }
-
-    public void enablePID() {
-        getPIDController().enable();
-    }
-
-    public double getSetPoint() {
-        return getPIDController().getSetpoint();
-    }
-
-    public void usePID(double o) {
-        usePIDOutput(o);
-    }
-
-    public void setSetpoint(double pos) {
-        getPIDController().setSetpoint(pos);
-    }
-
-    public void disablePID() {
-        getPIDController().disable();
+        wristMotor.set(ControlMode.PercentOutput, output);
     }
 
     public void enableBrake() {
-        motor.setNeutralMode(NeutralMode.Brake);
+        wristMotor.setNeutralMode(NeutralMode.Brake);
     }
 
     public void enableCoast() {
-        motor.setNeutralMode(NeutralMode.Coast);
-
+        wristMotor.setNeutralMode(NeutralMode.Coast);
     }
 
     public double getCurrent() {
-        return motor.getOutputCurrent();
+        return wristMotor.getOutputCurrent();
+    }
+
+    public double getPercentOutput() {
+        return wristMotor.getMotorOutputPercent();
     }
 
     public int getEncoderOutput() {
-        return motor.getSensorCollection().getQuadraturePosition();
+        return -wristMotor.getSensorCollection().getQuadraturePosition();
     }
 
-    public int getEncoderVelocity() {
-        return motor.getSensorCollection().getQuadratureVelocity();
+    public void resetEncoder() {
+        wristMotor.getSensorCollection().setQuadraturePosition(0, 0);
+    }
+
+    public double getDisplacement() {
+        return 360.0 * getEncoderOutput() / 4096.0 / 1600.0;
+    }
+
+    @Override
+    public double getPosition() {
+        return getDisplacement();
     }
 
 }

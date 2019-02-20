@@ -1,20 +1,18 @@
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.robot.commands.BallCommand;
+import frc.robot.commands.BottomPistonShift;
+import frc.robot.commands.DisableArmPID;
+import frc.robot.commands.DiskGetCommand;
 import frc.robot.commands.HighGear;
 import frc.robot.commands.HoldArm;
 import frc.robot.commands.LiftStop;
 import frc.robot.commands.LiftZeroEncoder;
-import frc.robot.commands.ReportIntakeLimit;
 import frc.robot.commands.ShiftGear;
 import frc.robot.commands.StopBall;
 import frc.robot.commands.TakeSnapshot;
-import frc.robot.commands.BallCommand;
-import frc.robot.commands.BottomPistonShift;
-import frc.robot.commands.DiskPushCommand;
-import frc.robot.commands.DisableArmPID;
-
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 public class Controls {
 
@@ -35,7 +33,6 @@ public class Controls {
 
 	public LimitSwitch highLimit = new LimitSwitch(Constants.LIMIT_SWITCH_HIGH, true);
 	public LimitSwitch lowLimit = new LimitSwitch(Constants.LIMIT_SWITCH_LOW, false);
-	public LimitSwitch intakeLimit = new LimitSwitch(Constants.LIMIT_SWITCH_INTAKE, true);
 
 	private JoystickButton fastBallIn = new JoystickButton(playerOne, Constants.SHOULDER_BUTTON_LEFT);
 	private JoystickButton fastBallReverse = new JoystickButton(playerOne, Constants.SHOULDER_BUTTON_RIGHT);
@@ -55,7 +52,7 @@ public class Controls {
 		shiftGear.whenReleased(new ShiftGear());
 		highButton.whenPressed(new HighGear());
 
-		diskPush.whenPressed(new DiskPushCommand());
+		diskPush.whenPressed(new DiskGetCommand());
 
 		takeSnapshot.whenPressed(new TakeSnapshot());
 
@@ -64,8 +61,6 @@ public class Controls {
 
 		highLimit.whileActive(new LiftStop());
 		lowLimit.whileActive(new LiftZeroEncoder());
-		intakeLimit.whenPressed(new ReportIntakeLimit());
-		intakeLimit.whenReleased(new ReportIntakeLimit());
 
 		fastBallIn.whileHeld(new BallCommand(-Constants.HIGH_BALL, true));
 		fastBallOut.whileHeld(new BallCommand(-Constants.HIGH_BALL, false));

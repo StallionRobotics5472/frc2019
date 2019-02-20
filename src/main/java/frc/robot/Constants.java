@@ -24,11 +24,15 @@ public class Constants {
 	public static final double DRIVE_FOLLOWER_D = 6.0;
 	public static final double DRIVE_FOLLOWER_F = 0.5;
 
+	// Put all Talons here:
+
 	public static final int DRIVE_LEFT_TALON_CAN = 1;
 	public static final int DRIVE_LEFT_FOLLOWER_CAN = 2;
 	public static final int DRIVE_RIGHT_TALON_CAN = 14;
 	public static final int DRIVE_RIGHT_FOLLOWER_CAN = 13;
 	public static final int DRIVE_SHIFT_SOLENOID = 0;
+
+	public static final int INTAKE_CAN = 8;
 
 	public static final double DRIVE_AUTO_OUTPUT_LIMIT = 1.0;
 	public static final double DRIVE_AUTO_TURN_P = 2.0 / 45.0;
@@ -36,7 +40,7 @@ public class Constants {
 	public static final double DRIVE_AUTO_TURN_D = 6.0 / 45.0;
 	public static final double LIMELIGHT_APPROACH_BOX_KP = 0.015;
 
-	public static final int INTAKE_SOLENOID_ID_FORW = 1;
+	public static final int USELESS_SOLENOID = 1;
 	public static final int INTAKE_SOLENOID_ID_BACK = 2;
 	public static final double INTAKE_INPUT_SPEED = 1.00;
 	public static final double INTAKE_INPUT_SLOW_SPEED = 0.40;
@@ -58,7 +62,7 @@ public class Constants {
 
 	public static final int LIMIT_SWITCH_HIGH = 0;
 	public static final int LIMIT_SWITCH_LOW = 4;
-	public static final int LIMIT_SWITCH_INTAKE = 1;
+	public static final int LIMIT_SWITCH_INTAKE = 2;
 
 	public static final int LED_RED_DIO = 0;
 	public static final int LED_GREEN_DIO = 2;
@@ -73,8 +77,8 @@ public class Constants {
 	public static final int ARM_TALON_2 = 7;
 
 	// Correct Solenoid values
-	public static final int RAMP_SOLENOID_RIGHT = 2;
-	public static final int RAMP_SOLENOID_LEFT = 3;
+	public static final int BOTTOM_PISTON_SOLENOID_RIGHT = 2;
+	public static final int BOTTOM_PISTON_SOLENOID_LEFT = 3;
 
 	public static final int DISK_RELEASE = 1;
 
@@ -98,13 +102,13 @@ public class Constants {
 
 	public static final int ARM_HALF_HEIGHT = -350000;
 
-	public static final double ARM_PIDF_P = 0.0004;
+	public static final double ARM_PIDF_P = 0.4 / 30.0;  // Output should be 0.4 when the error is 30deg
 	public static final double ARM_PIDF_I = 0;
-	public static final double ARM_PIDF_D = 1;
-	public static final double ARM_PIDF_F = 0;
+	public static final double ARM_PIDF_D = 0;  //  The high gearing prevents overshooting, no D required
+	public static final double ARM_PIDF_F = 0;  //  The arm holds itself up through high gearing, no F required
 
-	public static final double WRIST_PIDF_P = 0;
+	public static final double WRIST_PIDF_P = 0.5 / 30.0;  // Output should be 0.5 when the error is 30deg and decrease from there
 	public static final double WRIST_PIDF_I = 0;
-	public static final double WRIST_PIDF_D = 1;
-	public static final double WRIST_PIDF_F = 0;
+	public static final double WRIST_PIDF_D = 0;  // ^
+	public static final double WRIST_PIDF_F = 0;  // ^
 }

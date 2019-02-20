@@ -10,8 +10,11 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.Constants;
 import frc.robot.LimitSwitch;
+import frc.robot.commands.ReportIntakeLimit;
 
 /**
  * Add your docs here.
@@ -19,29 +22,28 @@ import frc.robot.LimitSwitch;
 public class BallSubsystem extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
-  private TalonSRX motor = new TalonSRX(5);
-  private LimitSwitch ballLimit = new LimitSwitch(9, false);
+  private TalonSRX motor = new TalonSRX(Constants.INTAKE_CAN);
+  private LimitSwitch ballLimit = new LimitSwitch(Constants.LIMIT_SWITCH_INTAKE, true);
 
-  public BallSubsystem(){
+  private Solenoid actuallyUselessSolenoid = new Solenoid(Constants.USELESS_SOLENOID);
+
+  public BallSubsystem() {
     motor.setInverted(true);
+    ballLimit.whenPressed(new ReportIntakeLimit());
+    ballLimit.whenReleased(new ReportIntakeLimit());
   }
 
   @Override
   public void initDefaultCommand() {
-   
+
   }
 
-  public void spin(double speed){
+  public void spin(double speed) {
     motor.set(ControlMode.PercentOutput, speed);
   }
 
-  public boolean getLimit(){
+  public boolean getLimit() {
     return ballLimit.get();
   }
-
-  
-
-  
-
 
 }

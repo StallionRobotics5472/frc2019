@@ -2,7 +2,6 @@ package frc.robot.autonomous;
 
 import frc.robot.autonomous.commands.paths.StraightPath;
 import frc.robot.commands.WristLevel;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -60,7 +59,6 @@ public class Autonomous {
 	private SendableChooser<Plan> plan = new SendableChooser<>();
 	
 	private Command command = null;
-	private String gameSpecificData = "";
 
 	private static SendableChooser<Paths> paths = new SendableChooser<>();
 
@@ -171,7 +169,5 @@ public class Autonomous {
 			command.cancel();
 	}
 
-	public void checkGameSpecificData() {
-		this.gameSpecificData = DriverStation.getInstance().getGameSpecificMessage().toUpperCase();
-	}
+	
 }

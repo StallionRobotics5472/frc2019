@@ -107,7 +107,8 @@ public class Constants {
 	public static final double ARM_PIDF_D = 0;  //  The high gearing prevents overshooting, no D required
 	public static final double ARM_PIDF_F = 0;  //  The arm holds itself up through high gearing, no F required
 
-	public static final double WRIST_PIDF_P = 0.5 / 30.0;  // Output should be 0.5 when the error is 30deg and decrease from there
+	public
+	 static final double WRIST_PIDF_P = 0.5 / 30.0;  // Output should be 0.5 when the error is 30deg and decrease from there
 	public static final double WRIST_PIDF_I = 0;
 	public static final double WRIST_PIDF_D = 0;  // ^
 	public static final double WRIST_PIDF_F = 0;  // ^

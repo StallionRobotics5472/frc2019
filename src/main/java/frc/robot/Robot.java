@@ -83,8 +83,6 @@ public class Robot extends TimedRobot implements DataProvider {
 
 	@Override
 	public void disabledPeriodic() {
-		if (auto != null)
-			auto.checkGameSpecificData();
 
 		SmartDashboard.putNumber("Pressure", getPressure());
 		SmartDashboard.putBoolean("Upper Lift Limit", controls.highLimit.get());

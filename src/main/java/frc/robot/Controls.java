@@ -6,8 +6,8 @@ import frc.robot.commands.BallCommand;
 import frc.robot.commands.BottomPistonShift;
 import frc.robot.commands.DisableArmPID;
 import frc.robot.commands.DiskGetCommand;
+import frc.robot.commands.DiskPushCommand;
 import frc.robot.commands.HighGear;
-import frc.robot.commands.HoldArm;
 import frc.robot.commands.LiftStop;
 import frc.robot.commands.LiftZeroEncoder;
 import frc.robot.commands.ShiftGear;
@@ -45,7 +45,6 @@ public class Controls {
 
 	public Controls() {
 
-		holdArm.whileHeld(new HoldArm());
 		holdArm.whenReleased(new DisableArmPID());
 
 		shiftGear.whenPressed(new ShiftGear());
@@ -56,6 +55,8 @@ public class Controls {
 		diskPush.whenPressed(new DiskGetCommand());
 
 		diskPush.whileHeld(new DiskGetCommand());
+
+		diskPush.whenPressed(new DiskPushCommand());
 
 		takeSnapshot.whenPressed(new TakeSnapshot());
 

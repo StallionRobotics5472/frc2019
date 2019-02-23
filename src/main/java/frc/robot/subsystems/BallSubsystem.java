@@ -10,7 +10,6 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
-import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Constants;
 import frc.robot.LimitSwitch;
@@ -25,7 +24,7 @@ public class BallSubsystem extends Subsystem {
   private TalonSRX motor = new TalonSRX(Constants.INTAKE_CAN);
   private LimitSwitch ballLimit = new LimitSwitch(Constants.LIMIT_SWITCH_INTAKE, true);
 
-  private Solenoid actuallyUselessSolenoid = new Solenoid(Constants.USELESS_SOLENOID);
+  //private Solenoid actuallyUselessSolenoid = new Solenoid(Constants.USELESS_SOLENOID);
 
   public BallSubsystem() {
     motor.setInverted(true);

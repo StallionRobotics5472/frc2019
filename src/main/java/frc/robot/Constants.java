@@ -5,6 +5,10 @@ Use these instead of hard-coding so it can be easily changed across the whole ro
 package frc.robot;
 
 public class Constants {
+	//uncertain, CHECK WHEN YOU HAVE ENCODER VALUES
+	public static final double LEVEL_ONE_HEIGHT = 500000;
+	public static final double LEVEL_TWO_HEIGHT = 100000;
+	public static final double LEVEL_THREE_HEIGHT = 1500000;
 
 	public static final double WHEEL_DIAMETER = 0.1016;
 	public static final double ROBOT_WIDTH = 0.7112;

@@ -97,8 +97,8 @@ public class Robot extends TimedRobot implements DataProvider {
 		cleanup();
 		lift.autoPeakOutput();
 		logger.start();
-		// auto.start();
-		new WristLevel().start();
+		auto.start();
+		// new WristLevel().start();
 	}
 
 	@Override

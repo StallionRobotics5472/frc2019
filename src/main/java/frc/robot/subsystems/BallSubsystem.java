@@ -22,7 +22,7 @@ public class BallSubsystem extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
   private TalonSRX motor = new TalonSRX(Constants.INTAKE_CAN);
-  private LimitSwitch ballLimit = new LimitSwitch(Constants.LIMIT_SWITCH_INTAKE, true);
+  private LimitSwitch ballLimit = new LimitSwitch(Constants.LIMIT_SWITCH_INTAKE, false);
 
   //private Solenoid actuallyUselessSolenoid = new Solenoid(Constants.USELESS_SOLENOID);
 
@@ -38,8 +38,12 @@ public class BallSubsystem extends Subsystem {
   }
 
   public void spin(double speed) {
+   
+
     motor.set(ControlMode.PercentOutput, speed);
-  }
+    }
+    
+  
 
   public boolean getLimit() {
     return ballLimit.get();

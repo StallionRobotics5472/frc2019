@@ -34,7 +34,7 @@ public class WristCommand extends Command {
   protected void execute() {
     double downspeed = Robot.controls.getPlayerTwo().getRawAxis(Constants.Axis_5)/2;
     double upspeed = Robot.controls.getPlayerTwo().getRawAxis(Constants.Axis_5)/2;
-    Robot.wrist.spin(downspeed+upspeed/16);
+    Robot.wrist.spin(-(downspeed+upspeed/16));
     Robot.wrist.showVoltage();
    
   }

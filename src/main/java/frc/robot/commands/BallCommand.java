@@ -32,6 +32,7 @@ public class BallCommand extends Command {
   @Override
   protected void execute() {
     if(Robot.ball.getLimit() && out){
+
       Robot.ball.spin(0);
       isFinished = true;
     }else{

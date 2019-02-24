@@ -2,6 +2,9 @@ package frc.robot.autonomous;
 
 import frc.robot.autonomous.commands.paths.StraightPath;
 import frc.robot.commands.WristLevel;
+
+import java.util.ArrayList;
+
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -62,8 +65,7 @@ public class Autonomous {
 
 	private static SendableChooser<Paths> paths = new SendableChooser<>();
 
-	private String[] fileNames = {"/home/lvuser/Paths/straight", "/home/lvuser/Paths/leftrocket", "/home/lvuser/Paths/left_turn"};
-
+	private ArrayList<String> fileNames = new ArrayList<String>();
 	public static SendableChooser<Paths> getPaths(){
 		return paths;
 	}
@@ -79,36 +81,38 @@ public class Autonomous {
 		SmartDashboard.putData("Autonomous Starting Position", starting);
 		SmartDashboard.putData("Autonomous Task", plan);
 		
+		
 		// paths.addDefault("No path", Paths.NO_PATHS);
 		paths.addOption(Paths.STRAIGHT.toString(), Paths.STRAIGHT);
 		paths.addOption(Paths.LEFT_ROCKET.toString(), Paths.LEFT_ROCKET);
 		paths.addOption(Paths.LEFT_TURN.toString(), Paths.LEFT_TURN);
 		SmartDashboard.putData("Path", paths);
+
+		fileNames.add("/home/lvuser/Paths/straight");
+		fileNames.add("/home/lvuser/Paths/leftrocket");
+		fileNames.add("/home/lvuser/Paths/left_turn");
 	}
 
 	public void start() {
-		// StartingPosition startPos = starting.getSelected();
-		// Plan thePlan = plan.getSelected();
+		StartingPosition startPos = starting.getSelected();
+		Plan thePlan = plan.getSelected();
 		
-		// Paths thePath = paths.getSelected();
+		Paths thePath = paths.getSelected();
 
-		// SmartDashboard.putString("Game Data", gameSpecificData);
-		
-		// switch(startPos) {
-		// case CENTER:
-		// 	startingCenter(thePlan);
-		// 	break;
-		// case LEFT:
-		// 	startingLeft(thePlan);
-		// 	break;
-		// case RIGHT:
-		// 	startingRight(thePlan);
-		// 	break;
-		// case MOTION_PROFILE:
-		// 	runMotionProfile(thePath);
-		// 	break;
-		// }
-		command = new WristLevel();
+		switch(startPos) {
+		case CENTER:
+			startingCenter(thePlan);
+			break;
+		case LEFT:
+			startingLeft(thePlan);
+			break;
+		case RIGHT:
+			startingRight(thePlan);
+			break;
+		case MOTION_PROFILE:
+			runMotionProfile(thePath);
+			break;
+		}
 		if (command != null)
 			command.start();
 	}
@@ -117,15 +121,15 @@ public class Autonomous {
 	{
 		switch(path){
 			case STRAIGHT:
-				command = new StraightPath(fileNames[0]);
+				command = new StraightPath(fileNames.get(0));
 				break;
 
 			case LEFT_ROCKET:
-				command = new StraightPath(fileNames[1]);
+				command = new StraightPath(fileNames.get(1));
 				break;
 
 			case LEFT_TURN:
-				command = new StraightPath(fileNames[2]);
+				command = new StraightPath(fileNames.get(2));
 				break;
 			default:
 				System.out.println("You tried to run a motion profile path that doesn't exist!");
@@ -138,7 +142,7 @@ public class Autonomous {
 		switch(task) {
 			
 			case DRIVE_STRAIGHT_MOTION_PROFILE:
-				command = new StraightPath(fileNames[0]);
+				command = new StraightPath(fileNames.get(0));
 				break;
 		}
 	}
@@ -147,7 +151,7 @@ public class Autonomous {
 		switch(task) {
 			
 			case DRIVE_STRAIGHT_MOTION_PROFILE:
-				command = new StraightPath(fileNames[0]);
+				command = new StraightPath(fileNames.get(0));
 				break;
 		}
 		}
@@ -159,7 +163,7 @@ public class Autonomous {
 		switch(task) {
 		
 			case DRIVE_STRAIGHT_MOTION_PROFILE:
-				command = new StraightPath(fileNames[0]);
+				command = new StraightPath(fileNames.get(0));
 				break;
 		}
 	}

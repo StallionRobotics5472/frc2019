@@ -34,9 +34,9 @@ public class LedSubsystem implements DataProvider{
 	
 	public LedSubsystem() {
 		currentColor = LedColor.OFF;
-		red = new DigitalOutput(Constants.LED_RED_DIO);
-		green = new DigitalOutput(Constants.LED_GREEN_DIO);
-		blue = new DigitalOutput(Constants.LED_BLUE_DIO);
+//		red = new DigitalOutput(Constants.LED_RED_DIO);
+//		green = new DigitalOutput(Constants.LED_GREEN_DIO);
+//		blue = new DigitalOutput(Constants.LED_BLUE_DIO);
 	}
 	
 	public void setColor(LedColor color) {

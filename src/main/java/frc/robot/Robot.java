@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.autonomous.Autonomous;
+import frc.robot.commands.InitializeLift;
 import frc.robot.commands.WristLevel;
 import frc.robot.subsystems.ArmPIDSubsystem;
 import frc.robot.subsystems.BallSubsystem;
@@ -27,157 +28,147 @@ import frc.robot.subsystems.WristSubsystem;
 
 public class Robot extends TimedRobot implements DataProvider {
 
-	private Autonomous auto;
+    private Autonomous auto;
 
-	public static Controls controls;
-	public static DriveSubsystem drive;
-	public static LiftPIDSubsystem lift;
-	// public static LedSubsystem led;
-	public static Limelight limelight;
-	public static Cameras cameras;
-	private static DataLogger logger;
-	public static DiskPushSubsystem diskPush;
-	public static BallSubsystem ball;
-	public static ArmPIDSubsystem arm;
-	public static WristSubsystem wrist;
-	public static BottomPistonSubsystem bottomPistons;
-	private AnalogInput pressureSensor;
+    public static Controls controls;
+    public static DriveSubsystem drive;
+    public static LiftPIDSubsystem lift;
+    // public static LedSubsystem led;
+    public static Limelight limelight;
+    public static Cameras cameras;
+    private static DataLogger logger;
+    public static DiskPushSubsystem diskPush;
+    public static BallSubsystem ball;
+    public static ArmPIDSubsystem arm;
+    public static WristSubsystem wrist;
+    public static BottomPistonSubsystem bottomPistons;
+    private AnalogInput pressureSensor;
 
-	@Override
-	public void robotInit() {
-		drive = new DriveSubsystem();
-		lift = new LiftPIDSubsystem();
-		// led = new LedSubsystem();
-		limelight = new Limelight();
-		cameras = new Cameras();
-		auto = new Autonomous();
-		logger = new DataLogger();
-		ball = new BallSubsystem();
-		pressureSensor = new AnalogInput(0);
-		diskPush = new DiskPushSubsystem();
-		arm = new ArmPIDSubsystem();
-		wrist = new WristSubsystem();
-		bottomPistons = new BottomPistonSubsystem();
-		controls = new Controls();
-	}
+    @Override
+    public void robotInit() {
+        drive = new DriveSubsystem();
+        lift = new LiftPIDSubsystem();
+        // led = new LedSubsystem();
+        limelight = new Limelight();
+        cameras = new Cameras();
+        auto = new Autonomous();
+        logger = new DataLogger();
+        ball = new BallSubsystem();
+        pressureSensor = new AnalogInput(0);
+        diskPush = new DiskPushSubsystem();
+        arm = new ArmPIDSubsystem();
+        wrist = new WristSubsystem();
+        bottomPistons = new BottomPistonSubsystem();
+        controls = new Controls();
+    }
 
-	public void cleanup() {
-		drive.resetEncoders();
-		drive.resetHeading();
-		drive.drive(0.0, 0.0);
-		lift.resetEncoder();
-		lift.disable();
-		arm.disable();
-		wrist.disable();
-		wrist.resetEncoder();
-		arm.resetEncoder();
-		//
-	}
+    public void cleanup() {
+        drive.resetEncoders();
+        drive.resetHeading();
+        drive.drive(0.0, 0.0);
+        lift.resetEncoder();
+        lift.disable();
+        arm.disable();
+        wrist.disable();
+        wrist.resetEncoder();
+        arm.resetEncoder();
+        //
+    }
 
-	@Override
-	public void disabledInit() {
-		auto.end();
-		logger.end();
-		cleanup();
-		limelight.setLed(false);
-	}
+    @Override
+    public void disabledInit() {
+        auto.end();
+        logger.end();
+        cleanup();
+        limelight.setLed(false);
+    }
 
-	@Override
-	public void disabledPeriodic() {
+    @Override
+    public void disabledPeriodic() {
 
-		SmartDashboard.putNumber("Pressure", getPressure());
-		SmartDashboard.putBoolean("Upper Lift Limit", controls.highLimit.get());
-		SmartDashboard.putBoolean("Lower Lift Limit", controls.lowLimit.get());
+        SmartDashboard.putNumber("Pressure", getPressure());
+        SmartDashboard.putBoolean("Upper Lift Limit", controls.highLimit.get());
+        SmartDashboard.putBoolean("Lower Lift Limit", controls.lowLimit.get());
 
-		limelight.setLed(false);
-	}
+        limelight.setLed(false);
+    }
 
-	@Override
-	public void autonomousInit() {
-		cleanup();
-		lift.autoPeakOutput();
-		logger.start();
-		auto.start();
-		// new WristLevel().start();
-	}
+    @Override
+    public void autonomousInit() {
+        cleanup();
+        lift.autoPeakOutput();
+        logger.start();
+        auto.start();
+    }
 
-	@Override
-	public void autonomousPeriodic() {
-		Scheduler.getInstance().run();
-		// Robot.arm.setSetpoint(105000);
-		// Robot.arm.usePID(0.3);
-		logger.appendData(drive);
-		logger.appendData(lift);
-		logger.appendData(limelight);
-		// logger.appendData(led);
-		logger.appendData(this);
-		logger.writeFrame();
+    @Override
+    public void autonomousPeriodic() {
+        Scheduler.getInstance().run();
+        logger.appendData(drive);
+        logger.appendData(lift);
+        logger.appendData(limelight);
+        logger.appendData(this);
+        logger.writeFrame();
 
-		SmartDashboard.putNumber("Pressure", getPressure());
-		SmartDashboard.putBoolean("Upper Lift Limit", controls.highLimit.get());
-		SmartDashboard.putBoolean("Lower Lift Limit", controls.lowLimit.get());
+        SmartDashboard.putNumber("Pressure", getPressure());
+        SmartDashboard.putBoolean("Upper Lift Limit", controls.highLimit.get());
+        SmartDashboard.putBoolean("Lower Lift Limit", controls.lowLimit.get());
 
-		SmartDashboard.putNumber("Left Encoder", drive.getLeftPosition());
-		SmartDashboard.putNumber("Right Encoder", drive.getRightPosition());
-		SmartDashboard.putNumber("Arm Setpoint", Robot.arm.getSetpoint());
-	}
+        SmartDashboard.putNumber("Left Encoder", drive.getLeftPosition());
+        SmartDashboard.putNumber("Right Encoder", drive.getRightPosition());
+        SmartDashboard.putNumber("Arm Setpoint", Robot.arm.getSetpoint());
+        SmartDashboard.putNumber("Lift Encoder", lift.getPosition());
+    }
 
-	@Override
-	public void teleopInit() {
-		auto.end();
-		limelight.setLed(false);
-		cleanup();
-		lift.teleopPeakOutput();
-		drive.highGear();
-		logger.start();
+    @Override
+    public void teleopInit() {
+        auto.end();
+        limelight.setLed(false);
+        cleanup();
+        lift.teleopPeakOutput();
+        drive.highGear();
+        logger.start();
+        lift.disable();
+        wrist.disable();
+    }
 
-	}
+    @Override
+    public void teleopPeriodic() {
+        Scheduler.getInstance().run();
+        logger.appendData(drive);
+        logger.appendData(lift);
+        logger.appendData(limelight);
+        logger.appendData(this);
+        logger.writeFrame();
 
-	@Override
-	public void teleopPeriodic() {
-		Scheduler.getInstance().run();
-		logger.appendData(drive);
-		logger.appendData(lift);
-		logger.appendData(limelight);
-		// logger.appendData(led);
-		logger.appendData(this);
-		logger.writeFrame();
+        SmartDashboard.putNumber("Pressure", getPressure());
+        SmartDashboard.putBoolean("Upper Lift Limit", controls.highLimit.get());
+        SmartDashboard.putBoolean("Lower Lift Limit", controls.lowLimit.get());
+        SmartDashboard.putNumber("Heading", Robot.drive.getHeading());
+        SmartDashboard.putBoolean("Ball Limit", Robot.ball.getLimit());
+    }
 
-		SmartDashboard.putNumber("Pressure", getPressure());
-		SmartDashboard.putBoolean("Upper Lift Limit", controls.highLimit.get());
-		SmartDashboard.putBoolean("Lower Lift Limit", controls.lowLimit.get());
-		SmartDashboard.putNumber("Heading", Robot.drive.getHeading());
-		SmartDashboard.putBoolean("Ball Limit", Robot.ball.getLimit());
-		SmartDashboard.putNumber("Arm Encoder", Robot.arm.getEncoder());
+    @Override
+    public void testInit() {
+    }
 
-		SmartDashboard.putNumber("Wrist Position", wrist.getDisplacement());
-		SmartDashboard.putNumber("Arm Position", arm.getPosition());
-		SmartDashboard.putNumber("Arm Output", arm.getPercentOutput());
-		SmartDashboard.putNumber("Lift Output", lift.getPercentOutput());
-		SmartDashboard.putNumber("Wrist Output", wrist.getPercentOutput());
-	}
+    @Override
+    public void testPeriodic() {
+        Scheduler.getInstance().run();
+    }
 
-	@Override
-	public void testInit() {
-	}
+    public double getPressure() {
+        return (250 * (pressureSensor.getVoltage() / 4.95));
+    }
 
-	@Override
-	public void testPeriodic() {
-		Scheduler.getInstance().run();
-	}
-
-	public double getPressure() {
-		return (250 * (pressureSensor.getVoltage() / 4.95));
-	}
-
-	public HashMap<String, double[]> getData() {
-		HashMap<String, double[]> toReturn = new HashMap<>();
-		toReturn.put("Battery Voltage", new double[] { RobotController.getBatteryVoltage() });
-		toReturn.put("CAN Bus Utilization", new double[] { RobotController.getCANStatus().percentBusUtilization });
-		toReturn.put("Brown Out", new double[] { RobotController.isBrownedOut() ? 1.0 : 0.0 });
-		toReturn.put("Pressure", new double[] { getPressure() });
-		toReturn.put("Low Limit Switch", new double[] { controls.lowLimit.get() ? 1.0 : 0.0 });
-		toReturn.put("Low Limit Switch", new double[] { controls.highLimit.get() ? 1.0 : 0.0 });
-		return toReturn;
-	}
+    public HashMap<String, double[]> getData() {
+        HashMap<String, double[]> toReturn = new HashMap<>();
+        toReturn.put("Battery Voltage", new double[]{RobotController.getBatteryVoltage()});
+        toReturn.put("CAN Bus Utilization", new double[]{RobotController.getCANStatus().percentBusUtilization});
+        toReturn.put("Brown Out", new double[]{RobotController.isBrownedOut() ? 1.0 : 0.0});
+        toReturn.put("Pressure", new double[]{getPressure()});
+        toReturn.put("Low Limit Switch", new double[]{controls.lowLimit.get() ? 1.0 : 0.0});
+        toReturn.put("Low Limit Switch", new double[]{controls.highLimit.get() ? 1.0 : 0.0});
+        return toReturn;
+    }
 }

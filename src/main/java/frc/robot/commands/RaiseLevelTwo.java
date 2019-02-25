@@ -8,18 +8,17 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.Constants;
 import frc.robot.Robot;
 
-public class HoldArm extends Command {
+public class RaiseLevelTwo extends Command {
 
-  private int encoderStatusArm, encoderStatusWrist;
-  private boolean isFinished;
+  public boolean isFinished;
 
-  public HoldArm() {
+  public RaiseLevelTwo() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(Robot.arm);
-    requires(Robot.wrist);
+    requires(Robot.lift);
     isFinished = false;
   }
 
@@ -31,15 +30,8 @@ public class HoldArm extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.arm.enable();
-    Robot.wrist.enable();
-    // encoderStatusArm = Robot.arm.getEncoder();
-    // encoderStatusWrist = Robot.arm.getEncoder();
-    // Robot.arm.setSetpoint(50000);
-    // Robot.wrist.setSetpoint(encoderStatusWrist);
-    // Robot.arm.usePID(0.25);
-    // Robot.wrist.usePID(0.25);
-    isFinished = true;
+      Robot.lift.setSetpoint(Constants.LEVEL_TWO_HEIGHT);
+      isFinished = true;
   }
 
   // Make this return true when this Command no longer needs to run execute()

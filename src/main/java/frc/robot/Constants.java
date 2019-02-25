@@ -5,19 +5,16 @@ Use these instead of hard-coding so it can be easily changed across the whole ro
 package frc.robot;
 
 public class Constants {
+    //uncertain, CHECK WHEN YOU HAVE ENCODER VALUES
+    public static final double LEVEL_ONE_HEIGHT = 500000;
+    public static final double LEVEL_TWO_HEIGHT = 100000;
+    public static final double LEVEL_THREE_HEIGHT = 1500000;
 
     public static final double WHEEL_DIAMETER = 0.1016;
-    public static final double ROBOT_WIDTH = 0.7112;
-    public static final double ROBOT_LENGTH = 0.8382;
-    public static final double V_CONSTANT = 1.20;
-    public static final double ROBOT_WHEELBASE_WIDTH = 0.622;
 
     public static final double LEFT_ENCODER_TICKS_PER_METER = 12833;
     public static final double RIGHT_ENCODER_TICKS_PER_METER = 12833;
     public static final int TICKS_PER_REV = 4096;
-    public static final double LEFT_ENCODER_TICKS_PER_REV = LEFT_ENCODER_TICKS_PER_METER * 2 * Math.PI * WHEEL_DIAMETER;
-    public static final double RIGHT_ENCODER_TICKS_PER_REV = RIGHT_ENCODER_TICKS_PER_METER * 2 * Math.PI
-            * WHEEL_DIAMETER;
 
     public static final double DRIVE_FOLLOWER_P = 1.2;
     public static final double DRIVE_FOLLOWER_I = 0.0;
@@ -58,13 +55,8 @@ public class Constants {
     public static final int LIMIT_SWITCH_LOW = 4;
     public static final int LIMIT_SWITCH_INTAKE = 2;
 
-    public static final int LED_RED_DIO = 0;
-    public static final int LED_GREEN_DIO = 2;
-    public static final int LED_BLUE_DIO = 3;
-
     public static final int PUSH_DOUBLESOLENOID1 = 4;
     public static final int PUSH_DOUBLESOLENOID2 = 5;
-    public static final int BALL_MOTOR = 8;
 
     public static final int ARM_TALON = 6;
     public static final int WRIST_TALON = 9;
@@ -73,8 +65,6 @@ public class Constants {
     // Correct Solenoid values
     public static final int BOTTOM_PISTON_SOLENOID_RIGHT = 2;
     public static final int BOTTOM_PISTON_SOLENOID_LEFT = 3;
-
-    public static final int DISK_RELEASE = 1;
 
     // Joystick buttons and Axis
     public static final int Axis_0 = 0;
@@ -94,7 +84,6 @@ public class Constants {
     public static final int RIGHT_JOYSTICK_PRESS = 9;
     public static final int LEFT_JOYSTICK_PRESS = 10;
 
-    public static final int ARM_HALF_HEIGHT = -350000;
 
     public static final double ARM_PIDF_P = 0.4 / 30.0;  // Output should be 0.4 when the error is 30deg
     public static final double ARM_PIDF_I = 0;

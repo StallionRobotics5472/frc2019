@@ -1,4 +1,3 @@
-
 /*----------------------------------------------------------------------------*/
 /* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
@@ -11,40 +10,31 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class BallCommand extends Command {
-  private double s;
-  private boolean isFinished = false;
-  private boolean out = false;
-  public BallCommand(double speed, boolean isOut) {
+public class RaiseLevelThree extends Command {
+
+  public boolean isFinished;
+
+  public RaiseLevelThree() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    s = speed;
-    out = isOut;
+    requires(Robot.lift);
+    isFinished = false;
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-   
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if(Robot.ball.getLimit() && out){
-
-      Robot.ball.spin(0);
-      isFinished = true;
-    }else{
-    Robot.ball.spin(s);
-    isFinished = true;
-    }
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return isFinished;
+    return false;
   }
 
   // Called once after isFinished returns true

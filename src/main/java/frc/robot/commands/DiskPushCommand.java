@@ -1,16 +1,24 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.Robot;
 
-public class DiskPushCommand extends CommandGroup {
+public class DiskPushCommand extends Command {
+
+   private boolean isFinished = false;
 
     public DiskPushCommand() {
-        addSequential(new DiskGrabberReverse());
-        addSequential(new Delay(0.1));
-        addSequential(new StraightDrive(-0.35));
-        addSequential(new Delay(0.33));
-        addSequential(new StraightDrive(0.0));
-        addSequential(new DiskGrabberForward());
+        
+    }
+
+    public void execute(){
+       Robot.diskPush.shift();
+       isFinished = true;
+    }
+
+    @Override
+    protected boolean isFinished() {
+        return isFinished;
     }
 }

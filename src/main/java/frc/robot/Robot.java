@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.autonomous.Autonomous;
+import frc.robot.commands.InitializeLift;
 import frc.robot.commands.WristLevel;
 import frc.robot.subsystems.ArmPIDSubsystem;
 import frc.robot.subsystems.BallSubsystem;
@@ -99,14 +100,12 @@ public class Robot extends TimedRobot implements DataProvider {
 		lift.autoPeakOutput();
 		logger.start();
 		// auto.start();
-		new WristLevel().start();
+		new InitializeLift().start();
 	}
 
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
-		// Robot.arm.setSetpoint(105000);
-		// Robot.arm.usePID(0.3);
 		logger.appendData(drive);
 		logger.appendData(lift);
 		logger.appendData(limelight);
@@ -121,6 +120,7 @@ public class Robot extends TimedRobot implements DataProvider {
 		SmartDashboard.putNumber("Left Encoder", drive.getLeftPosition());
 		SmartDashboard.putNumber("Right Encoder", drive.getRightPosition());
 		SmartDashboard.putNumber("Arm Setpoint", Robot.arm.getSetpoint());
+		SmartDashboard.putNumber("Lift Encoder", lift.getPosition());
 	}
 
 	@Override
@@ -131,7 +131,8 @@ public class Robot extends TimedRobot implements DataProvider {
 		lift.teleopPeakOutput();
 		drive.highGear();
 		logger.start();
-
+		lift.disable();
+		wrist.disable();
 	}
 
 	@Override
@@ -149,13 +150,6 @@ public class Robot extends TimedRobot implements DataProvider {
 		SmartDashboard.putBoolean("Lower Lift Limit", controls.lowLimit.get());
 		SmartDashboard.putNumber("Heading", Robot.drive.getHeading());
 		SmartDashboard.putBoolean("Ball Limit", Robot.ball.getLimit());
-		SmartDashboard.putNumber("Arm Encoder", Robot.arm.getEncoder());
-
-		SmartDashboard.putNumber("Wrist Position", wrist.getDisplacement());
-		SmartDashboard.putNumber("Arm Position", arm.getPosition());
-		SmartDashboard.putNumber("Arm Output", arm.getPercentOutput());
-		SmartDashboard.putNumber("Lift Output", lift.getPercentOutput());
-		SmartDashboard.putNumber("Wrist Output", wrist.getPercentOutput());
 	}
 
 	@Override

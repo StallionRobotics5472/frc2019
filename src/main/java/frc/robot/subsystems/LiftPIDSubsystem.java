@@ -14,6 +14,7 @@ import frc.robot.commands.LiftDefault;
 
 public class LiftPIDSubsystem extends PIDSubsystem implements DataProvider {
 
+<<<<<<< HEAD
 	private TalonSRX leftLiftMotor;
 	private TalonSRX rightLiftMotor;
 
@@ -105,5 +106,94 @@ public class LiftPIDSubsystem extends PIDSubsystem implements DataProvider {
 		toReturn.put("Lift Output Percent", new double[] { leftLiftMotor.getMotorOutputPercent() });
 		return toReturn;
 	}
+=======
+    private TalonSRX leftLiftMotor;
+    private TalonSRX rightLiftMotor;
+
+    public LiftPIDSubsystem() {
+        super("Lift Subsystem", Constants.LIFT_PIDF_P, Constants.LIFT_PIDF_I, Constants.LIFT_PIDF_D, Constants.LIFT_PIDF_F);
+        leftLiftMotor = new TalonSRX(Constants.LIFT_TALON_CAN_LEFT);
+        leftLiftMotor.setNeutralMode(NeutralMode.Brake);
+        leftLiftMotor.setInverted(false);
+        leftLiftMotor.setSensorPhase(true);
+        leftLiftMotor.configPeakOutputForward(1.0, 10);
+        leftLiftMotor.configPeakOutputReverse(-0.5, 10);
+
+        rightLiftMotor = new TalonSRX(Constants.LIFT_TALON_CAN_RIGHT);
+        rightLiftMotor.setNeutralMode(NeutralMode.Brake);
+        rightLiftMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
+        rightLiftMotor.setInverted(true);
+        rightLiftMotor.follow(leftLiftMotor);
+
+        this.setAbsoluteTolerance(100.0);
+        this.setOutputRange(-0.1, 0.8);
+        this.setInputRange(0, 22000);
+    }
+
+    public void autoPeakOutput() {
+        leftLiftMotor.configPeakOutputForward(1.0, 10);
+        rightLiftMotor.configPeakOutputForward(1.0, 10);
+    }
+
+    public void teleopPeakOutput() {
+        leftLiftMotor.configPeakOutputForward(1.0, 10);
+        rightLiftMotor.configPeakOutputForward(1.0, 10);
+    }
+
+    public void setPercent(double percent) {
+        leftLiftMotor.set(ControlMode.PercentOutput, percent);
+    }
+
+    public double getPercentOutput() {
+        return leftLiftMotor.getMotorOutputPercent();
+    }
+
+    public void hold() {
+        setPercent(0.1);
+    }
+
+    public void resetEncoder() {
+        rightLiftMotor.getSensorCollection().setQuadraturePosition(0, 0);
+    }
+
+    public double getPosition() {
+        return rightLiftMotor.getSensorCollection().getQuadraturePosition();
+    }
+
+    public void enableBrake() {
+        leftLiftMotor.setNeutralMode(NeutralMode.Brake);
+        rightLiftMotor.setNeutralMode(NeutralMode.Brake);
+    }
+
+    public void enableCoast() {
+        leftLiftMotor.setNeutralMode(NeutralMode.Coast);
+        rightLiftMotor.setNeutralMode(NeutralMode.Coast);
+    }
+
+
+    @Override
+    protected void usePIDOutput(double output) {
+        setPercent(output);
+    }
+
+    @Override
+    protected double returnPIDInput() {
+        return getPosition();
+    }
+
+    @Override
+    protected void initDefaultCommand() {
+        setDefaultCommand(new LiftDefault());
+    }
+
+    public HashMap<String, double[]> getData() {
+        HashMap<String, double[]> toReturn = new HashMap<>();
+        toReturn.put("Lift Position", new double[]{getPosition()});
+        toReturn.put("Lift Current",
+                new double[]{leftLiftMotor.getOutputCurrent(), rightLiftMotor.getOutputCurrent()});
+        toReturn.put("Lift Output Percent", new double[]{leftLiftMotor.getMotorOutputPercent()});
+        return toReturn;
+    }
+>>>>>>> 39b4de2642ccb5327403fa2c52377829e1c72a3f
 
 }

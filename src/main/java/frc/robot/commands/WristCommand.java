@@ -13,46 +13,48 @@ import frc.robot.Robot;
 
 public class WristCommand extends Command {
 
-  private boolean isFinished = false;
-  
-  public WristCommand() {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
-    requires(Robot.wrist);
-    Robot.wrist.setBrake();
-  
-  }
+    private boolean isFinished = false;
 
-  // Called just before this Command runs the first time
-  @Override
-  protected void initialize() {
-    
-  }
+    public WristCommand() {
+        // Use requires() here to declare subsystem dependencies
+        // eg. requires(chassis);
+        requires(Robot.wrist);
+        Robot.wrist.setBrake();
 
-  // Called repeatedly when this Command is scheduled to run
-  @Override
-  protected void execute() {
-    double downspeed = Robot.controls.getPlayerTwo().getRawAxis(Constants.Axis_5)/2;
-    double upspeed = Robot.controls.getPlayerTwo().getRawAxis(Constants.Axis_5)/2;
-    Robot.wrist.spin(-(downspeed+upspeed/16));
-    Robot.wrist.showVoltage();
-   
-  }
+    }
 
-  // Make this return true when this Command no longer needs to run execute()
-  @Override
-  protected boolean isFinished() {
-    return isFinished;
-  }
+    // Called just before this Command runs the first time
+    @Override
+    protected void initialize() {
 
-  // Called once after isFinished returns true
-  @Override
-  protected void end() {
-  }
+    }
 
-  // Called when another command which requires one or more of the same
-  // subsystems is scheduled to run
-  @Override
-  protected void interrupted() {
-  }
+    // Called repeatedly when this Command is scheduled to run
+    @Override
+    protected void execute() {
+        if (Robot.wrist.getPIDController().isEnabled())
+            Robot.wrist.disable();
+        double downspeed = Robot.controls.getPlayerTwo().getRawAxis(Constants.Axis_5) / 2;
+        double upspeed = Robot.controls.getPlayerTwo().getRawAxis(Constants.Axis_5) / 2;
+        Robot.wrist.spin(downspeed + upspeed / 16);
+        Robot.wrist.showVoltage();
+
+    }
+
+    // Make this return true when this Command no longer needs to run execute()
+    @Override
+    protected boolean isFinished() {
+        return isFinished;
+    }
+
+    // Called once after isFinished returns true
+    @Override
+    protected void end() {
+    }
+
+    // Called when another command which requires one or more of the same
+    // subsystems is scheduled to run
+    @Override
+    protected void interrupted() {
+    }
 }

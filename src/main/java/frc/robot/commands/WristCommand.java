@@ -13,7 +13,7 @@ import frc.robot.Robot;
 
 public class WristCommand extends Command {
 
-    private boolean isFinished = false;
+    private boolean isFinished = false;//380k
 
     public WristCommand() {
         // Use requires() here to declare subsystem dependencies
@@ -36,7 +36,7 @@ public class WristCommand extends Command {
             Robot.wrist.disable();
         double downspeed = Robot.controls.getPlayerTwo().getRawAxis(Constants.Axis_5) / 2;
         double upspeed = Robot.controls.getPlayerTwo().getRawAxis(Constants.Axis_5) / 2;
-        Robot.wrist.spin(downspeed + upspeed / 16);
+        Robot.wrist.spin(-(downspeed + upspeed / 16));
         Robot.wrist.showVoltage();
 
     }

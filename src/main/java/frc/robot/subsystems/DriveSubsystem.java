@@ -120,6 +120,7 @@ public class DriveSubsystem extends Subsystem implements DataProvider{
 	}
 
 	public void drive(double left, double right) {
+		SmartDashboard.putNumber("DriveStick", left);
 		this.left.set(controlMode, left);
 		this.right.set(controlMode, right);
 		this.leftFollower.set(controlMode, left);

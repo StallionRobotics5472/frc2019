@@ -56,11 +56,12 @@ public class Controls {
 
 	//BUTTONS TO TAKE THE BALL IN AND OUT AT DIFFERENT 
 	private JoystickButton fastBallIn = new JoystickButton(playerOne, Constants.SHOULDER_BUTTON_LEFT);
-	private JoystickButton fastBallReverse = new JoystickButton(playerOne, Constants.SHOULDER_BUTTON_RIGHT);
+	private TriggerButton fastBallReverse = new TriggerButton(playerOne, 3);
 	// I dont think fastBallOut and slowBallReverse are on the correct buttons
 	private TriggerButton fastBallOut = new TriggerButton(playerOne, Constants.BUTTON_B);
-	private TriggerButton slowBallReverse = new TriggerButton(playerOne, Constants.BUTTON_X);
+	private JoystickButton slowBallReverse = new JoystickButton(playerOne, 6);
 	private JoystickButton holdArm = new JoystickButton(playerTwo, Constants.BUTTON_A);
+	private JoystickButton toggleSpeed = new JoystickButton(playerOne, Constants.BUTTON_B);
 	// private JoystickButton encoderReseter = new JoystickButton(playerTwo,
 	// Constants.BUTTON_Y);
 
@@ -128,6 +129,10 @@ public class Controls {
 
 	public double getDriveHorizontalAxis() {
 		return playerOne.getRawAxis(Constants.Axis_0);
+	}
+
+	public boolean getSpeed(){
+		return toggleSpeed.get();
 	}
 
 }

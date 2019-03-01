@@ -8,23 +8,22 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.Constants;
 import frc.robot.Robot;
 
-public class RaiseLevelOne extends Command {
+public class WristPosition extends Command {
 
-  private boolean isFinished;
+  private double position;
 
-  public RaiseLevelOne() {
-      isFinished = false;
-      requires(Robot.lift);
+  public WristPosition(double pos) {
+      requires(Robot.wrist);
+      position = pos;
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.lift.enable();
-    Robot.lift.setSetpoint(Constants.LEVEL_ONE_HEIGHT);
+    Robot.wrist.enable();
+    Robot.wrist.setSetpoint(position);
   }
 
   @Override
@@ -35,19 +34,19 @@ public class RaiseLevelOne extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return Robot.lift.onTarget();
+    return Robot.wrist.onTarget();
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.lift.disable();
+    Robot.wrist.disable();
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    end();
+    // end();
   }
 }

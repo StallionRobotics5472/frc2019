@@ -22,7 +22,7 @@ public class LiftPIDSubsystem extends PIDSubsystem implements DataProvider {
 		leftLiftMotor = new TalonSRX(Constants.LIFT_TALON_CAN_LEFT);
 		leftLiftMotor.setNeutralMode(NeutralMode.Brake);
 		leftLiftMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
-		leftLiftMotor.setInverted(true);
+		leftLiftMotor.setInverted(false);
 		leftLiftMotor.setSensorPhase(true);
 		leftLiftMotor.configPeakOutputForward(1.0, 10);
 		leftLiftMotor.configPeakOutputReverse(-1.0, 10);
@@ -33,11 +33,14 @@ public class LiftPIDSubsystem extends PIDSubsystem implements DataProvider {
 
 		rightLiftMotor = new TalonSRX(Constants.LIFT_TALON_CAN_RIGHT);
 		rightLiftMotor.setNeutralMode(NeutralMode.Brake);
-		rightLiftMotor.setInverted(true);
+		rightLiftMotor.setInverted(false);
 		rightLiftMotor.follow(leftLiftMotor);
 		// rightLiftMotor.configPeakOutputForward(1.0, 10);
 		// leftLiftMotor.configPeakOutputReverse(-1.0, 10);
 		// rightLiftMotor.configPeakOutputReverse(Constants.LIFT_REVERSE_OUTPUT_LIMIT, 10);
+		
+		this.setAbsoluteTolerance(80000);
+	
 	}
 
 	public void autoPeakOutput() {
@@ -59,7 +62,7 @@ public class LiftPIDSubsystem extends PIDSubsystem implements DataProvider {
 	}
 
 	public void hold() {
-		setPercent(0.1);
+		setPercent(0.05);
 	}
 
 	public void resetEncoder() {
@@ -67,7 +70,7 @@ public class LiftPIDSubsystem extends PIDSubsystem implements DataProvider {
 	}
 
 	public double getPosition() {
-		return leftLiftMotor.getSensorCollection().getQuadraturePosition();
+		return -leftLiftMotor.getSensorCollection().getQuadraturePosition();
 	}
 
 	public void enableBrake() {

@@ -27,13 +27,13 @@ public class JoystickDriveCommand extends Command{
 			double y = -controls.getDriveVerticalAxis();
 			double x = controls.getDriveHorizontalAxis() / 2;
 			
-			y = Math.abs(y) < 0.15 ? 0 : y;
+			y = Math.abs(y) < 0.05 ? 0 : y;
 			x = Math.abs(x) < 0.05 ? 0 : x;
-			if(Robot.drive.isHighGear())
-				Robot.drive.drive(y*0.50 + x*0.75, y*0.50 - x*0.75);
-				
-			else
-				Robot.drive.drive((y + x), (y - x));
+			// if(Robot.controls.getSpeed()){
+			// 	Robot.drive.drive((y*0.5 + x*0.75), (y*0.5 - x*0.75));
+			// }
+			// else
+				Robot.drive.drive((y*0.6 + x*0.5), (y*0.6 - x*0.5));
 			Robot.drive.seeVoltage();
 		}	
 	

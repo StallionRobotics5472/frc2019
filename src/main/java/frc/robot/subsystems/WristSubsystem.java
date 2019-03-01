@@ -25,8 +25,8 @@ public class WristSubsystem extends PIDSubsystem {
         wristMotor.setSensorPhase(true);
 
         this.setAbsoluteTolerance(5);
-        this.setOutputRange(-0.5, 0.5);
-        this.setInputRange(-90, 0);
+        this.setOutputRange(-0.4, 0.4);
+        this.setInputRange(-45, 90);
     }
 
     @Override

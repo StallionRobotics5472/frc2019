@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.autonomous.Autonomous;
-import frc.robot.commands.InitializeLift;
+import frc.robot.commands.InitializeRobotState;
 import frc.robot.commands.WristLevel;
 import frc.robot.subsystems.ArmPIDSubsystem;
 import frc.robot.subsystems.BallSubsystem;
@@ -66,12 +66,9 @@ public class Robot extends TimedRobot implements DataProvider {
         drive.resetEncoders();
         drive.resetHeading();
         drive.drive(0.0, 0.0);
-        lift.resetEncoder();
         lift.disable();
         arm.disable();
         wrist.disable();
-        wrist.resetEncoder();
-        arm.resetEncoder();
         //
     }
 
@@ -96,9 +93,13 @@ public class Robot extends TimedRobot implements DataProvider {
     @Override
     public void autonomousInit() {
         cleanup();
+        lift.resetEncoder();
+        wrist.resetEncoder();
+        arm.resetEncoder();
         lift.autoPeakOutput();
         logger.start();
-        auto.start();
+
+        new InitializeRobotState().start();
     }
 
     @Override
@@ -130,6 +131,7 @@ public class Robot extends TimedRobot implements DataProvider {
         logger.start();
         lift.disable();
         wrist.disable();
+        arm.disable();
     }
 
     @Override
@@ -146,6 +148,9 @@ public class Robot extends TimedRobot implements DataProvider {
         SmartDashboard.putBoolean("Lower Lift Limit", controls.lowLimit.get());
         SmartDashboard.putNumber("Heading", Robot.drive.getHeading());
         SmartDashboard.putBoolean("Ball Limit", Robot.ball.getLimit());
+        SmartDashboard.putNumber("Arm Encoder", Robot.arm.getPosition());
+        SmartDashboard.putNumber("Wrist Encoder", Robot.wrist.getEncoderOutput());
+        SmartDashboard.putNumber("Lift Encoder", Robot.lift.getPosition());
     }
 
     @Override

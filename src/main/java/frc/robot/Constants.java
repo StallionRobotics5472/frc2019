@@ -6,7 +6,7 @@ package frc.robot;
 
 public class Constants {
 	//uncertain, CHECK WHEN YOU HAVE ENCODER VALUES
-	public static final double LEVEL_ONE_HEIGHT = 500000;
+	public static final double LEVEL_ONE_HEIGHT = 420000;
 	public static final double LEVEL_TWO_HEIGHT = 100000;
 	public static final double LEVEL_THREE_HEIGHT = 1500000;
 
@@ -57,12 +57,6 @@ public class Constants {
 	public static final double HIGH_BALL = 0.8;
 	public static final double LOW_BALL = 0.8;
 
-	public static final double LIFT_PIDF_P = 1;
-	public static final double LIFT_PIDF_I = 0.00000;
-	public static final double LIFT_PIDF_D = 0.00000;
-	public static final double LIFT_PIDF_F = 0.00000;
-	public static final int LIFT_PIDF_INTZONE = 40;
-
 	public static final int LIMIT_SWITCH_HIGH = 0;
 	public static final int LIMIT_SWITCH_LOW = 4;
 	public static final int LIMIT_SWITCH_INTAKE = 2;
@@ -105,18 +99,22 @@ public class Constants {
 
 	public static final int ARM_HALF_HEIGHT = -350000;
 
-	public static final double ARM_PIDF_P = 0.4 / 30.0;  // Output should be 0.4 when the error is 30deg
+	public static final double ARM_PIDF_P = 0.8 / 15.0;  // Output should be 0.4 when the error is 30deg
 	public static final double ARM_PIDF_I = 0;
 	public static final double ARM_PIDF_D = 0;  //  The high gearing prevents overshooting, no D required
 	public static final double ARM_PIDF_F = 0;  //  The arm holds itself up through high gearing, no F required
 
-	public
-	 static final double WRIST_PIDF_P = 0.5 / 30.0;  // Output should be 0.5 when the error is 30deg and decrease from there
+	public static final double WRIST_PIDF_P = 0.5 / 15.0;  // Output should be 0.5 when the error is 30deg and decrease from there
 	public static final double WRIST_PIDF_I = 0;
 	public static final double WRIST_PIDF_D = 0;  // ^
 	public static final double WRIST_PIDF_F = 0;  // ^
 
-	public static final double LIFT_LOW_POSITION = 0;
+	public static final double LIFT_LOW_POSITION = 382000;
 	public static final double LIFT_MID_POSITION = 0;
 	public static final double LIFT_HIGH_POSITION = 0;
+
+	public static final double LIFT_PIDF_P = 1.0 / 400000.0; //TODO get encoder values for rocket heights
+	public static final double LIFT_PIDF_I = 0.00000;
+	public static final double LIFT_PIDF_D = 0.00000;
+	public static final double LIFT_PIDF_F = 0.00000;
 }

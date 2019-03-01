@@ -33,7 +33,7 @@ public class ArmCommand extends Command {
   @Override
   protected void execute() {
     double speed = -Robot.controls.getPlayerTwo().getRawAxis(Constants.Axis_1);
-    Robot.arm.moveArm(-speed / 4);
+    Robot.arm.moveArm(speed / 4);
     SmartDashboard.putNumber("Current Arm", Robot.arm.getCurrent());
     SmartDashboard.putNumber("Current Position", Robot.arm.getPosition());
   }

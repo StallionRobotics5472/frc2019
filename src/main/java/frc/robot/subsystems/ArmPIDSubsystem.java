@@ -25,7 +25,8 @@ public class ArmPIDSubsystem extends PIDSubsystem {
     super("ArmPIDSubsystem", Constants.ARM_PIDF_P, Constants.ARM_PIDF_I, Constants.ARM_PIDF_D);
     arm = new TalonSRX(Constants.ARM_TALON);
     arm2 = new TalonSRX(Constants.ARM_TALON_2);
-    arm2.setInverted(true);
+    arm.setInverted(true);
+    arm2.setInverted(false);
     arm2.follow(arm);
 
     arm.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
@@ -33,8 +34,9 @@ public class ArmPIDSubsystem extends PIDSubsystem {
 
     getPIDController().setContinuous(false);
 
-    this.setInputRange(-60, 60);
-    this.setOutputRange(-0.4, 0.4);
+    this.setInputRange(-45, 80);
+    this.setOutputRange(-0.6, 0.6);
+    this.setAbsoluteTolerance(4);
   }
 
   @Override
@@ -80,16 +82,25 @@ public class ArmPIDSubsystem extends PIDSubsystem {
   }
 
   public void resetEncoder() {
-    arm.getSensorCollection().setQuadraturePosition(0, 0);
+    int rightAngle = 1228800;
+    arm.getSensorCollection().setQuadraturePosition(rightAngle, 0);
   }
 
   public int getEncoder() {
-    return -arm.getSensorCollection().getQuadraturePosition();
+    return arm.getSensorCollection().getQuadraturePosition();
   }
 
   @Override
   public double getPosition() {
-    return 360 * getEncoder() / 4096.0 / 800.0;
+    return map(360 * getEncoder() / 4096.0 / 1200.0,
+      -26, 87, 0, 90);
+  }
+
+
+  private double map(double value, double in1, double in2, double out1, double out2){
+    // input: [-26, 87]
+    // output: [0, 90]
+    return ((out2 - out1) / (in2 - in1)) * (value - in1) + out1;
   }
 
   public double getPercentOutput() {

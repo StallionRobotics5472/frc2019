@@ -88,9 +88,9 @@ public class Autonomous {
 		paths.addOption(Paths.RIGHT_ROCKET.toString(), Paths.RIGHT_ROCKET);
 		SmartDashboard.putData("Path", paths);
 
-		fileNames.add("/home/lvuser/Paths/straight");
-		fileNames.add("/home/lvuser/Paths/leftrocket");
-		fileNames.add("/home/lvuser/Paths/rightrocket");
+		fileNames.add("/home/lvuser/deploy/Paths/straight");
+		fileNames.add("/home/lvuser/deploy/Paths/leftrocket");
+		fileNames.add("/home/lvuser/deploy/Paths/rightrocket");
 	}
 
 	public void start() {

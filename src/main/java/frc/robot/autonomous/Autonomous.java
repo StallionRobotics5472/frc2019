@@ -44,7 +44,7 @@ public class Autonomous {
 	}
 	
 	public static enum Paths{
-		STRAIGHT("Straight"), LEFT_ROCKET("Left Rocket"), LEFT_TURN("Left Turn"), NO_PATHS("No Paths");
+		STRAIGHT("Straight"), LEFT_ROCKET("Left Rocket"), RIGHT_ROCKET("Right Rocket"), NO_PATHS("No Paths");
 
 		private String name;
 
@@ -85,12 +85,12 @@ public class Autonomous {
 		// paths.addDefault("No path", Paths.NO_PATHS);
 		paths.addOption(Paths.STRAIGHT.toString(), Paths.STRAIGHT);
 		paths.addOption(Paths.LEFT_ROCKET.toString(), Paths.LEFT_ROCKET);
-		paths.addOption(Paths.LEFT_TURN.toString(), Paths.LEFT_TURN);
+		paths.addOption(Paths.RIGHT_ROCKET.toString(), Paths.RIGHT_ROCKET);
 		SmartDashboard.putData("Path", paths);
 
 		fileNames.add("/home/lvuser/Paths/straight");
 		fileNames.add("/home/lvuser/Paths/leftrocket");
-		fileNames.add("/home/lvuser/Paths/left_turn");
+		fileNames.add("/home/lvuser/Paths/rightrocket");
 	}
 
 	public void start() {
@@ -128,7 +128,7 @@ public class Autonomous {
 				command = new StraightPath(fileNames.get(1));
 				break;
 
-			case LEFT_TURN:
+			case RIGHT_ROCKET:
 				command = new StraightPath(fileNames.get(2));
 				break;
 			default:

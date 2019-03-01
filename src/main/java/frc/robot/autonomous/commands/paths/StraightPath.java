@@ -32,14 +32,14 @@ public class StraightPath extends Command {
 	
 	public StraightPath(String fileName)
 	{
-		createSmashboardNumber("P_CONST", 1);
+		createSmashboardNumber("P_CONST", 0);
 		createSmashboardNumber("D_CONST", 0);
 		createSmashboardNumber("V_CONST", 0);
 		createSmashboardNumber("A_CONST", 0);
 		createSmashboardNumber("G_CONST", 0);
 	
 
-		p = SmartDashboard.getNumber("P_CONST", 1);
+		p = SmartDashboard.getNumber("P_CONST", 0);
 		d = SmartDashboard.getNumber("D_CONST", 0);
 		v = SmartDashboard.getNumber("V_CONST", 0);
 		a = SmartDashboard.getNumber("A_CONST", 0);

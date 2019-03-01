@@ -23,17 +23,20 @@ public class JoystickDriveCommand extends Command{
 	
 	@Override
 	public void execute() {
-		if(!DriverStation.getInstance().isAutonomous()) {
+	
 			double y = -controls.getDriveVerticalAxis();
 			double x = controls.getDriveHorizontalAxis() / 2;
 			
 			y = Math.abs(y) < 0.15 ? 0 : y;
 			x = Math.abs(x) < 0.05 ? 0 : x;
-			
-			Robot.drive.drive(y + x, y - x);
+			if(Robot.drive.isHighGear())
+				Robot.drive.drive(y*0.50 + x*0.75, y*0.50 - x*0.75);
+				
+			else
+				Robot.drive.drive((y + x), (y - x));
 			Robot.drive.seeVoltage();
-		}
-	}
+		}	
+	
 	
 	public boolean isFinished() {
 		return this.completed;

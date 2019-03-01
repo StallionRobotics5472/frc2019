@@ -25,7 +25,7 @@ public class ArmPIDSubsystem extends PIDSubsystem {
     super("ArmPIDSubsystem", Constants.ARM_PIDF_P, Constants.ARM_PIDF_I, Constants.ARM_PIDF_D);
     arm = new TalonSRX(Constants.ARM_TALON);
     arm2 = new TalonSRX(Constants.ARM_TALON_2);
-    arm2.setInverted(false);
+    arm2.setInverted(true);
     arm2.follow(arm);
 
     arm.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);

@@ -10,8 +10,8 @@ public class Constants {
 	public static final double LEVEL_TWO_HEIGHT = 100000;
 	public static final double LEVEL_THREE_HEIGHT = 1500000;
 
-	public static final double WHEEL_DIAMETER = 0.1016;
-	public static final double ROBOT_WIDTH = 0.7112;
+	public static final double WHEEL_DIAMETER = 0.17;
+	public static final double ROBOT_WIDTH = 0.62;
 	public static final double ROBOT_LENGTH = 0.8382;
 	public static final double V_CONSTANT = 1.20;
 	public static final double ROBOT_WHEELBASE_WIDTH = 0.622;
@@ -20,13 +20,12 @@ public class Constants {
 	public static final double RIGHT_ENCODER_TICKS_PER_METER = 12833;
 	public static final int TICKS_PER_REV = 4096;
 	public static final double LEFT_ENCODER_TICKS_PER_REV = LEFT_ENCODER_TICKS_PER_METER * 2 * Math.PI * WHEEL_DIAMETER;
-	public static final double RIGHT_ENCODER_TICKS_PER_REV = RIGHT_ENCODER_TICKS_PER_METER * 2 * Math.PI
-			* WHEEL_DIAMETER;
+	public static final double RIGHT_ENCODER_TICKS_PER_REV = RIGHT_ENCODER_TICKS_PER_METER * 2 * Math.PI* WHEEL_DIAMETER;
 
 	public static final double DRIVE_FOLLOWER_P = 1.2;
 	public static final double DRIVE_FOLLOWER_I = 0.0;
 	public static final double DRIVE_FOLLOWER_D = 6.0;
-	public static final double DRIVE_FOLLOWER_F = 0.5;
+	public static final double DRIVE_FOLLOWER_F = 0.5; 
 
 	// Put all Talons here:
 
@@ -53,10 +52,10 @@ public class Constants {
 
 	public static final int LIFT_TALON_CAN_LEFT = 3;
 	public static final int LIFT_TALON_CAN_RIGHT = 12;
-	public static final double LIFT_REVERSE_OUTPUT_LIMIT = -0.5;
+	public static final double LIFT_REVERSE_OUTPUT_LIMIT = -1;
 
 	public static final double HIGH_BALL = 0.8;
-	public static final double LOW_BALL = 0.5;
+	public static final double LOW_BALL = 0.8;
 
 	public static final double LIFT_PIDF_P = 1;
 	public static final double LIFT_PIDF_I = 0.00000;
@@ -72,8 +71,8 @@ public class Constants {
 	public static final int LED_GREEN_DIO = 2;
 	public static final int LED_BLUE_DIO = 3;
 
-	public static final int PUSH_DOUBLESOLENOID1 = 4;
-	public static final int PUSH_DOUBLESOLENOID2 = 5;
+	public static final int PUSH_DOUBLESOLENOID1 = 1;
+	public static final int PUSH_DOUBLESOLENOID2 = 4;
 	public static final int BALL_MOTOR = 8;
 
 	public static final int ARM_TALON = 6;
@@ -116,4 +115,8 @@ public class Constants {
 	public static final double WRIST_PIDF_I = 0;
 	public static final double WRIST_PIDF_D = 0;  // ^
 	public static final double WRIST_PIDF_F = 0;  // ^
+
+	public static final double LIFT_LOW_POSITION = 0;
+	public static final double LIFT_MID_POSITION = 0;
+	public static final double LIFT_HIGH_POSITION = 0;
 }

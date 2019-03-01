@@ -82,10 +82,10 @@ public class Controls {
 		highLimit.whileActive(new LiftStop());
 		lowLimit.whileActive(new LiftZeroEncoder());
 
-		fastBallIn.whileHeld(new BallCommand(-Constants.HIGH_BALL, false));
-		fastBallOut.whileHeld(new BallCommand(-Constants.HIGH_BALL, true));
-		fastBallReverse.whileHeld(new BallCommand(Constants.LOW_BALL, true));
-		slowBallReverse.whileHeld(new BallCommand(Constants.LOW_BALL, false));
+		fastBallIn.whileHeld(new BallCommand(Constants.HIGH_BALL, true));
+		fastBallOut.whileHeld(new BallCommand(Constants.HIGH_BALL, false));
+		fastBallReverse.whileHeld(new BallCommand(-Constants.LOW_BALL, false));
+		slowBallReverse.whileHeld(new BallCommand(-Constants.LOW_BALL, true));
 
 		fastBallIn.whenReleased(new StopBall());
 		slowBallReverse.whenReleased(new StopBall());

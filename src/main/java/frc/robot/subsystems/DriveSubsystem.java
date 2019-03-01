@@ -28,6 +28,9 @@ public class DriveSubsystem extends Subsystem implements DataProvider{
 	private ControlMode controlMode;
 	private Solenoid shiftSolenoid;
 
+	// private TimerTask angleTask;
+	// private double angleAccum;
+
 	/* potentially useful current limit example for drive motors.  This example sets the current limit to 10 if the current exceeds 15 for more than 100 ms
 	talon.configContinuousCurrentLimit(10, 0);
 	talon.configPeakCurrentLimit(15, 0);
@@ -105,6 +108,11 @@ public class DriveSubsystem extends Subsystem implements DataProvider{
 		turnAngleController.setAbsoluteTolerance(2);
 		
 		highGear();
+	}
+
+
+	public void setupEncoderGyro(){
+
 	}
 
 	public void setControlMode(ControlMode newMode) {

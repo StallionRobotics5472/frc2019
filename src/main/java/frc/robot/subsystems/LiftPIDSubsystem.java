@@ -22,7 +22,7 @@ public class LiftPIDSubsystem extends PIDSubsystem implements DataProvider {
 		leftLiftMotor = new TalonSRX(Constants.LIFT_TALON_CAN_LEFT);
 		leftLiftMotor.setNeutralMode(NeutralMode.Brake);
 		leftLiftMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
-		leftLiftMotor.setInverted(false);
+		leftLiftMotor.setInverted(true);
 		leftLiftMotor.setSensorPhase(true);
 		leftLiftMotor.configPeakOutputForward(1.0, 10);
 		leftLiftMotor.configPeakOutputReverse(-1.0, 10);

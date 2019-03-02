@@ -15,14 +15,11 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.autonomous.Autonomous;
-import frc.robot.commands.InitializeRobotState;
-import frc.robot.commands.WristLevel;
 import frc.robot.subsystems.ArmPIDSubsystem;
 import frc.robot.subsystems.BallSubsystem;
 import frc.robot.subsystems.BottomPistonSubsystem;
 import frc.robot.subsystems.DiskPushSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
-// import frc.robot.subsystems.LedSubsystem;
 import frc.robot.subsystems.LiftPIDSubsystem;
 import frc.robot.subsystems.WristSubsystem;
 
@@ -69,12 +66,11 @@ public class Robot extends TimedRobot implements DataProvider {
         lift.disable();
         arm.disable();
         wrist.disable();
-        //
     }
 
     @Override
     public void disabledInit() {
-        auto.end();
+        auto.cancel();
         logger.end();
         cleanup();
         limelight.setLed(false);
@@ -98,8 +94,8 @@ public class Robot extends TimedRobot implements DataProvider {
         arm.resetEncoder();
         lift.autoPeakOutput();
         logger.start();
-
-        new InitializeRobotState().start();
+        auto.init();
+        auto.start();
     }
 
     @Override
@@ -123,7 +119,7 @@ public class Robot extends TimedRobot implements DataProvider {
 
     @Override
     public void teleopInit() {
-        auto.end();
+        auto.cancel();
         limelight.setLed(false);
         cleanup();
         lift.teleopPeakOutput();
@@ -151,6 +147,8 @@ public class Robot extends TimedRobot implements DataProvider {
         SmartDashboard.putNumber("Arm Encoder", Robot.arm.getPosition());
         SmartDashboard.putNumber("Wrist Encoder", Robot.wrist.getEncoderOutput());
         SmartDashboard.putNumber("Lift Encoder", Robot.lift.getPosition());
+
+        SmartDashboard.putNumber("End Effector Height (m)", Robot.lift.estimateEndEffectorHeight());
     }
 
     @Override
@@ -173,7 +171,7 @@ public class Robot extends TimedRobot implements DataProvider {
         toReturn.put("Brown Out", new double[]{RobotController.isBrownedOut() ? 1.0 : 0.0});
         toReturn.put("Pressure", new double[]{getPressure()});
         toReturn.put("Low Limit Switch", new double[]{controls.lowLimit.get() ? 1.0 : 0.0});
-        toReturn.put("Low Limit Switch", new double[]{controls.highLimit.get() ? 1.0 : 0.0});
+        toReturn.put("High Limit Switch", new double[]{controls.highLimit.get() ? 1.0 : 0.0});
         return toReturn;
     }
 }

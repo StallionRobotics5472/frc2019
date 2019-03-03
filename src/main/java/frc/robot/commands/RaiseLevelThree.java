@@ -8,43 +8,43 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.Constants;
 import frc.robot.Robot;
 
 public class RaiseLevelThree extends Command {
 
-  public boolean isFinished;
-
   public RaiseLevelThree() {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
-    requires(Robot.lift);
-    isFinished = false;
+      requires(Robot.lift);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    Robot.lift.enable();
+    Robot.lift.setSetpoint(Constants.LEVEL_THREE_HEIGHT);
   }
 
-  // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+        // Called repeatedly when this Command is scheduled to run
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return Robot.lift.onTarget();
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    Robot.lift.disable();
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    end();
   }
 }

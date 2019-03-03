@@ -3,7 +3,6 @@ package frc.robot.commands;
 import frc.robot.Controls;
 import frc.robot.Robot;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class JoystickDriveCommand extends Command{

@@ -13,10 +13,7 @@ import frc.robot.Robot;
 
 public class RaiseLevelOne extends Command {
 
-  private boolean isFinished;
-
   public RaiseLevelOne() {
-      isFinished = false;
       requires(Robot.lift);
   }
 

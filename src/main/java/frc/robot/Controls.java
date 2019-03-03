@@ -2,6 +2,8 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.robot.POVButton.POVAngle;
+import frc.robot.autonomous.commands.LiftGetHatch;
 import frc.robot.commands.ArmLevel;
 import frc.robot.commands.BallCommand;
 import frc.robot.commands.BottomPistonShift;
@@ -10,9 +12,6 @@ import frc.robot.commands.DiskPushCommand;
 import frc.robot.commands.HighGear;
 import frc.robot.commands.LiftStop;
 import frc.robot.commands.LiftZeroEncoder;
-import frc.robot.commands.RaiseLevelOne;
-import frc.robot.commands.RaiseLevelThree;
-import frc.robot.commands.RaiseLevelTwo;
 import frc.robot.commands.ShiftGear;
 import frc.robot.commands.StopBall;
 import frc.robot.commands.TakeSnapshot;
@@ -25,9 +24,9 @@ public class Controls {
 
 	//BUTTON PANEL BUTTONS
     //buttons to rasie lift to three possible levels
-	private JoystickButton raiseLevelOne = new JoystickButton(buttonPanel, 1);
-	private JoystickButton raiseLevelTwo = new JoystickButton(buttonPanel, 2);
-	private JoystickButton raiseLevelThree = new JoystickButton(buttonPanel, 3);
+	// private JoystickButton raiseLevelOne = new JoystickButton(buttonPanel, 1);
+	// private JoystickButton raiseLevelTwo = new JoystickButton(buttonPanel, 2);
+	// private JoystickButton raiseLevelThree = new JoystickButton(buttonPanel, 3);
 	//other button panel buttons
 	private JoystickButton buttonPanelDiskPush = new JoystickButton(buttonPanel, 4); //button to push the disk out from the button panel
 	private JoystickButton buttonPanelLevelArm = new JoystickButton(buttonPanel, 5); //button to level the arm
@@ -65,6 +64,10 @@ public class Controls {
 	// private JoystickButton encoderReseter = new JoystickButton(playerTwo,
 	// Constants.BUTTON_Y);
 
+	private POVButton rocketLow = new POVButton(playerTwo, POVAngle.BOTTOM);
+	// private POVButton rocketMid = new POVButton(playerTwo, POVAngle.LEFT);
+	// private POVButton rocketHigh = new POVButton(playerTwo, POVAngle.TOP);
+
 	public Controls() {
 
 		//NOT TESTED
@@ -101,9 +104,13 @@ public class Controls {
 
 		//these don't raise to the right levels because we don't have the proper encoder values
 		//update the commands when we get it
-		raiseLevelOne.whenPressed(new RaiseLevelOne());
-		raiseLevelTwo.whenPressed(new RaiseLevelTwo());
-		raiseLevelThree.whenPressed(new RaiseLevelThree());
+		// raiseLevelOne.whenPressed(new RaiseLevelOne());
+		// raiseLevelTwo.whenPressed(new RaiseLevelTwo());
+		// raiseLevelThree.whenPressed(new RaiseLevelThree());
+
+		rocketLow.whenPressed(new LiftGetHatch());
+		// rocketMid.whenPressed(new RocketMidLift());
+		// rocketHigh.whenPressed(new RocketHighLift());
 
 	}
 

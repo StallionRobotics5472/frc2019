@@ -7,8 +7,8 @@ package frc.robot;
 public class Constants {
 	//uncertain, CHECK WHEN YOU HAVE ENCODER VALUES
 	public static final double LEVEL_ONE_HEIGHT = 420000;
-	public static final double LEVEL_TWO_HEIGHT = 100000;
-	public static final double LEVEL_THREE_HEIGHT = 1500000;
+	public static final double LEVEL_TWO_HEIGHT = 800000;
+	public static final double LEVEL_THREE_HEIGHT = 1000000;
 
 	public static final double WHEEL_DIAMETER = 0.17;
 	public static final double ROBOT_WIDTH = 0.62;
@@ -113,7 +113,7 @@ public class Constants {
 	public static final double LIFT_MID_POSITION = 0;
 	public static final double LIFT_HIGH_POSITION = 0;
 
-	public static final double LIFT_PIDF_P = 1.0 / 400000.0; //TODO get encoder values for rocket heights
+	public static final double LIFT_PIDF_P = 1.0 / 400000.0;
 	public static final double LIFT_PIDF_I = 0.00000;
 	public static final double LIFT_PIDF_D = 0.00000;
 	public static final double LIFT_PIDF_F = 0.00000;

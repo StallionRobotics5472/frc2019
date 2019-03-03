@@ -68,8 +68,8 @@ public class LiftDefault extends Command {
 			desiredOutput = up + down;
 
 		if (Robot.controls.highLimit.get() && (up + down) > 0)
-			desiredOutput = 0.2;
-		lift.setPercent(desiredOutput/1.53 + 0.05);
+			desiredOutput = 0;
+		lift.setPercent(desiredOutput/1.053 + 0.05);
 		
 	}
 

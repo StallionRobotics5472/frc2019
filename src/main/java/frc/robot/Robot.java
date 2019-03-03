@@ -74,6 +74,10 @@ public class Robot extends TimedRobot implements DataProvider {
         logger.end();
         cleanup();
         limelight.setLed(false);
+
+        lift.resetEncoder();
+        wrist.resetEncoder();
+        arm.resetEncoder();
     }
 
     @Override
@@ -82,6 +86,10 @@ public class Robot extends TimedRobot implements DataProvider {
         SmartDashboard.putNumber("Pressure", getPressure());
         SmartDashboard.putBoolean("Upper Lift Limit", controls.highLimit.get());
         SmartDashboard.putBoolean("Lower Lift Limit", controls.lowLimit.get());
+
+        lift.resetEncoder();
+        wrist.resetEncoder();
+        arm.resetEncoder();
 
         limelight.setLed(false);
     }
@@ -149,6 +157,7 @@ public class Robot extends TimedRobot implements DataProvider {
         SmartDashboard.putNumber("Lift Encoder", Robot.lift.getPosition());
 
         SmartDashboard.putNumber("End Effector Height (m)", Robot.lift.estimateEndEffectorHeight());
+        SmartDashboard.putBoolean("At Third Level (CJ)", Robot.lift.estimateEndEffectorHeight() < 1.92 && Robot.lift.estimateEndEffectorHeight() > 1.84);
     }
 
     @Override

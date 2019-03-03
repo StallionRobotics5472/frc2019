@@ -42,7 +42,7 @@ public class LiftPIDSubsystem extends PIDSubsystem implements DataProvider {
 		// rightLiftMotor.configPeakOutputReverse(Constants.LIFT_REVERSE_OUTPUT_LIMIT,
 		// 10);
 
-		this.setAbsoluteTolerance(80000);
+		this.setAbsoluteTolerance(50000);
 
 	}
 

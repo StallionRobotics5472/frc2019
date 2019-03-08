@@ -33,17 +33,16 @@ public class Controls {
 	
 	//BUTTONS FOR SHIFTING GEAR
 	private JoystickButton shiftGear = new JoystickButton(playerOne, Constants.BUTTON_X); // X Button
-	//HEY
-	//THIS BUTTON IS ALSO ASSIGNED TO THE TOGGLEBOTTOMPISTONS BUTTON
-	//KNOW IF I KNOW A LITTLE DIDDY OR TWO ABOUT ROBOTS, ITS THAT THAT SHOULD NEVER HAPPEN!!!!
-	//FIX IT
+	// HEY
+	// THIS BUTTON IS ALSO ASSIGNED TO THE TOGGLEBOTTOMPISTONS BUTTON
+	// KNOW IF I KNOW A LITTLE DIDDY OR TWO ABOUT ROBOTS, ITS THAT THAT SHOULD NEVER HAPPEN!!!!
+	// FIX IT
 	private JoystickButton highButton = new JoystickButton(playerOne, Constants.BUTTON_Y); // Y Button
 
 	// temporary
 	private JoystickButton takeSnapshot = new JoystickButton(playerTwo, Constants.BUTTON_Y); // Y Button
 	// temporary
-
-	//BUTTON TO TOGGLE THE BOTTOM PISTON
+//BUTTON TO TOGGLE THE BOTTOM PISTON
 	private JoystickButton toggleBottomPistons = new JoystickButton(playerOne, Constants.BUTTON_Y);
 
 	//BUTTON TO PUSH THE DISK

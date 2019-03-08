@@ -49,7 +49,7 @@ public class StraightPath extends Command {
 		d = 0;
 		v = 0;
 		a = 0;
-		g = 0.4;
+		g = 0.5;
 
 		File leftFilePath = Paths.get(fileName + "_left.csv").toFile();
 		Trajectory leftTrajectory = Pathfinder.readFromCSV(leftFilePath);
@@ -62,7 +62,7 @@ public class StraightPath extends Command {
 		rightEncoder.configurePIDVA(p, 0.0, d, v, a);
 		rightEncoder.configureEncoder(0, Constants.TICKS_PER_REV, Constants.WHEEL_DIAMETER);
 		rightEncoder.setTrajectory(rightTrajectory);
-		
+	
 		leftEncoder = new EncoderFollower();
 		leftEncoder.configurePIDVA(p, 0.0, d, v, a);
 		leftEncoder.configureEncoder(0, Constants.TICKS_PER_REV, Constants.WHEEL_DIAMETER);
@@ -114,7 +114,7 @@ public class StraightPath extends Command {
 	}
 	
 	public void initialize()
-	{
+	{	
 		Robot.drive.setBrake();
 		Robot.drive.resetEncoders();
 		Timer timer = new Timer();

@@ -6,22 +6,19 @@ package frc.robot;
 
 public class Constants {
 	//uncertain, CHECK WHEN YOU HAVE ENCODER VALUES
-	public static final double LEVEL_ONE_HEIGHT = 420000;
+	public static final double LEVEL_ONE_HEIGHT = 420000;						
 	public static final double LEVEL_TWO_HEIGHT = 800000;
 	public static final double LEVEL_THREE_HEIGHT = 1000000;
-
 	public static final double WHEEL_DIAMETER = 0.17;
 	public static final double ROBOT_WIDTH = 0.62;
 	public static final double ROBOT_LENGTH = 0.8382;
 	public static final double V_CONSTANT = 1.20;
 	public static final double ROBOT_WHEELBASE_WIDTH = 0.622;
-
 	public static final double LEFT_ENCODER_TICKS_PER_METER = 12833;
 	public static final double RIGHT_ENCODER_TICKS_PER_METER = 12833;
 	public static final int TICKS_PER_REV = 4096;
 	public static final double LEFT_ENCODER_TICKS_PER_REV = LEFT_ENCODER_TICKS_PER_METER * 2 * Math.PI * WHEEL_DIAMETER;
 	public static final double RIGHT_ENCODER_TICKS_PER_REV = RIGHT_ENCODER_TICKS_PER_METER * 2 * Math.PI* WHEEL_DIAMETER;
-
 	public static final double DRIVE_FOLLOWER_P = 1.2;
 	public static final double DRIVE_FOLLOWER_I = 0.0;
 	public static final double DRIVE_FOLLOWER_D = 6.0;

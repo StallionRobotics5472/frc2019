@@ -82,12 +82,12 @@ public class ArmPIDSubsystem extends PIDSubsystem {
   }
 
   public void resetEncoder() {
-    int rightAngle = 1228800;
+    int rightAngle = -1228800; // TODO: Make this positive at competition
     arm.getSensorCollection().setQuadraturePosition(rightAngle, 0);
   }
 
   public int getEncoder() {
-    return arm.getSensorCollection().getQuadraturePosition();
+    return -arm.getSensorCollection().getQuadraturePosition(); // TODO: Make this positive at competition
   }
 
   @Override

@@ -101,7 +101,7 @@ public class Robot extends TimedRobot implements DataProvider {
         wrist.resetEncoder();
         arm.resetEncoder();
         lift.autoPeakOutput();
-        logger.start();
+//        logger.start();
         auto.init();
         auto.start();
     }
@@ -109,11 +109,11 @@ public class Robot extends TimedRobot implements DataProvider {
     @Override
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
-        logger.appendData(drive);
-        logger.appendData(lift);
-        logger.appendData(limelight);
-        logger.appendData(this);
-        logger.writeFrame();
+//        logger.appendData(drive);
+//        logger.appendData(lift);
+//        logger.appendData(limelight);
+//        logger.appendData(this);
+//        logger.writeFrame();
 
         SmartDashboard.putNumber("Pressure", getPressure());
         SmartDashboard.putBoolean("Upper Lift Limit", controls.highLimit.get());
@@ -123,6 +123,10 @@ public class Robot extends TimedRobot implements DataProvider {
         SmartDashboard.putNumber("Right Encoder", drive.getRightPosition());
         SmartDashboard.putNumber("Arm Setpoint", Robot.arm.getSetpoint());
         SmartDashboard.putNumber("Lift Encoder", lift.getPosition());
+
+
+        SmartDashboard.putNumber("Arm Encoder", Robot.arm.getPosition());
+        SmartDashboard.putNumber("Arm Output", Robot.arm.getPercentOutput());
     }
 
     @Override
@@ -153,8 +157,8 @@ public class Robot extends TimedRobot implements DataProvider {
         SmartDashboard.putNumber("Heading", Robot.drive.getHeading());
         SmartDashboard.putBoolean("Ball Limit", Robot.ball.getLimit());
         SmartDashboard.putNumber("Arm Encoder", Robot.arm.getPosition());
-        SmartDashboard.putNumber("Wrist Encoder", Robot.wrist.getEncoderOutput());
-        SmartDashboard.putNumber("Lift Encoder", Robot.lift.getPosition());
+        SmartDashboard.putNumber("Arm Output", Robot.arm.getPercentOutput());
+        SmartDashboard.putNumber("Wrist Encoder", Robot.wrist.getPosition());
 
         SmartDashboard.putNumber("End Effector Height (m)", Robot.lift.estimateEndEffectorHeight());
         SmartDashboard.putBoolean("At Third Level (CJ)", Robot.lift.estimateEndEffectorHeight() < 1.92 && Robot.lift.estimateEndEffectorHeight() > 1.84);

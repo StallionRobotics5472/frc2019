@@ -7,15 +7,16 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Constants;
 import frc.robot.Robot;
 
-public class WristCommand extends Command {
+public class WristDefault extends Command {
 
-    private boolean isFinished = false;//380k
+    private boolean isFinished = false;
 
-    public WristCommand() {
+    public WristDefault() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
         requires(Robot.wrist);
@@ -32,13 +33,24 @@ public class WristCommand extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        if (Robot.wrist.getPIDController().isEnabled())
-            Robot.wrist.disable();
-        double downspeed = Robot.controls.getPlayerTwo().getRawAxis(Constants.Axis_5) / 2;
-        double upspeed = Robot.controls.getPlayerTwo().getRawAxis(Constants.Axis_5) / 2;
-        Robot.wrist.spin(-(downspeed + upspeed / 16));
-        Robot.wrist.showVoltage();
+        boolean autonomous = DriverStation.getInstance().isAutonomous();
 
+        if (Robot.wrist.getPIDController().isEnabled() && !autonomous)
+            Robot.wrist.disable();
+
+        if (!Robot.wrist.getPIDController().isEnabled() && autonomous)
+            Robot.wrist.enable();
+
+        if (autonomous) {
+            Robot.wrist.setSetpoint(90 - Robot.arm.getPosition());
+        }
+        if (!autonomous) {
+            double downspeed = Robot.controls.getPlayerTwo().getRawAxis(Constants.Axis_5) / 2;
+            double upspeed = Robot.controls.getPlayerTwo().getRawAxis(Constants.Axis_5) / 2;
+            Robot.wrist.spin(-(downspeed + upspeed / 16));
+        }
+
+        Robot.wrist.showVoltage();
     }
 
     // Make this return true when this Command no longer needs to run execute()

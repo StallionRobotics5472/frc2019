@@ -65,7 +65,7 @@ public class Constants {
 
 	public static final double LIMELIGHT_APPROACH_TARGET_MAX_AREA = 60;
 	public static final double LIMELIGHT_APPROACH_TARGET_TURNP = 0.015;
-	public static final double LIMELIGHT_APPROACH_TARGET_AREAP = 0.60;
+	public static final double LIMELIGHT_APPROACH_TARGET_AREAP = 0.0060;
 
 	public static final double ARM_PIDF_P = 0.8 / 15.0;  // Output should be 0.4 when the error is 30deg
 	public static final double ARM_PIDF_I = 0;

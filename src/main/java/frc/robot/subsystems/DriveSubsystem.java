@@ -118,7 +118,7 @@ public class DriveSubsystem extends Subsystem implements DataProvider{
 
 	@Override
 	protected void initDefaultCommand() {
-		setDefaultCommand(new JoystickDriveCommand());
+		// setDefaultCommand(new JoystickDriveCommand());
 	}
 	
 	public void shiftGear() {

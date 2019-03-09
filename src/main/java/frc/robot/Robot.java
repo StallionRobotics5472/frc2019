@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.autonomous.Autonomous;
 import frc.robot.autonomous.commands.ApproachTarget;
+import frc.robot.commands.JoystickDriveCommand;
 import frc.robot.subsystems.ArmPIDSubsystem;
 import frc.robot.subsystems.BallSubsystem;
 import frc.robot.subsystems.BottomPistonSubsystem;
@@ -103,9 +104,9 @@ public class Robot extends TimedRobot implements DataProvider {
         arm.resetEncoder();
         lift.autoPeakOutput();
 //        logger.start();
-//        auto.init();
-//        auto.start();
-        new ApproachTarget().start();
+       auto.init();
+       auto.start();
+        // new ApproachTarget().start();
     }
 
     @Override
@@ -142,6 +143,7 @@ public class Robot extends TimedRobot implements DataProvider {
         lift.disable();
         wrist.disable();
         arm.disable();
+        new JoystickDriveCommand().start();
     }
 
     @Override

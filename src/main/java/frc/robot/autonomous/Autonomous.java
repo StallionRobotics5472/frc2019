@@ -1,7 +1,9 @@
 package frc.robot.autonomous;
 
+import frc.robot.autonomous.commands.ApproachTarget;
 import frc.robot.autonomous.commands.paths.StraightPath;
 import frc.robot.commands.InitializeRobotState;
+import frc.robot.commands.JoystickDriveCommand;
 
 import java.util.ArrayList;
 
@@ -116,6 +118,8 @@ public class Autonomous extends CommandGroup{
 		addParallel(new InitializeRobotState());
 		if(command != null)
 			addSequential(command);
+		addSequential(new ApproachTarget());
+		addSequential(new JoystickDriveCommand());
 			
 		
 	}

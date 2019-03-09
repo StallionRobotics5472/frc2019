@@ -20,6 +20,7 @@ public class ApproachTarget extends Command {
     private DriveSubsystem drive;
     private double targetStamp;
     private double targetLost;
+    private double time;
 
     public ApproachTarget() {
         requires(Robot.drive);
@@ -31,6 +32,7 @@ public class ApproachTarget extends Command {
         limelight = Robot.limelight;
         targetStamp = 0.0;
         targetLost = 0.0;
+        time = Timer.getFPGATimestamp();
     }
 
     @Override
@@ -67,13 +69,18 @@ public class ApproachTarget extends Command {
 
         SmartDashboard.putNumber("Drive Right", area - turn);
         SmartDashboard.putNumber("Drive Left", area + turn);
+        if(Timer.getFPGATimestamp() - time >= 3){
+            finished = true;
+        }
+
+
 //		}
     }
 
     @Override
     public void end() {
-//		Timer.delay(0.2);
-//		drive.drive(0.0, 0.0);
+		Timer.delay(0.2);
+		drive.drive(0.0, 0.0);
     }
 
     protected boolean isFinished() {

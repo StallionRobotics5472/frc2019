@@ -28,19 +28,6 @@ public class DriveSubsystem extends Subsystem implements DataProvider{
 	private ControlMode controlMode;
 	private Solenoid shiftSolenoid;
 
-	// private TimerTask angleTask;
-	// private double angleAccum;
-
-	/* potentially useful current limit example for drive motors.  This example sets the current limit to 10 if the current exceeds 15 for more than 100 ms
-	talon.configContinuousCurrentLimit(10, 0);
-	talon.configPeakCurrentLimit(15, 0);
-	talon.configPeakCurrentDuration(100, 0);
-	talon.enableCurrentLimit(true);
-*/
-
-	
-	
-	
 	private final PIDOutput driveOutput = (double output) -> {
 		drive(output, output);
 	};
@@ -110,11 +97,6 @@ public class DriveSubsystem extends Subsystem implements DataProvider{
 		highGear();
 	}
 
-
-	public void setupEncoderGyro(){
-
-	}
-
 	public void setControlMode(ControlMode newMode) {
 		controlMode = newMode;
 	}
@@ -165,11 +147,11 @@ public class DriveSubsystem extends Subsystem implements DataProvider{
 	}
 
 	public double getLeftPosition() {
-		return left.getSelectedSensorPosition(0) / Constants.LEFT_ENCODER_TICKS_PER_METER;
+		return left.getSelectedSensorPosition(0) / Constants.TICKS_PER_METER;
 	}
 
 	public double getLeftVelocity() {
-		return left.getSelectedSensorVelocity(0) / Constants.LEFT_ENCODER_TICKS_PER_METER;
+		return left.getSelectedSensorVelocity(0) / Constants.TICKS_PER_METER;
 	}
 	
 	public double getLeftPercent() {
@@ -181,11 +163,11 @@ public class DriveSubsystem extends Subsystem implements DataProvider{
 	}
 
 	public double getRightPosition() {
-		return right.getSelectedSensorPosition(0) / Constants.RIGHT_ENCODER_TICKS_PER_METER;
+		return right.getSelectedSensorPosition(0) / Constants.TICKS_PER_METER;
 	}
 
 	public double getRightVelocity() {
-		return right.getSelectedSensorVelocity(0) / Constants.RIGHT_ENCODER_TICKS_PER_METER;
+		return right.getSelectedSensorVelocity(0) / Constants.TICKS_PER_METER;
 	}
 
 	public double getRightPercent() {
@@ -252,6 +234,5 @@ public class DriveSubsystem extends Subsystem implements DataProvider{
 		SmartDashboard.putNumber("Voltage Right 2", (rightFollower.getMotorOutputVoltage()));
 		SmartDashboard.putNumber("Current Left 2", (leftFollower.getOutputCurrent()));
 		SmartDashboard.putNumber("Current Right 2", (rightFollower.getOutputCurrent()));
-
 	}
 }

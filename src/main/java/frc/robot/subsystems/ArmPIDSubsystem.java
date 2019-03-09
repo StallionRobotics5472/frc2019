@@ -24,7 +24,7 @@ public class ArmPIDSubsystem extends PIDSubsystem {
     // Intert a subsystem name and PID values here
     super("ArmPIDSubsystem", Constants.ARM_PIDF_P, Constants.ARM_PIDF_I, Constants.ARM_PIDF_D);
     arm = new TalonSRX(Constants.ARM_TALON);
-    arm2 = new TalonSRX(Constants.ARM_TALON_2);
+    arm2 = new TalonSRX(Constants.ARM_TALON_FOLLOWER);
     arm.setInverted(true);
     arm2.setInverted(false);
     arm2.follow(arm);
@@ -82,12 +82,12 @@ public class ArmPIDSubsystem extends PIDSubsystem {
   }
 
   public void resetEncoder() {
-    int rightAngle = 1228800;
+    int rightAngle = -1228800; // TODO: Make this positive at competition
     arm.getSensorCollection().setQuadraturePosition(rightAngle, 0);
   }
 
   public int getEncoder() {
-    return arm.getSensorCollection().getQuadraturePosition();
+    return -arm.getSensorCollection().getQuadraturePosition(); // TODO: Make this positive at competition
   }
 
   @Override

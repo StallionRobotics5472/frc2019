@@ -9,7 +9,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
-import frc.robot.commands.WristCommand;
+import frc.robot.commands.WristDefault;
 
 public class WristSubsystem extends PIDSubsystem {
 
@@ -31,7 +31,7 @@ public class WristSubsystem extends PIDSubsystem {
 
     @Override
     protected void initDefaultCommand() {
-        setDefaultCommand(new WristCommand());
+        setDefaultCommand(new WristDefault());
     }
 
     public void spin(double s) {

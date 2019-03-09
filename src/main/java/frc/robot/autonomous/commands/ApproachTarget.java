@@ -5,15 +5,13 @@ import frc.robot.Limelight;
 import frc.robot.Robot;
 import frc.robot.subsystems.DriveSubsystem;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
-public class ApproachBox extends Command{
+public class ApproachTarget extends Command{
 	
 	/*
-	 * Approaches a box given the box is within the camera's fov
+	 * Approaches a target given the target is within the camera's fov
 	 */
 	
 	private boolean finished = false;
@@ -22,7 +20,7 @@ public class ApproachBox extends Command{
 	private double targetStamp;
 	private double targetLost;
 	
-	public ApproachBox() {
+	public ApproachTarget() {
 		requires(Robot.drive);
 	}
 	
@@ -30,10 +28,6 @@ public class ApproachBox extends Command{
 	public void initialize() {
 		drive = Robot.drive;
 		limelight = Robot.limelight;
-		drive.setControlMode(ControlMode.PercentOutput);
-		drive.resetEncoders();
-		drive.drive(0,  0);
-		
 		targetStamp = 0.0;
 		targetLost = 0.0;
 	}
@@ -62,16 +56,19 @@ public class ApproachBox extends Command{
 			targetLost = 0.0;
 			if(targetStamp == 0.0)
 				targetStamp = Timer.getFPGATimestamp();
-			double error = 10 + limelight.getHorizontalAngle();
-			double pGain = error * Constants.LIMELIGHT_APPROACH_BOX_KP;
-			drive.drive(0.5 + pGain, 0.5 - pGain);
+
+			double areaError = Constants.LIMELIGHT_APPROACH_TARGET_MAX_AREA - limelight.getTargetArea();
+			double area  = areaError * Constants.LIMELIGHT_APPROACH_TARGET_AREAP;
+			double horizontalError = limelight.getHorizontalAngle();
+			double turn = horizontalError * Constants.LIMELIGHT_APPROACH_TARGET_TURNP;
+			drive.drive(area + turn, area - turn);
 		}
 	}
 	
 	@Override
 	public void end() {
-		Timer.delay(0.2);
-		drive.drive(0.0, 0.0);
+//		Timer.delay(0.2);
+//		drive.drive(0.0, 0.0);
 	}
 	
 	protected boolean isFinished() {

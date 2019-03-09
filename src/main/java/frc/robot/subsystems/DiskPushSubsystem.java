@@ -8,7 +8,7 @@ public class DiskPushSubsystem extends Subsystem{
     private DoubleSolenoid pusher;
 
     public DiskPushSubsystem(){
-        pusher = new DoubleSolenoid(Constants.PUSH_DOUBLESOLENOID1, Constants.PUSH_DOUBLESOLENOID2);
+        pusher = new DoubleSolenoid(Constants.PUSH_SOLENOID_FORWARD, Constants.PUSH_SOLENOID_REVERSE);
     }
 
     

@@ -32,7 +32,7 @@ public class Robot extends TimedRobot implements DataProvider {
     public static LiftPIDSubsystem lift;
     // public static LedSubsystem led;
     public static Limelight limelight;
-    public static Cameras cameras;
+    // public static Cameras cameras;
     private static DataLogger logger;
     public static DiskPushSubsystem diskPush;
     public static BallSubsystem ball;
@@ -47,7 +47,7 @@ public class Robot extends TimedRobot implements DataProvider {
         lift = new LiftPIDSubsystem();
         // led = new LedSubsystem();
         limelight = new Limelight();
-        cameras = new Cameras();
+        // cameras = new Cameras();
         auto = new Autonomous();
         logger = new DataLogger();
         ball = new BallSubsystem();

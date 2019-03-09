@@ -114,8 +114,8 @@ public class Autonomous extends CommandGroup{
 
 
 		addParallel(new InitializeRobotState());
-//		if(command != null)
-//			addSequential(command);
+		if(command != null)
+			addSequential(command);
 			
 		
 	}

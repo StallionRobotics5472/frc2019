@@ -3,7 +3,9 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.POVButton.POVAngle;
+import frc.robot.autonomous.commands.ApproachTarget;
 import frc.robot.autonomous.commands.LiftGetHatch;
+import frc.robot.commands.ApproachTargetTeleop;
 import frc.robot.commands.ArmLevel;
 import frc.robot.commands.BallCommand;
 import frc.robot.commands.BottomPistonShift;
@@ -59,7 +61,7 @@ public class Controls {
 	private TriggerButton fastBallOut = new TriggerButton(playerOne, Constants.BUTTON_B);
 	private JoystickButton slowBallReverse = new JoystickButton(playerOne, 6);
 	private JoystickButton holdArm = new JoystickButton(playerTwo, Constants.BUTTON_A);
-	private JoystickButton toggleSpeed = new JoystickButton(playerOne, Constants.BUTTON_B);
+	private JoystickButton seekTarget = new JoystickButton(playerOne, Constants.BUTTON_B);
 	// private JoystickButton encoderReseter = new JoystickButton(playerTwo,
 	// Constants.BUTTON_Y);
 
@@ -88,6 +90,7 @@ public class Controls {
 
 		highLimit.whileActive(new LiftStop());
 		lowLimit.whileActive(new LiftZeroEncoder());
+		seekTarget.whileHeld(new ApproachTargetTeleop());
 
 		fastBallIn.whileHeld(new BallCommand(Constants.HIGH_BALL, true));
 		fastBallOut.whileHeld(new BallCommand(Constants.HIGH_BALL, false));
@@ -137,8 +140,6 @@ public class Controls {
 		return playerOne.getRawAxis(Constants.Axis_0);
 	}
 
-	public boolean getSpeed(){
-		return toggleSpeed.get();
-	}
+	
 
 }

@@ -1,4 +1,4 @@
-package frc.robot.autonomous.commands;
+package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
@@ -9,7 +9,7 @@ import frc.robot.subsystems.DriveSubsystem;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
-public class ApproachTarget extends Command {
+public class ApproachTargetTeleop extends Command {
 
     /*
      * Approaches a target given the target is within the camera's fov
@@ -22,7 +22,7 @@ public class ApproachTarget extends Command {
     private double targetLost;
     private double time;
 
-    public ApproachTarget() {
+    public ApproachTargetTeleop() {
         requires(Robot.drive);
     }
 
@@ -69,7 +69,7 @@ public class ApproachTarget extends Command {
 
         SmartDashboard.putNumber("Drive Right", area - turn);
         SmartDashboard.putNumber("Drive Left", area + turn);
-        if(Timer.getFPGATimestamp() - time >= 3){
+        if(Robot.controls.getPlayerOne().getRawButton(Constants.BUTTON_B) == false) {
             finished = true;
         }
         
@@ -80,8 +80,7 @@ public class ApproachTarget extends Command {
 
     @Override
     public void end() {
-		Timer.delay(0.2);
-		drive.drive(0.0, 0.0);
+		new JoystickDriveCommand().start();
     }
 
     protected boolean isFinished() {

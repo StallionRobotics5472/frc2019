@@ -59,9 +59,10 @@ public class Robot extends TimedRobot implements DataProvider {
         wrist = new WristSubsystem();
         bottomPistons = new BottomPistonSubsystem();
         controls = new Controls();
-    }
+    }   
 
     public void cleanup() {
+        
         drive.resetEncoders();
         drive.resetHeading();
         drive.drive(0.0, 0.0);

@@ -15,7 +15,7 @@ import jaci.pathfinder.Trajectory;
 import jaci.pathfinder.followers.EncoderFollower;
 
 
-public class StraightPath extends Command {
+public class MotionProfile extends Command {
 
 	
 	private double p;
@@ -30,7 +30,7 @@ public class StraightPath extends Command {
 	EncoderFollower leftEncoder;
 	TimerTask encoderTask;
 	
-	public StraightPath(String fileName)
+	public MotionProfile(String fileName)
 	{
 		// createSmashboardNumber("P_CONST", 0);
 		// createSmashboardNumber("D_CONST", 0);

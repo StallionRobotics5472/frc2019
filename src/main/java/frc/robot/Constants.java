@@ -63,9 +63,12 @@ public class Constants {
 	public static final double DRIVE_AUTO_TURN_I = 0.0000;
 	public static final double DRIVE_AUTO_TURN_D = 6.0 / 45.0;
 
-	public static final double LIMELIGHT_APPROACH_TARGET_MAX_AREA = 60;
-	public static final double LIMELIGHT_APPROACH_TARGET_TURNP = 0.015;
-	public static final double LIMELIGHT_APPROACH_TARGET_AREAP = 0.0060;
+//	public static final double LIMELIGHT_APPROACH_TARGET_MAX_AREA = 5.00;
+	public static final double LIMELIGHT_APPROACH_A = 1.35073;
+	public static final double LIMELIGHT_APPROACH_B = -0.753788;
+	public static final double LIMELIGHT_APPROACH_C = -0.007124;
+	public static final double LIMELIGHT_APPROACH_D = -0.0196; // -0.0246
+	public static final double LIMELIGHT_APPROACH_TARGET_TURNP = 0.11 / (5.00); // When the error is 5deg, the turn output will be 0.05
 
 	public static final double ARM_PIDF_P = 0.8 / 15.0;  // Output should be 0.4 when the error is 30deg
 	public static final double ARM_PIDF_I = 0;

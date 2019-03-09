@@ -23,8 +23,7 @@ public class Limelight implements DataProvider{
 	private static final int MODE_DRIVER_CAMERA = 1;
 	
 	private static final String ACTIVE_PIPELINE = "pipeline";
-	private static final int SWITCH_DETECTION = 0;
-	private static final int BOX_DETECTION = 1;
+	private static final int WALL_TARGET_PIPELINE = 0;
 	
 	private static final String SNAPSHOT = "snapshot";
 	private static final int TAKE_SNAPSHOT = 1;
@@ -42,7 +41,7 @@ public class Limelight implements DataProvider{
 	private NetworkTable limeLightTable;
 	
 	private void checkConnection() {
-		limeLightTable = NetworkTableInstance.getDefault().getTable("limelight");
+		limeLightTable = NetworkTableInstance.getDefault().getTable("limelight-barnard");
 		if(limeLightTable.getKeys().size() < 20) {
 			//Usually it has 25 keys, it will have 0 if the Limelight hasn't been connected
 			//If a key has been set before checking this, the size will not be zero
@@ -79,25 +78,23 @@ public class Limelight implements DataProvider{
 	}
 	
 	public void setLed(boolean enabled) {
-		int asAnInt = enabled ? LED_ON : LED_OFF;
-		limeLightTable.getEntry(LED_CONTROL).setNumber(asAnInt);
+//		int asAnInt = enabled ? LED_ON : LED_OFF;
+//		limeLightTable.getEntry(LED_CONTROL).setNumber(asAnInt);
 	}
 	
 	public boolean getLed() {
 		int asAnInt = limeLightTable.getEntry(LED_CONTROL).getNumber(LED_ON).intValue();
 		return asAnInt == LED_ON ? true : false;
 	}
-	
-	public void useSwitchDetectionPipeline() {
-		limeLightTable.getEntry(ACTIVE_PIPELINE).setNumber(SWITCH_DETECTION);
+
+
+	public void setWallTargetPipeline(){
+		limeLightTable.getEntry(ACTIVE_PIPELINE).setNumber(WALL_TARGET_PIPELINE);
 	}
-	
-	public void useBoxDetectionPipeline() {
-		limeLightTable.getEntry(ACTIVE_PIPELINE).setNumber(BOX_DETECTION);
-	}
-	
+
 	public int getActivePipeline() {
-		return limeLightTable.getEntry(ACTIVE_PIPELINE).getNumber(SWITCH_DETECTION).intValue();
+//		return limeLightTable.getEntry(ACTIVE_PIPELINE).getNumber(SWITCH_DETECTION).intValue();
+		return 0;
 	}
 	
 	
@@ -122,8 +119,8 @@ public class Limelight implements DataProvider{
 	}
 	
 	public boolean targetExists() {
-		int fromTable = limeLightTable.getEntry(TARGET_EXISTS).getNumber(0).intValue(); //1 if true
-		return fromTable == 1 ? true : false;
+		int fromTable = limeLightTable.getEntry(HORIZONTAL_ANGLE).getNumber(0).intValue(); //1 if true
+		return fromTable == 0 ? false : true;
 	}
 	
 	public HashMap<String, double[]> getData(){

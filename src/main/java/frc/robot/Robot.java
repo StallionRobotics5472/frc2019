@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.autonomous.Autonomous;
+import frc.robot.autonomous.commands.ApproachTarget;
 import frc.robot.subsystems.ArmPIDSubsystem;
 import frc.robot.subsystems.BallSubsystem;
 import frc.robot.subsystems.BottomPistonSubsystem;
@@ -102,8 +103,9 @@ public class Robot extends TimedRobot implements DataProvider {
         arm.resetEncoder();
         lift.autoPeakOutput();
 //        logger.start();
-        auto.init();
-        auto.start();
+//        auto.init();
+//        auto.start();
+        new ApproachTarget().start();
     }
 
     @Override

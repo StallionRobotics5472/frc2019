@@ -1,7 +1,6 @@
 package frc.robot.autonomous.commands.paths;
 
 import java.io.File;
-import java.lang.module.ModuleDescriptor.Requires;
 import java.nio.file.Paths;
 import java.util.Timer;
 import java.util.TimerTask;

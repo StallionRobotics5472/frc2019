@@ -1,6 +1,7 @@
 package frc.robot.autonomous.commands.paths;
 
 import java.io.File;
+import java.lang.module.ModuleDescriptor.Requires;
 import java.nio.file.Paths;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -45,11 +46,13 @@ public class StraightPath extends Command {
 		// a = SmartDashboard.getNumber("A_CONST", 0);
 		// g = SmartDashboard.getNumber("G_CONST", 0);
 
-		p = 0.98;
+		requires(Robot.drive);
+
+		p = 1;
 		d = 0;
 		v = 0;
 		a = 0;
-		g = 0.5;
+		g = 0.3;
 
 		File leftFilePath = Paths.get(fileName + "_left.csv").toFile();
 		Trajectory leftTrajectory = Pathfinder.readFromCSV(leftFilePath);

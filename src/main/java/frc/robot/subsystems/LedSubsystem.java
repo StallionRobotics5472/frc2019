@@ -2,7 +2,7 @@ package frc.robot.subsystems;
 
 import java.util.HashMap;
 
-import frc.robot.DataProvider;
+import frc.robot.util.DataProvider;
 
 import edu.wpi.first.wpilibj.DigitalOutput;
 

@@ -2,21 +2,12 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import frc.robot.POVButton.POVAngle;
-import frc.robot.autonomous.commands.ApproachTarget;
+import frc.robot.commands.*;
+import frc.robot.util.POVButton;
+import frc.robot.util.POVButton.POVAngle;
 import frc.robot.autonomous.commands.LiftGetHatch;
-import frc.robot.commands.ApproachTargetTeleop;
-import frc.robot.commands.ArmLevel;
-import frc.robot.commands.BallCommand;
-import frc.robot.commands.BottomPistonShift;
-import frc.robot.commands.DisableArmPID;
-import frc.robot.commands.DiskPushCommand;
-import frc.robot.commands.HighGear;
-import frc.robot.commands.LiftStop;
-import frc.robot.commands.LiftZeroEncoder;
-import frc.robot.commands.ShiftGear;
-import frc.robot.commands.StopBall;
-import frc.robot.commands.TakeSnapshot;
+import frc.robot.util.LimitSwitch;
+import frc.robot.util.TriggerButton;
 
 public class Controls {
 
@@ -69,6 +60,11 @@ public class Controls {
 	// private POVButton rocketMid = new POVButton(playerTwo, POVAngle.LEFT);
 	// private POVButton rocketHigh = new POVButton(playerTwo, POVAngle.TOP);
 
+	private POVButton testRightAngle = new POVButton(playerTwo, POVAngle.LEFT);
+	private POVButton testFlatAngle = new POVButton(playerTwo, POVAngle.RIGHT);
+
+	private TriggerButton testWristOverride = new TriggerButton(playerTwo, 5, 0.05);
+
 	public Controls() {
 
 		//NOT TESTED
@@ -113,6 +109,10 @@ public class Controls {
 		rocketLow.whenPressed(new LiftGetHatch());
 		// rocketMid.whenPressed(new RocketMidLift());
 		// rocketHigh.whenPressed(new RocketHighLift());
+		testRightAngle.whenPressed(new WristFixed(90));
+		testFlatAngle.whenPressed(new WristFixed(0));
+		testWristOverride.whenPressed(new WristDefault());
+
 
 	}
 

@@ -4,8 +4,9 @@ import java.util.HashMap;
 
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import frc.robot.util.DataProvider;
 
-public class Limelight implements DataProvider{
+public class Limelight implements DataProvider {
 	
 	/**
 	 * All of these const variables are keys (and values in some cases) for the 'limelight' NetworkTable. 
@@ -90,6 +91,10 @@ public class Limelight implements DataProvider{
 
 	public void setWallTargetPipeline(){
 		limeLightTable.getEntry(ACTIVE_PIPELINE).setNumber(WALL_TARGET_PIPELINE);
+	}
+
+	public void disableWallTargetPipeline() {
+		limeLightTable.getEntry(ACTIVE_PIPELINE).setNumber(1);
 	}
 
 	public int getActivePipeline() {

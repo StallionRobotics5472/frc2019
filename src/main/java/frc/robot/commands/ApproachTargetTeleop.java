@@ -33,6 +33,7 @@ public class ApproachTargetTeleop extends Command {
         targetStamp = 0.0;
         targetLost = 0.0;
         time = Timer.getFPGATimestamp();
+        limelight.setWallTargetPipeline();
     }
 
     @Override
@@ -80,6 +81,7 @@ public class ApproachTargetTeleop extends Command {
 
     @Override
     public void end() {
+        limelight.disableWallTargetPipeline();
 		new JoystickDriveCommand().start();
     }
 

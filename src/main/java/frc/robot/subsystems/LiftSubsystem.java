@@ -9,16 +9,16 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import frc.robot.Constants;
-import frc.robot.DataProvider;
+import frc.robot.util.DataProvider;
 import frc.robot.Robot;
 import frc.robot.commands.LiftDefault;
 
-public class LiftPIDSubsystem extends PIDSubsystem implements DataProvider {
+public class LiftSubsystem extends PIDSubsystem implements DataProvider {
 
 	private TalonSRX leftLiftMotor;
 	private TalonSRX rightLiftMotor;
 
-	public LiftPIDSubsystem() {
+	public LiftSubsystem() {
 		super("Lift Subsystem", Constants.LIFT_PIDF_P, Constants.LIFT_PIDF_I, Constants.LIFT_PIDF_D,
 				Constants.LIFT_PIDF_F);
 		leftLiftMotor = new TalonSRX(Constants.LIFT_TALON_CAN_LEFT);

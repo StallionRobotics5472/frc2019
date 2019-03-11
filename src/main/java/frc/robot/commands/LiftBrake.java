@@ -1,14 +1,14 @@
 package frc.robot.commands;
 
 import frc.robot.Robot;
-import frc.robot.subsystems.LiftPIDSubsystem;
+import frc.robot.subsystems.LiftSubsystem;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 public class LiftBrake extends Command{
 	
 	private boolean finished;
-	private LiftPIDSubsystem lift;
+	private LiftSubsystem lift;
 	
 	public LiftBrake() {
 		lift = Robot.lift;

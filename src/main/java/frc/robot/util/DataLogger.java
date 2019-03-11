@@ -1,4 +1,4 @@
-package frc.robot;
+package frc.robot.util;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -9,6 +9,7 @@ import java.util.Map.Entry;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
+
 public class DataLogger {
 	
 	

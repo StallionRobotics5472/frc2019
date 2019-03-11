@@ -15,15 +15,11 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.autonomous.Autonomous;
-import frc.robot.autonomous.commands.ApproachTarget;
 import frc.robot.commands.JoystickDriveCommand;
-import frc.robot.subsystems.ArmPIDSubsystem;
-import frc.robot.subsystems.BallSubsystem;
-import frc.robot.subsystems.BottomPistonSubsystem;
-import frc.robot.subsystems.DiskPushSubsystem;
-import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.subsystems.LiftPIDSubsystem;
-import frc.robot.subsystems.WristSubsystem;
+import frc.robot.subsystems.*;
+import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.util.DataLogger;
+import frc.robot.util.DataProvider;
 
 public class Robot extends TimedRobot implements DataProvider {
 
@@ -31,14 +27,14 @@ public class Robot extends TimedRobot implements DataProvider {
 
     public static Controls controls;
     public static DriveSubsystem drive;
-    public static LiftPIDSubsystem lift;
+    public static LiftSubsystem lift;
     // public static LedSubsystem led;
     public static Limelight limelight;
     // public static Cameras cameras;
     private static DataLogger logger;
     public static DiskPushSubsystem diskPush;
     public static BallSubsystem ball;
-    public static ArmPIDSubsystem arm;
+    public static ArmSubsystem arm;
     public static WristSubsystem wrist;
     public static BottomPistonSubsystem bottomPistons;
     private AnalogInput pressureSensor;
@@ -46,7 +42,7 @@ public class Robot extends TimedRobot implements DataProvider {
     @Override
     public void robotInit() {
         drive = new DriveSubsystem();
-        lift = new LiftPIDSubsystem();
+        lift = new LiftSubsystem();
         // led = new LedSubsystem();
         limelight = new Limelight();
         // cameras = new Cameras();
@@ -55,14 +51,14 @@ public class Robot extends TimedRobot implements DataProvider {
         ball = new BallSubsystem();
         pressureSensor = new AnalogInput(0);
         diskPush = new DiskPushSubsystem();
-        arm = new ArmPIDSubsystem();
+        arm = new ArmSubsystem();
         wrist = new WristSubsystem();
         bottomPistons = new BottomPistonSubsystem();
         controls = new Controls();
-    }   
+    }
 
     public void cleanup() {
-        
+
         drive.resetEncoders();
         drive.resetHeading();
         drive.drive(0.0, 0.0);
@@ -105,19 +101,19 @@ public class Robot extends TimedRobot implements DataProvider {
         arm.resetEncoder();
         lift.autoPeakOutput();
 //        logger.start();
-       auto.init();
-       auto.start();
+        auto.init();
+        auto.start();
         // new ApproachTarget().start();
     }
 
     @Override
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
-//        logger.appendData(drive);
-//        logger.appendData(lift);
-//        logger.appendData(limelight);
-//        logger.appendData(this);
-//        logger.writeFrame();
+        logger.appendData(drive);
+        logger.appendData(lift);
+        logger.appendData(limelight);
+        logger.appendData(this);
+        logger.writeFrame();
 
         SmartDashboard.putNumber("Pressure", getPressure());
         SmartDashboard.putBoolean("Upper Lift Limit", controls.highLimit.get());
@@ -159,11 +155,11 @@ public class Robot extends TimedRobot implements DataProvider {
         SmartDashboard.putNumber("Pressure", getPressure());
         SmartDashboard.putBoolean("Upper Lift Limit", controls.highLimit.get());
         SmartDashboard.putBoolean("Lower Lift Limit", controls.lowLimit.get());
-        SmartDashboard.putNumber("Heading", Robot.drive.getHeading());
         SmartDashboard.putBoolean("Ball Limit", Robot.ball.getLimit());
         SmartDashboard.putNumber("Arm Encoder", Robot.arm.getPosition());
         SmartDashboard.putNumber("Arm Output", Robot.arm.getPercentOutput());
         SmartDashboard.putNumber("Wrist Encoder", Robot.wrist.getPosition());
+        SmartDashboard.putNumber("Wrist Output", Robot.wrist.getPercentOutput());
 
         SmartDashboard.putNumber("End Effector Height (m)", Robot.lift.estimateEndEffectorHeight());
         SmartDashboard.putBoolean("At Third Level (CJ)", Robot.lift.estimateEndEffectorHeight() < 1.92 && Robot.lift.estimateEndEffectorHeight() > 1.84);

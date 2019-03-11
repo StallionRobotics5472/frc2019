@@ -12,31 +12,25 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Constants;
 import frc.robot.Robot;
 
-public class WristDefault extends Command {
+public class WristFixed extends Command {
 
     private boolean isFinished = false;
+    private double targetAngle;
 
-    public WristDefault() {
+    public WristFixed(double angle) {
         requires(Robot.wrist);
         Robot.wrist.setBrake();
-
+        targetAngle = angle;
     }
 
     @Override
-    protected void initialize() {
-        Robot.wrist.disable();
+    protected void initialize(){
+        Robot.wrist.enable();
     }
 
     @Override
     protected void execute() {
-        boolean autonomous = DriverStation.getInstance().isAutonomous();
-
-        if (!autonomous) {
-            double downspeed = Robot.controls.getPlayerTwo().getRawAxis(Constants.Axis_5) / 2;
-            double upspeed = Robot.controls.getPlayerTwo().getRawAxis(Constants.Axis_5) / 2;
-            Robot.wrist.spin(-(downspeed + upspeed / 16));
-        }
-
+        Robot.wrist.setSetpoint(targetAngle - Robot.arm.getPosition());
         Robot.wrist.showVoltage();
     }
 

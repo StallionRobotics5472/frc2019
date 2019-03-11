@@ -16,13 +16,13 @@ import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import frc.robot.Constants;
 import frc.robot.commands.ArmCommand;
 
-public class ArmPIDSubsystem extends PIDSubsystem {
+public class ArmSubsystem extends PIDSubsystem {
   private TalonSRX arm;
   private TalonSRX arm2;
 
-  public ArmPIDSubsystem() {
+  public ArmSubsystem() {
     // Intert a subsystem name and PID values here
-    super("ArmPIDSubsystem", Constants.ARM_PIDF_P, Constants.ARM_PIDF_I, Constants.ARM_PIDF_D);
+    super("ArmSubsystem", Constants.ARM_PIDF_P, Constants.ARM_PIDF_I, Constants.ARM_PIDF_D);
     
     arm = new TalonSRX(Constants.ARM_TALON);
     arm2 = new TalonSRX(Constants.ARM_TALON_FOLLOWER);
@@ -83,18 +83,24 @@ public class ArmPIDSubsystem extends PIDSubsystem {
   }
 
   public void resetEncoder() {
-    int rightAngle = -1228800; // TODO: Make this positive at competition
+    int rightAngle = 1228800;
     arm.getSensorCollection().setQuadraturePosition(rightAngle, 0);
   }
 
   public int getEncoder() {
-    return -arm.getSensorCollection().getQuadraturePosition(); // TODO: Make this positive at competition
+    return arm.getSensorCollection().getQuadraturePosition();
+  }
+
+  private double practiceBot(double encoder){
+    return map(encoder, 92.4, 1.87, 90, 0);
   }
 
   @Override
   public double getPosition() {
-    return map(360 * getEncoder() / 4096.0 / 1200.0,
+    double disp = map(360 * getEncoder() / 4096.0 / 1200.0,
       -26, 87, 0, 90);
+//    return disp;
+    return practiceBot(disp);
   }
 
 

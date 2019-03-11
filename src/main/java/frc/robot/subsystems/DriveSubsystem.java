@@ -3,8 +3,7 @@ package frc.robot.subsystems;
 import java.util.HashMap;
 
 import frc.robot.Constants;
-import frc.robot.DataProvider;
-import frc.robot.commands.JoystickDriveCommand;
+import frc.robot.util.DataProvider;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;

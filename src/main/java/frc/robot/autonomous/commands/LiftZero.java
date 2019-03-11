@@ -1,13 +1,13 @@
 package frc.robot.autonomous.commands;
 
 import frc.robot.Robot;
-import frc.robot.subsystems.LiftPIDSubsystem;
+import frc.robot.subsystems.LiftSubsystem;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 public class LiftZero extends Command{
 	
-	private LiftPIDSubsystem lift;
+	private LiftSubsystem lift;
 	
 	public LiftZero() {
 		requires(Robot.lift);

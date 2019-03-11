@@ -4,11 +4,11 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Controls;
 import frc.robot.Robot;
-import frc.robot.subsystems.LiftPIDSubsystem;
+import frc.robot.subsystems.LiftSubsystem;
 
 public class LiftStop extends Command {
 
-	private LiftPIDSubsystem lift;
+	private LiftSubsystem lift;
 	private Controls controls;
 	private boolean finished;
 	

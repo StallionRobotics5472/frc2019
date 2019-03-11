@@ -12,7 +12,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Constants;
-import frc.robot.LimitSwitch;
+import frc.robot.util.LimitSwitch;
 import frc.robot.commands.ReportIntakeLimit;
 
 /**

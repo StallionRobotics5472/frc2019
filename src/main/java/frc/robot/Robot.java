@@ -103,7 +103,6 @@ public class Robot extends TimedRobot implements DataProvider {
 //        logger.start();
         auto.init();
         auto.start();
-        // new ApproachTarget().start();
     }
 
     @Override
@@ -156,10 +155,8 @@ public class Robot extends TimedRobot implements DataProvider {
         SmartDashboard.putBoolean("Upper Lift Limit", controls.highLimit.get());
         SmartDashboard.putBoolean("Lower Lift Limit", controls.lowLimit.get());
         SmartDashboard.putBoolean("Ball Limit", Robot.ball.getLimit());
-        SmartDashboard.putNumber("Arm Encoder", Robot.arm.getPosition());
-        SmartDashboard.putNumber("Arm Output", Robot.arm.getPercentOutput());
-        SmartDashboard.putNumber("Wrist Encoder", Robot.wrist.getPosition());
-        SmartDashboard.putNumber("Wrist Output", Robot.wrist.getPercentOutput());
+
+        SmartDashboard.putNumber("Lift Encoder", Robot.lift.getEncoder());
 
         SmartDashboard.putNumber("End Effector Height (m)", Robot.lift.estimateEndEffectorHeight());
         SmartDashboard.putBoolean("At Third Level (CJ)", Robot.lift.estimateEndEffectorHeight() < 1.92 && Robot.lift.estimateEndEffectorHeight() > 1.84);

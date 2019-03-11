@@ -15,9 +15,6 @@ import frc.robot.Constants;
 import frc.robot.util.LimitSwitch;
 import frc.robot.commands.ReportIntakeLimit;
 
-/**
- * Add your docs here.
- */
 public class BallSubsystem extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.

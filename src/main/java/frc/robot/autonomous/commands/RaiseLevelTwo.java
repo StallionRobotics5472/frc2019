@@ -5,15 +5,15 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.autonomous.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Constants;
 import frc.robot.Robot;
 
-public class RaiseLevelOne extends Command {
+public class RaiseLevelTwo extends Command {
 
-  public RaiseLevelOne() {
+  public RaiseLevelTwo() {
       requires(Robot.lift);
   }
 
@@ -21,7 +21,7 @@ public class RaiseLevelOne extends Command {
   @Override
   protected void initialize() {
     Robot.lift.enable();
-    Robot.lift.setSetpoint(Constants.LEVEL_ONE_HEIGHT);
+    Robot.lift.setSetpoint(Constants.LEVEL_TWO_HEIGHT);
   }
 
   @Override

@@ -13,9 +13,7 @@ import frc.robot.commands.WristDefault;
 
 public class WristSubsystem extends PIDSubsystem {
 
-    // the motor for the wrist
     private TalonSRX wristMotor;
-    // the speed the motor should spin at
 
     public WristSubsystem() {
         super("WristSubsystem", Constants.WRIST_PIDF_P, Constants.WRIST_PIDF_I, Constants.WRIST_PIDF_D);
@@ -25,7 +23,7 @@ public class WristSubsystem extends PIDSubsystem {
         wristMotor.setSensorPhase(true);
 
         this.setAbsoluteTolerance(5);
-        this.setOutputRange(-0.4, 0.4);
+        this.setOutputRange(-0.7, 0.7);
         this.setInputRange(-45, 90);
     }
 
@@ -82,13 +80,12 @@ public class WristSubsystem extends PIDSubsystem {
     }
 
     public double getDisplacement() {
-//        return 360.0 * getEncoderOutput() / 4096.0 / 1600.0;
-        return practiceBot(360.0 * getEncoderOutput() / 4096.0 / 1600.0);
+        return map(getEncoderOutput(),0,1684077,0,90);
     }
 
-    private double practiceBot(double displacement){
-       return map(displacement, -87.5, 84.75, -90, 90);
-    }
+    // private double practiceBot(double displacement){
+    //    return map(displacement, -87.5, 84.75, -90, 90);
+    // }
 
     private double map(double value, double in1, double in2, double out1, double out2){
         return ((out2 - out1) / (in2 - in1)) * (value - in1) + out1;

@@ -30,7 +30,7 @@ public class Robot extends TimedRobot implements DataProvider {
     public static LiftSubsystem lift;
     // public static LedSubsystem led;
     public static Limelight limelight;
-    // public static Cameras cameras;
+    public static Cameras cameras;
     private static DataLogger logger;
     public static DiskPushSubsystem diskPush;
     public static BallSubsystem ball;
@@ -45,7 +45,7 @@ public class Robot extends TimedRobot implements DataProvider {
         lift = new LiftSubsystem();
         // led = new LedSubsystem();
         limelight = new Limelight();
-        // cameras = new Cameras();
+        cameras = new Cameras();
         auto = new Autonomous();
         logger = new DataLogger();
         ball = new BallSubsystem();
@@ -100,7 +100,7 @@ public class Robot extends TimedRobot implements DataProvider {
         wrist.resetEncoder();
         arm.resetEncoder();
         lift.autoPeakOutput();
-//        logger.start();
+        // logger.start();
         auto.init();
         auto.start();
     }
@@ -122,7 +122,6 @@ public class Robot extends TimedRobot implements DataProvider {
         SmartDashboard.putNumber("Right Encoder", drive.getRightPosition());
         SmartDashboard.putNumber("Arm Setpoint", Robot.arm.getSetpoint());
         SmartDashboard.putNumber("Lift Encoder", lift.getPosition());
-
 
         SmartDashboard.putNumber("Arm Encoder", Robot.arm.getPosition());
         SmartDashboard.putNumber("Arm Output", Robot.arm.getPercentOutput());
@@ -156,10 +155,14 @@ public class Robot extends TimedRobot implements DataProvider {
         SmartDashboard.putBoolean("Lower Lift Limit", controls.lowLimit.get());
         SmartDashboard.putBoolean("Ball Limit", Robot.ball.getLimit());
 
+        SmartDashboard.putNumber("Wrist Pos", Robot.wrist.getPosition());
+        SmartDashboard.putNumber("Arm Pos", Robot.arm.getPosition());
         SmartDashboard.putNumber("Lift Encoder", Robot.lift.getEncoder());
 
         SmartDashboard.putNumber("End Effector Height (m)", Robot.lift.estimateEndEffectorHeight());
-        SmartDashboard.putBoolean("At Third Level (CJ)", Robot.lift.estimateEndEffectorHeight() < 1.92 && Robot.lift.estimateEndEffectorHeight() > 1.84);
+        SmartDashboard.putBoolean("At Third Level (CJ)",
+                Robot.lift.estimateEndEffectorHeight() < 1.92 && Robot.lift.estimateEndEffectorHeight() > 1.84);
+        SmartDashboard.putNumber("Target area", limelight.getTargetArea());
     }
 
     @Override
@@ -177,12 +180,12 @@ public class Robot extends TimedRobot implements DataProvider {
 
     public HashMap<String, double[]> getData() {
         HashMap<String, double[]> toReturn = new HashMap<>();
-        toReturn.put("Battery Voltage", new double[]{RobotController.getBatteryVoltage()});
-        toReturn.put("CAN Bus Utilization", new double[]{RobotController.getCANStatus().percentBusUtilization});
-        toReturn.put("Brown Out", new double[]{RobotController.isBrownedOut() ? 1.0 : 0.0});
-        toReturn.put("Pressure", new double[]{getPressure()});
-        toReturn.put("Low Limit Switch", new double[]{controls.lowLimit.get() ? 1.0 : 0.0});
-        toReturn.put("High Limit Switch", new double[]{controls.highLimit.get() ? 1.0 : 0.0});
+        toReturn.put("Battery Voltage", new double[] { RobotController.getBatteryVoltage() });
+        toReturn.put("CAN Bus Utilization", new double[] { RobotController.getCANStatus().percentBusUtilization });
+        toReturn.put("Brown Out", new double[] { RobotController.isBrownedOut() ? 1.0 : 0.0 });
+        toReturn.put("Pressure", new double[] { getPressure() });
+        toReturn.put("Low Limit Switch", new double[] { controls.lowLimit.get() ? 1.0 : 0.0 });
+        toReturn.put("High Limit Switch", new double[] { controls.highLimit.get() ? 1.0 : 0.0 });
         return toReturn;
     }
 }

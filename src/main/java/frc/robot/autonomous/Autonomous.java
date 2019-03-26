@@ -1,6 +1,7 @@
 package frc.robot.autonomous;
 
 import frc.robot.autonomous.commands.ApproachTarget;
+import frc.robot.autonomous.commands.Delay;
 import frc.robot.autonomous.commands.paths.MotionProfile;
 import frc.robot.commands.InitializeRobotState;
 import frc.robot.commands.JoystickDriveCommand;
@@ -27,7 +28,7 @@ public class Autonomous extends CommandGroup{
 		public String toString() {
 			return name;
 		}
-	}
+	} 
 
 	public static enum Plan {
 		FRONT_LEFT_CARGO_MOTION_PROFILE("Front Left Cargo Motion Profile");
@@ -107,14 +108,17 @@ public class Autonomous extends CommandGroup{
 			break;
 		case MOTION_PROFILE:
 			runMotionProfile(thePath);
+			
 			break;
 		}
 
 
 		addParallel(new InitializeRobotState());
-		if(command != null)
+		 if(command != null){
+			//addSequential(new Delay(6.5));
 			addSequential(command);
-		addSequential(new ApproachTarget());
+		 }
+		// addSequential(new ApproachTarget());
 		addSequential(new JoystickDriveCommand());
 			
 		

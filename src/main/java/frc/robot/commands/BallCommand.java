@@ -1,4 +1,3 @@
-
 /*----------------------------------------------------------------------------*/
 /* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
@@ -32,11 +31,12 @@ public class BallCommand extends Command {
   @Override
   protected void execute() {
     if(Robot.ball.getLimit() && out){
-
       Robot.ball.spin(0);
+      Robot.ball.setBrake();
       isFinished = true;
     }else{
     Robot.ball.spin(s);
+    Robot.ball.setCoast();
     isFinished = true;
     }
   }

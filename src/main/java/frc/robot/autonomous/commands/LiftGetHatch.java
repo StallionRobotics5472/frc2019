@@ -12,8 +12,9 @@ public class LiftGetHatch extends Command{
 	@Override
 	public void initialize() {
     lift = Robot.lift;
-		lift.setSetpoint(330000);
-    lift.enable();
+		// lift.setSetpoint(330000);
+		lift.setSetpoint(200000);
+		lift.enable();
 	}
 	
 	@Override

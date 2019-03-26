@@ -32,9 +32,10 @@ public class WristDefault extends Command {
         boolean autonomous = DriverStation.getInstance().isAutonomous();
 
         if (!autonomous) {
-            double downspeed = Robot.controls.getPlayerTwo().getRawAxis(Constants.Axis_5) / 2;
-            double upspeed = Robot.controls.getPlayerTwo().getRawAxis(Constants.Axis_5) / 2;
-            Robot.wrist.spin(-(downspeed + upspeed / 16));
+            double downspeed = -Robot.controls.getPlayerTwo().getRawAxis(Constants.Axis_5);
+            double output = downspeed;
+            output = Math.abs(output) < 0.05 ? 0 : output;
+            Robot.wrist.spin(output);
         }
 
         Robot.wrist.showVoltage();

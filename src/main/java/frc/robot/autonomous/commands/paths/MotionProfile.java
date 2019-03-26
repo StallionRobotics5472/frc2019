@@ -7,7 +7,7 @@ import java.util.TimerTask;
 
 import frc.robot.Constants;
 import frc.robot.Robot;
-
+import frc.robot.subsystems.DriveSubsystem;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import jaci.pathfinder.Pathfinder;
@@ -26,48 +26,44 @@ public class MotionProfile extends Command {
 
 	// private double startingAngle = 90;
 	
-	EncoderFollower rightEncoder;
-	EncoderFollower leftEncoder;
-	TimerTask encoderTask;
+	private Trajectory leftTrajectory, rightTrajectory;
+
+	private EncoderFollower rightEncoder;
+	private EncoderFollower leftEncoder;
+	private TimerTask encoderTask;
 	
 	public MotionProfile(String fileName)
 	{
-		// createSmashboardNumber("P_CONST", 0);
-		// createSmashboardNumber("D_CONST", 0);
-		// createSmashboardNumber("V_CONST", 0);
-		// createSmashboardNumber("A_CONST", 0);
-		// createSmashboardNumber("G_CONST", 0);
-	
-
-		// p = SmartDashboard.getNumber("P_CONST", 0);
-		// d = SmartDashboard.getNumber("D_CONST", 0);
-		// v = SmartDashboard.getNumber("V_CONST", 0);
-		// a = SmartDashboard.getNumber("A_CONST", 0);
-		// g = SmartDashboard.getNumber("G_CONST", 0);
-
 		requires(Robot.drive);
+		File leftFilePath = Paths.get(fileName + "_left.csv").toFile();
+		leftTrajectory = Pathfinder.readFromCSV(leftFilePath);
+		File rightFilePath = Paths.get(fileName + "_right.csv").toFile();
+		rightTrajectory = Pathfinder.readFromCSV(rightFilePath);
 
+		initializePath();
+	}
+
+	public MotionProfile(Trajectory left, Trajectory right){
+		leftTrajectory = left;
+		rightTrajectory = right;
+		initializePath();
+	}
+	
+	private void initializePath(){
 		p = 1;
 		d = 0;
 		v = 0;
 		a = 0;
 		g = 0.3;
 
-		File leftFilePath = Paths.get(fileName + "_left.csv").toFile();
-		Trajectory leftTrajectory = Pathfinder.readFromCSV(leftFilePath);
-		File rightFilePath = Paths.get(fileName + "_right.csv").toFile();
-		Trajectory rightTrajectory = Pathfinder.readFromCSV(rightFilePath);
-		
-//		Robot.drive.resetEncoders();
-		
 		rightEncoder = new EncoderFollower();
 		rightEncoder.configurePIDVA(p, 0.0, d, v, a);
-		rightEncoder.configureEncoder(0, Constants.TICKS_PER_REV, Constants.WHEEL_DIAMETER);
+		rightEncoder.configureEncoder(Robot.drive.getRightRaw(), Constants.TICKS_PER_REV, Constants.WHEEL_DIAMETER);
 		rightEncoder.setTrajectory(rightTrajectory);
 	
 		leftEncoder = new EncoderFollower();
 		leftEncoder.configurePIDVA(p, 0.0, d, v, a);
-		leftEncoder.configureEncoder(0, Constants.TICKS_PER_REV, Constants.WHEEL_DIAMETER);
+		leftEncoder.configureEncoder(Robot.drive.getLeftRaw(), Constants.TICKS_PER_REV, Constants.WHEEL_DIAMETER);
 		leftEncoder.setTrajectory(leftTrajectory);
 		
 		encoderTask = new TimerTask() {
@@ -108,7 +104,7 @@ public class MotionProfile extends Command {
 			}
 		};
 	}
-	
+
 	public void end()
 	{
 		encoderTask.cancel();

@@ -64,6 +64,10 @@ public class Controls {
 	private POVButton testFlatAngle = new POVButton(playerTwo, POVAngle.RIGHT);
 
 	private TriggerButton testWristOverride = new TriggerButton(playerTwo, 5, 0.05);
+	// private TriggerButton testLiftOverride = new TriggerButton(playerTwo, 2, 0.1);
+	// private TriggerButton testLiftOverrideLeft = new TriggerButton(playerTwo, 3, 0.1);
+	// private TriggerButton testArmOverride = new
+	
 
 	public Controls() {
 
@@ -86,7 +90,8 @@ public class Controls {
 
 		highLimit.whileActive(new LiftStop());
 		lowLimit.whileActive(new LiftZeroEncoder());
-		seekTarget.whileHeld(new ApproachTargetTeleop());
+		// seekTarget.whenPressed(new ApproachTargetTeleop());
+		// seekTarget.whenReleased(new JoystickDriveCommand());
 
 		fastBallIn.whileHeld(new BallCommand(Constants.HIGH_BALL, true));
 		fastBallOut.whileHeld(new BallCommand(Constants.HIGH_BALL, false));
@@ -139,7 +144,5 @@ public class Controls {
 	public double getDriveHorizontalAxis() {
 		return playerOne.getRawAxis(Constants.Axis_0);
 	}
-
-	
 
 }

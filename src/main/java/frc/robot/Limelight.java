@@ -36,13 +36,14 @@ public class Limelight implements DataProvider {
 	private static final String TARGET_AREA = "ta";
 	private static final String TARGET_SKEWNESS = "ts";
 	private static final String INVERSE_FRAMERATE = "tl"; //Time taken by the Limelight processor to process the frame
+	private static final String CAMERA_POSE = "camtran";
 
 	private boolean limeLightConnected = false;
 	
 	private NetworkTable limeLightTable;
 	
 	private void checkConnection() {
-		limeLightTable = NetworkTableInstance.getDefault().getTable("limelight-barnard");
+		limeLightTable = NetworkTableInstance.getDefault().getTable("limelight");
 		if(limeLightTable.getKeys().size() < 20) {
 			//Usually it has 25 keys, it will have 0 if the Limelight hasn't been connected
 			//If a key has been set before checking this, the size will not be zero

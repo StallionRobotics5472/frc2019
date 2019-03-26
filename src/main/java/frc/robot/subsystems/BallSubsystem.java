@@ -8,6 +8,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -37,10 +38,17 @@ public class BallSubsystem extends Subsystem {
   public void spin(double speed) {
    
 
-    motor.set(ControlMode.PercentOutput, speed);
+    motor.set(ControlMode.PercentOutput, speed*1.0);
     }
-    
-  
+    public void setBrake()
+    {
+        motor.setNeutralMode(NeutralMode.Brake);
+    }
+
+    public void setCoast()
+    {
+        motor.setNeutralMode(NeutralMode.Coast);;
+    }
 
   public boolean getLimit() {
     return ballLimit.get();

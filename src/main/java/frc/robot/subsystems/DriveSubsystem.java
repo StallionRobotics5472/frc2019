@@ -24,7 +24,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class DriveSubsystem extends Subsystem implements DataProvider{
 
 	private AHRS navx = new AHRS(SPI.Port.kMXP);
-	private TalonSRX left, right, leftFollower, rightFollower;
+	private TalonSRX left, right, leftFollower, rightFollower, leftFollower_2, rightFollower_2;
 	private ControlMode controlMode;
 	private Solenoid shiftSolenoid;
 
@@ -63,13 +63,18 @@ public class DriveSubsystem extends Subsystem implements DataProvider{
 		right = new TalonSRX(Constants.DRIVE_RIGHT_TALON_CAN);
 		leftFollower = new TalonSRX(Constants.DRIVE_LEFT_FOLLOWER_CAN);
 		rightFollower = new TalonSRX(Constants.DRIVE_RIGHT_FOLLOWER_CAN);
+		leftFollower_2 = new TalonSRX(Constants.DRIVE_LEFT_FOLLOWER_2_CAN);
+		rightFollower_2 = new TalonSRX(Constants.DRIVE_RIGHT_FOLLOWER_2_CAN);
+		
 		
 		shiftSolenoid = new Solenoid(Constants.DRIVE_SHIFT_SOLENOID);
 
 		left.setInverted(false);
 		leftFollower.setInverted(false);
+		leftFollower_2.setInverted(false);
 		right.setInverted(true);
 		rightFollower.setInverted(true);
+		rightFollower_2.setInverted(true);
 		
 		//This got flipped around for some reason. 
 		
@@ -107,14 +112,11 @@ public class DriveSubsystem extends Subsystem implements DataProvider{
 		this.right.set(controlMode, right);
 		this.leftFollower.set(controlMode, left);
 		this.rightFollower.set(controlMode, right);
+		this.leftFollower_2.set(controlMode, left);
+		this.rightFollower_2.set(controlMode, right);
 	}
 	
-	public void turn(double throttle, double twist) {
-		left.set(controlMode, throttle + twist);
-		leftFollower.set(controlMode, throttle - twist);
-		right.set(controlMode, throttle - twist);
-		rightFollower.set(controlMode, throttle + twist);
-	}
+
 
 	@Override
 	protected void initDefaultCommand() {
@@ -187,6 +189,8 @@ public class DriveSubsystem extends Subsystem implements DataProvider{
 		leftFollower.setNeutralMode(NeutralMode.Brake);
 		right.setNeutralMode(NeutralMode.Brake);
 		rightFollower.setNeutralMode(NeutralMode.Brake);
+		leftFollower_2.setNeutralMode(NeutralMode.Brake);
+		rightFollower_2.setNeutralMode(NeutralMode.Brake);
 	}
 	
 	public void setCoast() {
@@ -194,6 +198,8 @@ public class DriveSubsystem extends Subsystem implements DataProvider{
 		leftFollower.setNeutralMode(NeutralMode.Coast);
 		right.setNeutralMode(NeutralMode.Coast);
 		rightFollower.setNeutralMode(NeutralMode.Coast);
+		leftFollower_2.setNeutralMode(NeutralMode.Coast);
+		rightFollower_2.setNeutralMode(NeutralMode.Coast);
 	}
 	
 	// Autonomous Stuff

@@ -21,14 +21,12 @@ public class ArmSubsystem extends PIDSubsystem {
   private TalonSRX arm2;
 
   public ArmSubsystem() {
-    // Intert a subsystem name and PID values here
     super("ArmSubsystem", Constants.ARM_PIDF_P, Constants.ARM_PIDF_I, Constants.ARM_PIDF_D);
-    
+
     arm = new TalonSRX(Constants.ARM_TALON);
     arm2 = new TalonSRX(Constants.ARM_TALON_FOLLOWER);
     arm.setInverted(true);
-    arm2.setInverted(false);
-    arm2.follow(arm);
+    arm2.setInverted(true);
 
     arm.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
     arm.setSensorPhase(true);
@@ -42,28 +40,22 @@ public class ArmSubsystem extends PIDSubsystem {
 
   @Override
   public void initDefaultCommand() {
-    // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
     setDefaultCommand(new ArmCommand());
   }
 
   @Override
   protected double returnPIDInput() {
-    // Return your input value for the PID loop
-    // e.g. a sensor, like a potentiometer:
-    // yourPot.getAverageVoltage() / kYourMaxVoltage;
     return getPosition();
   }
 
   @Override
   protected void usePIDOutput(double output) {
-    // Use output to drive your system, like a motor
-    // e.g. yourMotor.set(output);
     arm.set(ControlMode.PercentOutput, output);
   }
 
   public void moveArm(double speed) {
     arm.set(ControlMode.PercentOutput, speed);
+    arm2.set(ControlMode.PercentOutput, speed);
   }
 
   public void enableBrake() {
@@ -83,30 +75,24 @@ public class ArmSubsystem extends PIDSubsystem {
   }
 
   public void resetEncoder() {
-    int rightAngle = 1228800;
-    arm.getSensorCollection().setQuadraturePosition(rightAngle, 0);
+    arm.getSensorCollection().setQuadraturePosition(0, 0);
   }
 
   public int getEncoder() {
     return arm.getSensorCollection().getQuadraturePosition();
   }
 
-  private double practiceBot(double encoder){
+  private double practiceBot(double encoder) {
     return map(encoder, 92.4, 1.87, 90, 0);
   }
 
   @Override
   public double getPosition() {
-    double disp = map(360 * getEncoder() / 4096.0 / 1200.0,
-      -26, 87, 0, 90);
-//    return disp;
-    return practiceBot(disp);
+    double disp = map(getEncoder(), 0,-1512277, 90, 0);
+    return disp;
   }
 
-
-  private double map(double value, double in1, double in2, double out1, double out2){
-    // input: [-26, 87]
-    // output: [0, 90]
+  private double map(double value, double in1, double in2, double out1, double out2) {
     return ((out2 - out1) / (in2 - in1)) * (value - in1) + out1;
   }
 

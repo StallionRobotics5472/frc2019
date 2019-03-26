@@ -30,6 +30,8 @@ public class Constants {
 	public static final int DRIVE_LEFT_FOLLOWER_CAN = 2;
 	public static final int DRIVE_RIGHT_TALON_CAN = 14;
 	public static final int DRIVE_RIGHT_FOLLOWER_CAN = 13;
+	public static final int DRIVE_LEFT_FOLLOWER_2_CAN = 4;
+	public static final int DRIVE_RIGHT_FOLLOWER_2_CAN = 11;
 
 	public static final int LIFT_TALON_CAN_LEFT = 3;
 	public static final int LIFT_TALON_CAN_RIGHT = 12;
@@ -64,10 +66,10 @@ public class Constants {
 	public static final double DRIVE_AUTO_TURN_D = 6.0 / 45.0;
 
 //	public static final double LIMELIGHT_APPROACH_TARGET_MAX_AREA = 5.00;
-	public static final double LIMELIGHT_APPROACH_A = 1.35073;
-	public static final double LIMELIGHT_APPROACH_B = -0.753788;
-	public static final double LIMELIGHT_APPROACH_C = -0.007124;
-	public static final double LIMELIGHT_APPROACH_D = -0.0196; // -0.0246
+	public static final double LIMELIGHT_APPROACH_A = 1.3827;
+	public static final double LIMELIGHT_APPROACH_B = -1.25017;
+	public static final double LIMELIGHT_APPROACH_C = -0.000971;
+	public static final double LIMELIGHT_APPROACH_D = -0.08182; // -0.0246
 	public static final double LIMELIGHT_APPROACH_TARGET_TURNP = 0.11 / (5.00); // When the error is 5deg, the turn output will be 0.05
 
 	public static final double ARM_PIDF_P = 0.8 / 15.0;  // Output should be 0.4 when the error is 30deg

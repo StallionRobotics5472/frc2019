@@ -90,8 +90,7 @@ public class Controls {
 
 		highLimit.whileActive(new LiftStop());
 		lowLimit.whileActive(new LiftZeroEncoder());
-		// seekTarget.whenPressed(new ApproachTargetTeleop());
-		// seekTarget.whenReleased(new JoystickDriveCommand());
+		
 
 		fastBallIn.whileHeld(new BallCommand(Constants.HIGH_BALL, true));
 		fastBallOut.whileHeld(new BallCommand(Constants.HIGH_BALL, false));
@@ -143,6 +142,11 @@ public class Controls {
 
 	public double getDriveHorizontalAxis() {
 		return playerOne.getRawAxis(Constants.Axis_0);
+	}
+
+	public void initTargeting(){
+		seekTarget.whenPressed(new ApproachTargetTeleop());
+		seekTarget.whenReleased(new JoystickDriveCommand());
 	}
 
 }

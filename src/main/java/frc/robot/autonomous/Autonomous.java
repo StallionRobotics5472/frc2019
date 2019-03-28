@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Autonomous extends CommandGroup{
 
 	public static enum StartingPosition {
-		CENTER("Center"), LEFT("Left"), RIGHT("Right"), MOTION_PROFILE("Motion Profile");
+		MOTION_PROFILE("Motion Profile");
 
 		private String name;
 
@@ -31,7 +31,8 @@ public class Autonomous extends CommandGroup{
 	} 
 
 	public static enum Plan {
-		FRONT_LEFT_CARGO_MOTION_PROFILE("Front Left Cargo Motion Profile");
+		FRONT_LEFT_CARGO_MOTION_PROFILE("Front Left Cargo Motion Profile"),
+		DRIVE_TEST_MOTION_PROFILE("Test Path");
 
 		private String name;
 
@@ -47,7 +48,7 @@ public class Autonomous extends CommandGroup{
 	}
 
 	public static enum Paths {
-		STRAIGHT("Straight"), LEFT_ROCKET("Left Rocket"), RIGHT_ROCKET("Right Rocket"), NO_PATHS("No Paths");
+		FRONTLEFTCARGO("Front Left Cargo"), TEST("Test Path");
 
 		private String name;
 
@@ -74,20 +75,21 @@ public class Autonomous extends CommandGroup{
 		return paths;
 	}
 
-	public Autonomous() {
-		starting.setDefaultOption(StartingPosition.CENTER.toString(), StartingPosition.CENTER);
-		starting.addOption(StartingPosition.LEFT.toString(), StartingPosition.LEFT);
-		starting.addOption(StartingPosition.RIGHT.toString(), StartingPosition.RIGHT);
-		starting.addOption(StartingPosition.MOTION_PROFILE.toString(), StartingPosition.MOTION_PROFILE);
+	public Autonomous()	{
+	// 	for(Plan p : Plan.values()){
+	// 		plan.addOption(p.toString(), p);
+	// 	}
+		starting.setDefaultOption(StartingPosition.MOTION_PROFILE.toString(), StartingPosition.MOTION_PROFILE);
 		plan.setDefaultOption(Plan.FRONT_LEFT_CARGO_MOTION_PROFILE.toString(), Plan.FRONT_LEFT_CARGO_MOTION_PROFILE);
 		SmartDashboard.putData("Autonomous Starting Position", starting);
 		SmartDashboard.putData("Autonomous Task", plan);
 
 		// paths.addDefault("No path", Paths.NO_PATHS);
-		paths.setDefaultOption(Paths.STRAIGHT.toString(), Paths.STRAIGHT);
+		paths.setDefaultOption(Paths.FRONTLEFTCARGO.toString(), Paths.FRONTLEFTCARGO);
 		SmartDashboard.putData("Path", paths);
 
 		fileNames.add("/home/lvuser/deploy/Paths/frontcargoleft");
+		fileNames.add("/home/lvusser/deploy/Paths/testpath");
 	}
 
 	public void init() {
@@ -97,15 +99,8 @@ public class Autonomous extends CommandGroup{
 		Paths thePath = paths.getSelected();
 
 		switch (startPos) {
-		case CENTER:
-			startingCenter(thePlan);
-			break;
-		case LEFT:
-			startingLeft(thePlan);
-			break;
-		case RIGHT:
-			startingRight(thePlan);
-			break;
+		
+
 		case MOTION_PROFILE:
 			runMotionProfile(thePath);
 			
@@ -126,42 +121,17 @@ public class Autonomous extends CommandGroup{
 
 	public void runMotionProfile(Paths path) {
 		switch (path) {
-		case STRAIGHT:
+		case FRONTLEFTCARGO:
 			command = new MotionProfile(fileNames.get(0));
 			break;
+		case TEST:
+			command = new MotionProfile(fileNames.get(1));
 
 		default:
 			System.out.println("You tried to run a motion profile path that doesn't exist!");
 		}
 	}
 
-	public void startingCenter(Plan task) {
-
-		switch (task) {
-		case FRONT_LEFT_CARGO_MOTION_PROFILE:
-			command = new MotionProfile(fileNames.get(0));
-			break;
-		}
-	}
-
-	public void startingLeft(Plan task) {
-		switch (task) {
-
-		case FRONT_LEFT_CARGO_MOTION_PROFILE:
-			command = new MotionProfile(fileNames.get(0));
-			break;
-		}
-	}
 	
 	
-
-	public void startingRight(Plan task) {
-
-		switch (task) {
-
-		case FRONT_LEFT_CARGO_MOTION_PROFILE:
-			command = new MotionProfile(fileNames.get(0));
-			break;
-		}
-	}
 }

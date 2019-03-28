@@ -41,20 +41,20 @@ public class Robot extends TimedRobot implements DataProvider {
 
     @Override
     public void robotInit() {
-        drive = new DriveSubsystem();
-        lift = new LiftSubsystem();
-        // led = new LedSubsystem();
+        pressureSensor = new AnalogInput(0);
         limelight = new Limelight();
         cameras = new Cameras();
-        auto = new Autonomous();
+        lift = new LiftSubsystem();
         logger = new DataLogger();
         ball = new BallSubsystem();
-        pressureSensor = new AnalogInput(0);
         diskPush = new DiskPushSubsystem();
         arm = new ArmSubsystem();
         wrist = new WristSubsystem();
         bottomPistons = new BottomPistonSubsystem();
         controls = new Controls();
+        drive = new DriveSubsystem();
+        auto = new Autonomous();
+        Robot.controls.initTargeting();
     }
 
     public void cleanup() {

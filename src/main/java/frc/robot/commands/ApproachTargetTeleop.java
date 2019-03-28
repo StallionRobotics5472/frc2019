@@ -74,9 +74,7 @@ public class ApproachTargetTeleop extends Command {
 
         SmartDashboard.putNumber("Drive Right", area - turn);
         SmartDashboard.putNumber("Drive Left", area + turn);
-        if (Robot.controls.getPlayerOne().getRawButton(Constants.BUTTON_B) == false) {
-            finished = true;
-        }
+        
     }
 
     @Override

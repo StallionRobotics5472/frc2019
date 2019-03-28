@@ -80,7 +80,7 @@ public class WristSubsystem extends PIDSubsystem {
     }
 
     public double getDisplacement() {
-        return map(getEncoderOutput(),0,1684077,0,90);
+        return map(getEncoderOutput(),0,1593913,0,90);
     }
 
     // private double practiceBot(double displacement){

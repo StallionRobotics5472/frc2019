@@ -88,7 +88,7 @@ public class ArmSubsystem extends PIDSubsystem {
 
   @Override
   public double getPosition() {
-    double disp = map(getEncoder(), 0,-1512277, 90, 0);
+    double disp = map(getEncoder(), 0,-1500000, 90, 0);
     return disp;
   }
 

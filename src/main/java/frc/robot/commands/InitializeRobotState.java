@@ -9,6 +9,6 @@ public class InitializeRobotState extends CommandGroup {
         addParallel(new ArmPosition(0.0));
        addSequential(new LiftGetHatch(), 3);
         addSequential(new WristPosition(90));
-    }
+    }   
 
 }

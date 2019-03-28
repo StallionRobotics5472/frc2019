@@ -65,7 +65,8 @@ public class ApproachTargetTeleop extends Command {
         double horizontalError = limelight.getHorizontalAngle();
         double turn = horizontalError * Constants.LIMELIGHT_APPROACH_TARGET_TURNP;
 
-        if (limelight.getTargetArea() <= 1e-4) {
+        if (limelight.getTargetArea() <= 1e-4){
+            // || limelight.isFrozen()) {
             area = 0;
             turn = 0;
         }

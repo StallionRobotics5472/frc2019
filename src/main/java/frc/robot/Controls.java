@@ -93,7 +93,7 @@ public class Controls {
 		
 
 		fastBallIn.whileHeld(new BallCommand(Constants.HIGH_BALL, true));
-		fastBallOut.whileHeld(new BallCommand(Constants.HIGH_BALL, false));
+		fastBallOut.whileHeld(new BallCommand(Constants.HIGH_BALL * 1.25, false));
 		fastBallReverse.whileHeld(new BallCommand(-Constants.LOW_BALL, false));
 		slowBallReverse.whileHeld(new BallCommand(-Constants.LOW_BALL, true));
 

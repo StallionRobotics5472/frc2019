@@ -38,7 +38,7 @@ public class BallSubsystem extends Subsystem {
   public void spin(double speed) {
    
 
-    motor.set(ControlMode.PercentOutput, speed*1.0);
+    motor.set(ControlMode.PercentOutput, speed*0.8);
     }
     public void setBrake()
     {

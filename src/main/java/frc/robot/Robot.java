@@ -158,6 +158,13 @@ public class Robot extends TimedRobot implements DataProvider {
         SmartDashboard.putNumber("Wrist Pos", Robot.wrist.getPosition());
         SmartDashboard.putNumber("Arm Pos", Robot.arm.getPosition());
         SmartDashboard.putNumber("Lift Encoder", Robot.lift.getEncoder());
+        SmartDashboard.putNumber("Wrist Encoder", Robot.wrist.getEncoderOutput());
+        SmartDashboard.putNumber("Arm Encoder", Robot.arm.getEncoder());
+
+
+        // SmartDashboard.putNumber("Arm Error", Robot.arm.getPIDController().getError());
+        // SmartDashboard.putNumber("Wrist Error", Robot.wrist.getPIDController().getError());
+        
 
         SmartDashboard.putNumber("End Effector Height (m)", Robot.lift.estimateEndEffectorHeight());
         SmartDashboard.putBoolean("At Third Level (CJ)",

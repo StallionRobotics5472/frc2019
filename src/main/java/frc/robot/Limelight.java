@@ -1,6 +1,8 @@
 package frc.robot;
 
 import java.util.HashMap;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -39,6 +41,9 @@ public class Limelight implements DataProvider {
 	private static final String CAMERA_POSE = "camtran";
 
 	private boolean limeLightConnected = false;
+	private boolean frozen;
+	private double lastTL;
+	private Timer timer;
 	
 	private NetworkTable limeLightTable;
 	
@@ -58,6 +63,17 @@ public class Limelight implements DataProvider {
 	
 	public Limelight() {
 		checkConnection();
+		TimerTask frozenTask = new TimerTask(){
+			public void run(){
+				double tl = getPipelineLatency();
+				if(Math.abs(tl - lastTL) < 1e-4)
+					frozen = true;
+				lastTL = tl;
+			}
+		};
+
+		timer = new Timer();
+		timer.schedule(frozenTask, 0, 50);
 	}
 	
 	public boolean isConnected() {
@@ -127,6 +143,10 @@ public class Limelight implements DataProvider {
 	public boolean targetExists() {
 		int fromTable = limeLightTable.getEntry(HORIZONTAL_ANGLE).getNumber(0).intValue(); //1 if true
 		return fromTable == 0 ? false : true;
+	}
+
+	public boolean isFrozen(){
+		return frozen;
 	}
 	
 	public HashMap<String, double[]> getData(){

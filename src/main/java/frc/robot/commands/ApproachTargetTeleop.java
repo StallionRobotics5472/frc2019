@@ -59,13 +59,24 @@ public class ApproachTargetTeleop extends Command {
 
     @Override
     public void execute() {
-        double area = Constants.LIMELIGHT_APPROACH_A
-                * Math.pow(limelight.getTargetArea(), Constants.LIMELIGHT_APPROACH_B)
-                + Constants.LIMELIGHT_APPROACH_C * limelight.getTargetArea() + Constants.LIMELIGHT_APPROACH_D;
-        double horizontalError = limelight.getHorizontalAngle();
-        double turn = horizontalError * Constants.LIMELIGHT_APPROACH_TARGET_TURNP;
+        int liftEncoder = Robot.lift.getEncoder();
+        double area, turn = 0;
 
-        if (limelight.getTargetArea() <= 1e-4){
+        if (liftEncoder < Constants.LIMELIGHT_HEIGHT_THRESHOLD) {
+            area = Constants.LIMELIGHT_APPROACH_A * Math.pow(limelight.getTargetArea(), Constants.LIMELIGHT_APPROACH_B)
+                    + Constants.LIMELIGHT_APPROACH_C * limelight.getTargetArea() + Constants.LIMELIGHT_APPROACH_D;
+            double horizontalError = limelight.getHorizontalAngle();
+            turn = horizontalError * Constants.LIMELIGHT_APPROACH_TARGET_TURNP;
+        } else {
+            area = Constants.LIMELIGHT_HIGH_APPROACH_A
+                    * Math.pow(limelight.getTargetArea(), Constants.LIMELIGHT_HIGH_APPROACH_B)
+                    + Constants.LIMELIGHT_HIGH_APPROACH_C * limelight.getTargetArea()
+                    + Constants.LIMELIGHT_HIGH_APPROACH_D;
+            double horizontalError = limelight.getHorizontalAngle();
+            turn = horizontalError * Constants.LIMELIGHT_APPROACH_TARGET_TURNP;
+        }
+
+        if (limelight.getTargetArea() <= 1e-4) {
             // || limelight.isFrozen()) {
             area = 0;
             turn = 0;
@@ -75,7 +86,7 @@ public class ApproachTargetTeleop extends Command {
 
         SmartDashboard.putNumber("Drive Right", area - turn);
         SmartDashboard.putNumber("Drive Left", area + turn);
-        
+
     }
 
     @Override

@@ -69,8 +69,15 @@ public class Constants {
 	public static final double LIMELIGHT_APPROACH_A = 1.3827;
 	public static final double LIMELIGHT_APPROACH_B = -1.25017;
 	public static final double LIMELIGHT_APPROACH_C = -0.000971;
-	public static final double LIMELIGHT_APPROACH_D = -0.08182; // -0.0246
+	public static final double LIMELIGHT_APPROACH_D = -0.03187; // -0.0246
+
+	public static final double LIMELIGHT_HIGH_APPROACH_A = 1.3827;
+	public static final double LIMELIGHT_HIGH_APPROACH_B = -1.25017;
+	public static final double LIMELIGHT_HIGH_APPROACH_C = -0.000971;
+	public static final double LIMELIGHT_HIGH_APPROACH_D = -0.03187; // -0.0246
+
 	public static final double LIMELIGHT_APPROACH_TARGET_TURNP = 0.11 / (5.00); // When the error is 5deg, the turn output will be 0.05
+	public static final int LIMELIGHT_HEIGHT_THRESHOLD = 2000000;
 
 	public static final double ARM_PIDF_P = 0.8 / 15.0;  // Output should be 0.4 when the error is 30deg
 	public static final double ARM_PIDF_I = 0;

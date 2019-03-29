@@ -74,7 +74,7 @@ public class LiftSubsystem extends PIDSubsystem implements DataProvider {
         leftLiftMotor.getSensorCollection().setQuadraturePosition(0, 0);
     }
 
-    public double getEncoder() {
+    public int getEncoder() {
         return -leftLiftMotor.getSensorCollection().getQuadraturePosition();
     }
 

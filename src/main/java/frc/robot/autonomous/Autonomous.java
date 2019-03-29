@@ -117,7 +117,7 @@ public class Autonomous extends CommandGroup{
 		addParallel(new InitializeRobotState());
 		 if(command != null){
 			//addSequential(new Delay(6.5));
-			// addSequential(command);
+			//addSequential(command);
 		 }
 		// addSequential(new ApproachTarget());
 		addSequential(new JoystickDriveCommand());
@@ -133,7 +133,10 @@ public class Autonomous extends CommandGroup{
 			break;
 		case SC_FRONTLEFTCARGO:
 			command = new MotionProfile(fileNames.get(1));
-
+			break;
+		case SR_FRONTLEFTCARGO:
+			command = new MotionProfile(fileNames.get(2));
+			break;
 		default:
 			System.out.println("You tried to run a motion profile path that doesn't exist!");
 		}

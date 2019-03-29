@@ -111,6 +111,6 @@ public class Constants {
 	public static final int RIGHT_JOYSTICK_PRESS = 9;
 
 	//initalize position encoder values
-	public static final int NINETY_WRIST = 1766040;
-	public static final int NINETY_ARM = -1841262;
+	public static final int NINETY_WRIST = 1500000;//1766040;
+	public static final int NINETY_ARM = -1512277;
 }

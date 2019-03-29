@@ -10,6 +10,7 @@ package frc.robot;
 import java.util.HashMap;
 
 import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -55,6 +56,7 @@ public class Robot extends TimedRobot implements DataProvider {
         drive = new DriveSubsystem();
         auto = new Autonomous();
         Robot.controls.initTargeting();
+        DriverStation.reportError(Constants.SICKO_MODE, false);
     }
 
     public void cleanup() {

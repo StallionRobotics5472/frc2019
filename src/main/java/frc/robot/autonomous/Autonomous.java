@@ -31,8 +31,8 @@ public class Autonomous extends CommandGroup{
 	} 
 
 	public static enum Plan {
-		FRONT_LEFT_CARGO_MOTION_PROFILE("Front Left Cargo Motion Profile"),
-		DRIVE_TEST_MOTION_PROFILE("Test Path");
+		SL_FRONT_LEFT_CARGO_MOTION_PROFILE("Starting Left Front Left Cargo Motion Profile"),
+		SC_FRONT_RIGHT_CARGO_MOTION_PROFILE("Starting center Front Left Cargo Motion Profile");
 
 		private String name;
 
@@ -48,7 +48,7 @@ public class Autonomous extends CommandGroup{
 	}
 
 	public static enum Paths {
-		FRONTLEFTCARGO("Front Left Cargo"), TEST("Test Path");
+		SL_FRONTLEFTCARGO("Starting Left Front Left Cargo"), SC_FRONTLEFTCARGO("Starting Center Front Left Cargo");
 
 		private String name;
 
@@ -80,15 +80,17 @@ public class Autonomous extends CommandGroup{
 	// 		plan.addOption(p.toString(), p);
 	// 	}
 		starting.setDefaultOption(StartingPosition.MOTION_PROFILE.toString(), StartingPosition.MOTION_PROFILE);
-		plan.setDefaultOption(Plan.FRONT_LEFT_CARGO_MOTION_PROFILE.toString(), Plan.FRONT_LEFT_CARGO_MOTION_PROFILE);
+		plan.setDefaultOption(Plan.SL_FRONT_LEFT_CARGO_MOTION_PROFILE.toString(), Plan.SL_FRONT_LEFT_CARGO_MOTION_PROFILE);
+		plan.addOption(Plan.SC_FRONT_RIGHT_CARGO_MOTION_PROFILE.toString(), Plan.SC_FRONT_RIGHT_CARGO_MOTION_PROFILE);
 		SmartDashboard.putData("Autonomous Starting Position", starting);
 		SmartDashboard.putData("Autonomous Task", plan);
 
 		// paths.addDefault("No path", Paths.NO_PATHS);
-		paths.setDefaultOption(Paths.FRONTLEFTCARGO.toString(), Paths.FRONTLEFTCARGO);
+		paths.setDefaultOption(Paths.SL_FRONTLEFTCARGO.toString(), Paths.SL_FRONTLEFTCARGO);
+		paths.addOption(Paths.SC_FRONTLEFTCARGO.toString(), Paths.SC_FRONTLEFTCARGO);
 		SmartDashboard.putData("Path", paths);
 
-		fileNames.add("/home/lvuser/deploy/Paths/frontcargoleft");
+		fileNames.add("/home/lvuser/deploy/Paths/SL_frontcargoleft");
 		fileNames.add("/home/lvusser/deploy/Paths/testpath");
 	}
 
@@ -122,10 +124,10 @@ public class Autonomous extends CommandGroup{
 
 	public void runMotionProfile(Paths path) {
 		switch (path) {
-		case FRONTLEFTCARGO:
+		case SL_FRONTLEFTCARGO:
 			command = new MotionProfile(fileNames.get(0));
 			break;
-		case TEST:
+		case SC_FRONTLEFTCARGO:
 			command = new MotionProfile(fileNames.get(1));
 
 		default:

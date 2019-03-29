@@ -32,8 +32,8 @@ public class Autonomous extends CommandGroup{
 
 	public static enum Plan {
 		SL_FRONT_LEFT_CARGO_MOTION_PROFILE("Starting Left Front Left Cargo Motion Profile"),
-		SC_FRONT_LEFT_CARGO_MOTION_PROFILE("Starting center Front Left Cargo Motion Profile"),
-		;
+		SC_FRONT_LEFT_CARGO_MOTION_PROFILE("Starting Center Front Left Cargo Motion Profile"),
+		SR_FRONT_LEFT_CARGO_MOTION_PROFILE("Starting Right Front Left Cargo Motion Profile");
 
 		private String name;
 
@@ -49,7 +49,7 @@ public class Autonomous extends CommandGroup{
 	}
 
 	public static enum Paths {
-		SL_FRONTLEFTCARGO("Starting Left Front Left Cargo"), SC_FRONTLEFTCARGO("Starting Center Front Left Cargo");
+		SL_FRONTLEFTCARGO("Starting Left Front Left Cargo"), SC_FRONTLEFTCARGO("Starting Center Front Left Cargo"), SR_FRONTLEFTCARGO("Starting Right Front Left Cargo");
 
 		private String name;
 
@@ -83,16 +83,19 @@ public class Autonomous extends CommandGroup{
 		starting.setDefaultOption(StartingPosition.MOTION_PROFILE.toString(), StartingPosition.MOTION_PROFILE);
 		plan.setDefaultOption(Plan.SL_FRONT_LEFT_CARGO_MOTION_PROFILE.toString(), Plan.SL_FRONT_LEFT_CARGO_MOTION_PROFILE);
 		plan.addOption(Plan.SC_FRONT_LEFT_CARGO_MOTION_PROFILE.toString(), Plan.SC_FRONT_LEFT_CARGO_MOTION_PROFILE);
+		plan.addOption(Plan.SR_FRONT_LEFT_CARGO_MOTION_PROFILE.toString(), Plan.SR_FRONT_LEFT_CARGO_MOTION_PROFILE);
 		SmartDashboard.putData("Autonomous Starting Position", starting);
 		SmartDashboard.putData("Autonomous Task", plan);
 
 		// paths.addDefault("No path", Paths.NO_PATHS);
 		paths.setDefaultOption(Paths.SL_FRONTLEFTCARGO.toString(), Paths.SL_FRONTLEFTCARGO);
 		paths.addOption(Paths.SC_FRONTLEFTCARGO.toString(), Paths.SC_FRONTLEFTCARGO);
+		paths.addOption(Paths.SR_FRONTLEFTCARGO.toString(), Paths.SR_FRONTLEFTCARGO);
 		SmartDashboard.putData("Path", paths);
 
-		fileNames.add("/home/lvuser/deploy/Paths/SL_frontcargoleft");
-		fileNames.add("/home/lvusser/deploy/Paths/SC_frontcargoleft");
+		fileNames.add("/home/lvuser/deploy/Paths/frontcargoleft/SL_frontcargoleft/SL_frontcargoleft");
+		fileNames.add("/home/lvuser/deploy/Paths/frontcargoleft/SC_frontcargoleft/SC_frontcargoleft");
+		fileNames.add("/home/lvuser/deploy/Paths/frontcargoleft/SR_frontcargoleft/SR_frontcargoleft");
 	}
 
 	public void init() {

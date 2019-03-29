@@ -35,11 +35,15 @@ public class MotionProfile extends Command {
 	public MotionProfile(String fileName)
 	{
 		requires(Robot.drive);
+		try{
 		File leftFilePath = Paths.get(fileName + "_left.csv").toFile();
 		leftTrajectory = Pathfinder.readFromCSV(leftFilePath);
 		File rightFilePath = Paths.get(fileName + "_right.csv").toFile();
 		rightTrajectory = Pathfinder.readFromCSV(rightFilePath);
-
+		} catch (Exception e){
+			e.printStackTrace();
+			System.out.println("File not found: " + fileName);
+		}
 		initializePath();
 	}
 

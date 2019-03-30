@@ -133,7 +133,7 @@ public class Autonomous extends CommandGroup{
 		}
 
 
-		// addParallel(new InitializeRobotState());
+		addParallel(new InitializeRobotState());
 		 if(command != null){
 			//addSequential(new Delay(6.5));
 			addSequential(command);

@@ -56,7 +56,7 @@ public class Robot extends TimedRobot implements DataProvider {
         drive = new DriveSubsystem();
         auto = new Autonomous();
         Robot.controls.initTargeting();
-        DriverStation.reportError(Constants.SICKO_MODE, false);
+        // DriverStation.reportError(Constants.SICKO_MODE, false);
     }
 
     public void cleanup() {

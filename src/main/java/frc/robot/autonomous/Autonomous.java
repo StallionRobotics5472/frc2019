@@ -33,7 +33,11 @@ public class Autonomous extends CommandGroup{
 	public static enum Plan {
 		SL_FRONT_LEFT_CARGO_MOTION_PROFILE("Starting Left Front Left Cargo Motion Profile"),
 		SC_FRONT_LEFT_CARGO_MOTION_PROFILE("Starting Center Front Left Cargo Motion Profile"),
-		SR_FRONT_LEFT_CARGO_MOTION_PROFILE("Starting Right Front Left Cargo Motion Profile");
+		SR_FRONT_LEFT_CARGO_MOTION_PROFILE("Starting Right Front Left Cargo Motion Profile"),
+
+		SL_FRONT_RIGHT_CARGO_MOTION_PROFILE("Starting Left Front Right Cargo Motion Profile"),
+		SC_FRONT_RIGHT_CARGO_MOTION_PROFILE("Starting Center Front Right Cargo Motion Profile"),
+		SR_FRONT_RIGHT_CARGO_MOTION_PROFILE("Starting Right Front Right Cargo Motion Profile");
 
 		private String name;
 
@@ -49,7 +53,8 @@ public class Autonomous extends CommandGroup{
 	}
 
 	public static enum Paths {
-		SL_FRONTLEFTCARGO("Starting Left Front Left Cargo"), SC_FRONTLEFTCARGO("Starting Center Front Left Cargo"), SR_FRONTLEFTCARGO("Starting Right Front Left Cargo");
+		SL_FRONTLEFTCARGO("Starting Left Front Left Cargo"), SC_FRONTLEFTCARGO("Starting Center Front Left Cargo"), SR_FRONTLEFTCARGO("Starting Right Front Left Cargo"),
+		SL_FRONTRIGHTCARGO("Starting Left Front Right Cargo"), SC_FRONTRIGHTCARGO("Starting Center Front Right Cargo"), SR_FRONTRIGHTCARGO("Starting Right Front Right Cargo");
 
 		private String name;
 
@@ -60,6 +65,8 @@ public class Autonomous extends CommandGroup{
 		@Override
 		public String toString() {
 			return name;
+			//comment
+		
 		}
 	}
 
@@ -84,6 +91,11 @@ public class Autonomous extends CommandGroup{
 		plan.setDefaultOption(Plan.SL_FRONT_LEFT_CARGO_MOTION_PROFILE.toString(), Plan.SL_FRONT_LEFT_CARGO_MOTION_PROFILE);
 		plan.addOption(Plan.SC_FRONT_LEFT_CARGO_MOTION_PROFILE.toString(), Plan.SC_FRONT_LEFT_CARGO_MOTION_PROFILE);
 		plan.addOption(Plan.SR_FRONT_LEFT_CARGO_MOTION_PROFILE.toString(), Plan.SR_FRONT_LEFT_CARGO_MOTION_PROFILE);
+
+		plan.addOption(Plan.SL_FRONT_RIGHT_CARGO_MOTION_PROFILE.toString(), Plan.SL_FRONT_RIGHT_CARGO_MOTION_PROFILE);
+		plan.addOption(Plan.SC_FRONT_RIGHT_CARGO_MOTION_PROFILE.toString(), Plan.SC_FRONT_RIGHT_CARGO_MOTION_PROFILE);
+		plan.addOption(Plan.SR_FRONT_RIGHT_CARGO_MOTION_PROFILE.toString(), Plan.SR_FRONT_RIGHT_CARGO_MOTION_PROFILE);
+
 		SmartDashboard.putData("Autonomous Starting Position", starting);
 		SmartDashboard.putData("Autonomous Task", plan);
 
@@ -91,11 +103,20 @@ public class Autonomous extends CommandGroup{
 		paths.setDefaultOption(Paths.SL_FRONTLEFTCARGO.toString(), Paths.SL_FRONTLEFTCARGO);
 		paths.addOption(Paths.SC_FRONTLEFTCARGO.toString(), Paths.SC_FRONTLEFTCARGO);
 		paths.addOption(Paths.SR_FRONTLEFTCARGO.toString(), Paths.SR_FRONTLEFTCARGO);
+
+		paths.addOption(Paths.SL_FRONTRIGHTCARGO.toString(), Paths.SL_FRONTRIGHTCARGO);
+		paths.addOption(Paths.SC_FRONTRIGHTCARGO.toString(), Paths.SC_FRONTRIGHTCARGO);
+		paths.addOption(Paths.SR_FRONTRIGHTCARGO.toString(), Paths.SR_FRONTRIGHTCARGO);
+
 		SmartDashboard.putData("Path", paths);
 
 		fileNames.add("/home/lvuser/deploy/Paths/frontcargoleft/SL_frontcargoleft/SL_frontcargoleft");
 		fileNames.add("/home/lvuser/deploy/Paths/frontcargoleft/SC_frontcargoleft/SC_frontcargoleft");
 		fileNames.add("/home/lvuser/deploy/Paths/frontcargoleft/SR_frontcargoleft/SR_frontcargoleft");
+
+		fileNames.add("/home/lvuser/deploy/Paths/frontcargoright/SL_frontcargoright/SL_frontcargoright");
+		fileNames.add("/home/lvuser/deploy/Paths/frontcargoright/SC_frontcargoright/SC_frontcargoright");
+		fileNames.add("/home/lvuser/deploy/Paths/frontcargoright/SR_frontcargoright/SR_frontcargoright");
 	}
 
 	public void init() {
@@ -120,7 +141,7 @@ public class Autonomous extends CommandGroup{
 			addSequential(command);
 		 }
 		// addSequential(new ApproachTarget());
-		addSequential(new JoystickDriveCommand());
+		addSequential(new JoystickDriveCommand()); 
 			
 		
 	}
@@ -137,6 +158,17 @@ public class Autonomous extends CommandGroup{
 		case SR_FRONTLEFTCARGO:
 			command = new MotionProfile(fileNames.get(2));
 			break;
+
+			case SL_FRONTRIGHTCARGO:
+			command = new MotionProfile(fileNames.get(3));
+			break;
+		case SC_FRONTRIGHTCARGO:
+			command = new MotionProfile(fileNames.get(4));
+			break;
+		case SR_FRONTRIGHTCARGO:
+			command = new MotionProfile(fileNames.get(5));
+			break;
+
 		default:
 			System.out.println("You tried to run a motion profile path that doesn't exist!");
 		}

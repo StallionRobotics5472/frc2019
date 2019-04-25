@@ -47,12 +47,10 @@ public class DriveSubsystem extends Subsystem implements DataProvider {
         right.setInverted(true);
         rightFollower.setInverted(true);
 
-        left.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 10);
+        left.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 0);
         left.setSensorPhase(true);
-        right.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 10);
+        right.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 0);
         right.setSensorPhase(true);
-
-        setCoast();
 
         left.set(ControlMode.PercentOutput, 0);
         leftFollower.follow(left);
@@ -104,7 +102,10 @@ public class DriveSubsystem extends Subsystem implements DataProvider {
         updateStateEstimate = new TimerTask() {
             @Override
             public void run() {
-                Vec dEnc = new Vec(getLeftPosition(), getRightPosition(), 0).subtract(lastReadings);
+                double left = getLeftPosition(), right = getRightPosition();
+                Vec dEnc = new Vec(left, right, 0).subtract(lastReadings);
+                lastReadings.setX(left);
+                lastReadings.setY(right);
                 double ds = dEnc.dot(Vec.ONES) / 2.0;
                 double theta = Math.toRadians(getHeading());
                 double dx = ds * Math.cos(theta);

@@ -95,6 +95,10 @@ public class Robot extends TimedRobot implements DataProvider {
         logger.writeFrame();
 
         SmartDashboard.putNumber("Heading", Robot.drive.getHeading());
+
+        Vec estimate = drive.getRobotState();
+        SmartDashboard.putNumber("Estimate X", estimate.getX());
+        SmartDashboard.putNumber("Estimate Y", estimate.getY());
     }
 
     @Override

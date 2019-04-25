@@ -13,7 +13,8 @@ public class Constants {
 
 	public static final int DRIVE_LEFT_TALON_CAN = 1;
 	public static final int DRIVE_LEFT_FOLLOWER_CAN = 2;
-	public static final int DRIVE_RIGHT_TALON_CAN = 4;
-	public static final int DRIVE_RIGHT_FOLLOWER_CAN = 3;
+	public static final int DRIVE_RIGHT_TALON_CAN = 14;
+	public static final int DRIVE_RIGHT_FOLLOWER_CAN = 13;
+
 	public static final int DRIVE_SHIFT_SOLENOID = 0;
 }

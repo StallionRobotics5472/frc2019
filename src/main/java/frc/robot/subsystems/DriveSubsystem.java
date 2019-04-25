@@ -176,11 +176,11 @@ public class DriveSubsystem extends Subsystem implements DataProvider {
     }
 
     public double getLeftPosition() {
-        return left.getSelectedSensorPosition(0) / Constants.LEFT_ENCODER_TICKS_PER_METER;
+        return left.getSelectedSensorPosition(0) / Constants.TICKS_PER_METER;
     }
 
     public double getLeftVelocity() {
-        return left.getSelectedSensorVelocity(0) / Constants.LEFT_ENCODER_TICKS_PER_METER;
+        return left.getSelectedSensorVelocity(0) / Constants.TICKS_PER_METER;
     }
 
     public double getLeftPercent() {
@@ -192,11 +192,11 @@ public class DriveSubsystem extends Subsystem implements DataProvider {
     }
 
     public double getRightPosition() {
-        return right.getSelectedSensorPosition(0) / Constants.RIGHT_ENCODER_TICKS_PER_METER;
+        return right.getSelectedSensorPosition(0) / Constants.TICKS_PER_METER;
     }
 
     public double getRightVelocity() {
-        return right.getSelectedSensorVelocity(0) / Constants.RIGHT_ENCODER_TICKS_PER_METER;
+        return right.getSelectedSensorVelocity(0) / Constants.TICKS_PER_METER;
     }
 
     public Vec getAngularVelocities() {

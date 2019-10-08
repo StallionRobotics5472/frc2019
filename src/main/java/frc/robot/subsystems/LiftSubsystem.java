@@ -66,6 +66,7 @@ public class LiftSubsystem extends PIDSubsystem implements DataProvider {
 
     public void hold() {
         setPercent(0.2);
+        //change to 0.05 for I'm Blue
     }
     //179049.0
     //2677280.0

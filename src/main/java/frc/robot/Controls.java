@@ -53,6 +53,8 @@ public class Controls {
 	private JoystickButton slowBallReverse = new JoystickButton(playerOne, 6);
 	private JoystickButton holdArm = new JoystickButton(playerTwo, Constants.BUTTON_A);
 	private JoystickButton seekTarget = new JoystickButton(playerOne, Constants.BUTTON_B);
+
+	//deals for the new disk thing
 	private JoystickButton diskIn = new JoystickButton(playerOne, Constants.BUTTON_A);
 	private JoystickButton diskOut = new JoystickButton(playerOne, Constants.BUTTON_Y);
 	// private JoystickButton encoderReseter = new JoystickButton(playerTwo,
@@ -104,8 +106,10 @@ public class Controls {
 		fastBallOut.whenReleased(new StopBall());
 		fastBallReverse.whenReleased(new StopBall());
 
-		diskIn.whileHeld(new DiskCommand(Constants.diskSpeed, ))
-		diskOut.whileHeld(new DiskCommand(-Constants.diskSpeed, ));
+		diskIn.whileHeld(new DiskCommand(Constants.DISK_SPEED));
+		diskOut.whileHeld(new DiskCommand(-Constants.DISK_SPEED));
+		diskIn.whenReleased(new StopDisk());
+		diskOut.whenReleased(new StopDisk());
 		toggleBottomPistons.whenPressed(new BottomPistonShift());
 
 		//these don't raise to the right levels because we don't have the proper encoder values

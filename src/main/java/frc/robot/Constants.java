@@ -24,6 +24,8 @@ public class Constants {
 	public static final double HIGH_BALL = 0.8;
 	public static final double LOW_BALL = 0.8;
 
+	public static final double DISK_SPEED = 0.8;
+
 
 	// Motor Controllers
 	public static final int DRIVE_LEFT_TALON_CAN = 1;

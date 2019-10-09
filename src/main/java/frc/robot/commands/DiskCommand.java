@@ -32,7 +32,7 @@ public class DiskCommand extends Command {
     Robot.disk.spin(s);
     Robot.disk.setCoast();
     isFinished = true;
-    }
+    
   }
 
   // Make this return true when this Command no longer needs to run execute()

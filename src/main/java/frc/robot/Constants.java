@@ -39,7 +39,8 @@ public class Constants {
 	public static final int INTAKE_CAN = 8;
 
 	public static final int ARM_TALON = 6;
-	public static final int WRIST_TALON = 9;
+	// public static final int WRIST_TALON = 9;
+	public static final int DISK_TALON = 9;
 	public static final int ARM_TALON_FOLLOWER = 7;
 
 

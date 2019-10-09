@@ -21,7 +21,7 @@ public class Controls {
 	// private JoystickButton raiseLevelTwo = new JoystickButton(buttonPanel, 2);
 	// private JoystickButton raiseLevelThree = new JoystickButton(buttonPanel, 3);
 	//other button panel buttons
-	private JoystickButton buttonPanelDiskPush = new JoystickButton(buttonPanel, 4); //button to push the disk out from the button panel
+	//private JoystickButton buttonPanelDiskPush = new JoystickButton(buttonPanel, 4); //button to push the disk out from the button panel
 	private JoystickButton buttonPanelLevelArm = new JoystickButton(buttonPanel, 5); //button to level the arm
 	
 	//BUTTONS FOR SHIFTING GEAR
@@ -39,7 +39,7 @@ public class Controls {
 	private JoystickButton toggleBottomPistons = new JoystickButton(playerOne, Constants.BUTTON_Y);
 
 	//BUTTON TO PUSH THE DISK
-	private JoystickButton diskPush = new JoystickButton(playerOne, Constants.BUTTON_A);
+	//private JoystickButton diskPush = new JoystickButton(playerOne, Constants.BUTTON_A);
 
 	//BUTTONS TO MANAGE THE BALL COMING INTO THE INTAKE
 	public LimitSwitch highLimit = new LimitSwitch(Constants.LIMIT_SWITCH_HIGH, true);
@@ -53,6 +53,8 @@ public class Controls {
 	private JoystickButton slowBallReverse = new JoystickButton(playerOne, 6);
 	private JoystickButton holdArm = new JoystickButton(playerTwo, Constants.BUTTON_A);
 	private JoystickButton seekTarget = new JoystickButton(playerOne, Constants.BUTTON_B);
+	private JoystickButton diskIn = new JoystickButton(playerOne, Constants.BUTTON_A);
+	private JoystickButton diskOut = new JoystickButton(playerOne, Constants.BUTTON_Y);
 	// private JoystickButton encoderReseter = new JoystickButton(playerTwo,
 	// Constants.BUTTON_Y);
 
@@ -80,8 +82,8 @@ public class Controls {
 		shiftGear.whenReleased(new ShiftGear());
 		highButton.whenPressed(new HighGear());
 
-		buttonPanelDiskPush.whenPressed(new DiskPushCommand());
-		diskPush.whenPressed(new DiskPushCommand());
+		//buttonPanelDiskPush.whenPressed(new DiskPushCommand());
+		//diskPush.whenPressed(new DiskPushCommand());
 
 		takeSnapshot.whenPressed(new TakeSnapshot());
 
@@ -102,6 +104,8 @@ public class Controls {
 		fastBallOut.whenReleased(new StopBall());
 		fastBallReverse.whenReleased(new StopBall());
 
+		diskIn.whileHeld(new DiskCommand(Constants.diskSpeed, ))
+		diskOut.whileHeld(new DiskCommand(-Constants.diskSpeed, ));
 		toggleBottomPistons.whenPressed(new BottomPistonShift());
 
 		//these don't raise to the right levels because we don't have the proper encoder values
@@ -113,9 +117,9 @@ public class Controls {
 		rocketLow.whenPressed(new LiftGetHatch());
 		// rocketMid.whenPressed(new RocketMidLift());
 		// rocketHigh.whenPressed(new RocketHighLift());
-		testRightAngle.whenPressed(new WristFixed(90));
-		testFlatAngle.whenPressed(new WristFixed(0));
-		testWristOverride.whenPressed(new WristDefault());
+		// testRightAngle.whenPressed(new WristFixed(90));
+		// testFlatAngle.whenPressed(new WristFixed(0));
+		// testWristOverride.whenPressed(new WristDefault());
 
 
 	}

@@ -18,7 +18,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.autonomous.Autonomous;
 import frc.robot.commands.JoystickDriveCommand;
 import frc.robot.subsystems.*;
-import frc.robot.subsystems.ArmSubsystem;
+
 import frc.robot.util.DataLogger;
 import frc.robot.util.DataProvider;
 
@@ -34,9 +34,10 @@ public class Robot extends TimedRobot implements DataProvider {
     public static Cameras cameras;
     private static DataLogger logger;
     public static DiskPushSubsystem diskPush;
+    public static DiskSubsystem disk;
     public static BallSubsystem ball;
     public static ArmSubsystem arm;
-    public static WristSubsystem wrist;
+    //public static WristSubsystem wrist;
     public static BottomPistonSubsystem bottomPistons;
     private AnalogInput pressureSensor;
 
@@ -48,9 +49,10 @@ public class Robot extends TimedRobot implements DataProvider {
         lift = new LiftSubsystem();
         logger = new DataLogger();
         ball = new BallSubsystem();
+        disk = new DiskSubsystem();
         diskPush = new DiskPushSubsystem();
         arm = new ArmSubsystem();
-        wrist = new WristSubsystem();
+        //wrist = new WristSubsystem();
         bottomPistons = new BottomPistonSubsystem();
         controls = new Controls();
         drive = new DriveSubsystem();
@@ -66,7 +68,7 @@ public class Robot extends TimedRobot implements DataProvider {
         drive.drive(0.0, 0.0);
         lift.disable();
         arm.disable();
-        wrist.disable();
+        //wrist.disable();
     }
 
     @Override
@@ -77,7 +79,7 @@ public class Robot extends TimedRobot implements DataProvider {
         limelight.setLed(false);
 
         lift.resetEncoder();
-        wrist.resetEncoder();
+        //wrist.resetEncoder();
         arm.resetEncoder();
     }
 
@@ -89,7 +91,7 @@ public class Robot extends TimedRobot implements DataProvider {
         SmartDashboard.putBoolean("Lower Lift Limit", controls.lowLimit.get());
 
         lift.resetEncoder();
-        wrist.resetEncoder();
+        //wrist.resetEncoder();
         arm.resetEncoder();
 
         limelight.setLed(false);
@@ -99,7 +101,7 @@ public class Robot extends TimedRobot implements DataProvider {
     public void autonomousInit() {
         cleanup();
         lift.resetEncoder();
-        wrist.resetEncoder();
+        //wrist.resetEncoder();
         arm.resetEncoder();
         lift.autoPeakOutput();
         // logger.start();
@@ -138,7 +140,7 @@ public class Robot extends TimedRobot implements DataProvider {
         drive.highGear();
         logger.start();
         lift.disable();
-        wrist.disable();
+        //wrist.disable();
         arm.disable();
         new JoystickDriveCommand().start();
     }
@@ -157,10 +159,10 @@ public class Robot extends TimedRobot implements DataProvider {
         SmartDashboard.putBoolean("Lower Lift Limit", controls.lowLimit.get());
         SmartDashboard.putBoolean("Ball Limit", Robot.ball.getLimit());
 
-        SmartDashboard.putNumber("Wrist Pos", Robot.wrist.getPosition());
+        //SmartDashboard.putNumber("Wrist Pos", Robot.wrist.getPosition());
         SmartDashboard.putNumber("Arm Pos", Robot.arm.getPosition());
         SmartDashboard.putNumber("Lift Encoder", Robot.lift.getEncoder());
-        SmartDashboard.putNumber("Wrist Encoder", Robot.wrist.getEncoderOutput());
+        //SmartDashboard.putNumber("Wrist Encoder", Robot.wrist.getEncoderOutput());
         SmartDashboard.putNumber("Arm Encoder", Robot.arm.getEncoder());
 
 

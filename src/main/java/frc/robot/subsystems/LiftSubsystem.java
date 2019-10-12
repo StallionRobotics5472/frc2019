@@ -65,7 +65,7 @@ public class LiftSubsystem extends PIDSubsystem implements DataProvider {
     }
 
     public void hold() {
-        setPercent(0.05);
+        setPercent(0.2);
     }
     //179049.0
     //2677280.0

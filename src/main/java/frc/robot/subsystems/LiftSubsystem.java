@@ -128,6 +128,7 @@ public class LiftSubsystem extends PIDSubsystem implements DataProvider {
 
     public HashMap<String, double[]> getData() {
         HashMap<String, double[]> toReturn = new HashMap<>();
+        
         toReturn.put("Lift Position", new double[]{getPosition()});
         toReturn.put("Lift Current",
                 new double[]{leftLiftMotor.getOutputCurrent(), rightLiftMotor.getOutputCurrent()});

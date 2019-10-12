@@ -13,6 +13,7 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.commands.ArmCommand;
 
@@ -88,7 +89,8 @@ public class ArmSubsystem extends PIDSubsystem {
 
   @Override
   public double getPosition() {
-    double disp = map(getEncoder(), 0,Constants.NINETY_ARM, 90, 0);
+    double disp = map(getEncoder(), 0,Constants.NINETY_ARM, -85, 0);
+    SmartDashboard.putNumber("LOOK HERE", disp);
     return disp;
   }
 

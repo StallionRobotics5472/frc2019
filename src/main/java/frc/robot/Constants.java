@@ -21,10 +21,10 @@ public class Constants {
 	public static final double TICKS_PER_METER = TICKS_PER_REV / WHEEL_CIRCUMFERENCE;
 
 
-	public static final double HIGH_BALL = 0.8;
+	public static final double HIGH_BALL = 0.4;
 	public static final double LOW_BALL = 0.8;
 
-	public static final double DISK_SPEED = 0.8;
+	public static final double DISK_SPEED = 0.2;
 
 
 	// Motor Controllers

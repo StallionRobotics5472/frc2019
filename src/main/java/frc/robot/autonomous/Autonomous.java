@@ -117,7 +117,7 @@ public class Autonomous extends CommandGroup{
 		addParallel(new InitializeRobotState());
 		 if(command != null){
 			//addSequential(new Delay(6.5));
-			addSequential(command);
+			//addSequential(command);
 		 }
 		// addSequential(new ApproachTarget());
 		addSequential(new JoystickDriveCommand());

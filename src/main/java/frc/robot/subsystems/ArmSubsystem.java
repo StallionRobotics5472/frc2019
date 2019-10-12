@@ -89,7 +89,7 @@ public class ArmSubsystem extends PIDSubsystem {
   @Override
   public double getPosition() {
     double disp = map(getEncoder(), 0,Constants.NINETY_ARM, 90, 0);
-    return disp;
+    return disp; //yooooo
   }
 
   private double map(double value, double in1, double in2, double out1, double out2) {

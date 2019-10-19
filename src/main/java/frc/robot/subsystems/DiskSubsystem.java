@@ -33,7 +33,7 @@ public class DiskSubsystem extends Subsystem {
   public void spin(double speed) {
    
 
-    motor.set(ControlMode.PercentOutput, speed*0.988888);
+    motor.set(ControlMode.PercentOutput, speed*2);
     }
     public void setBrake()
     {

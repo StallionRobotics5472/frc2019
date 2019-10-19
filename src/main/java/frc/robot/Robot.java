@@ -24,7 +24,7 @@ import frc.robot.util.DataProvider;
 
 public class Robot extends TimedRobot implements DataProvider {
 
-    private Autonomous auto;
+    // private Autonomous auto;
 
     public static Controls controls;
     public static DriveSubsystem drive;
@@ -56,7 +56,7 @@ public class Robot extends TimedRobot implements DataProvider {
         bottomPistons = new BottomPistonSubsystem();
         controls = new Controls();
         drive = new DriveSubsystem();
-        auto = new Autonomous();
+        // auto = new Autonomous();
         Robot.controls.initTargeting();
        
     }
@@ -73,7 +73,7 @@ public class Robot extends TimedRobot implements DataProvider {
 
     @Override
     public void disabledInit() {
-        auto.cancel();
+        // auto.cancel();
         logger.end();
         cleanup();
         limelight.setLed(false);
@@ -103,10 +103,11 @@ public class Robot extends TimedRobot implements DataProvider {
         lift.resetEncoder();
         //wrist.resetEncoder();
         arm.resetEncoder();
-        lift.autoPeakOutput();
+        // lift.autoPeakOutput();
         // logger.start();
-        auto.init();
-        auto.start();
+        // auto.init();
+        // auto.start();
+        new JoystickDriveCommand().start();
     }
 
     @Override
@@ -133,7 +134,7 @@ public class Robot extends TimedRobot implements DataProvider {
 
     @Override
     public void teleopInit() {
-        auto.cancel();
+        // auto.cancel();
         limelight.setLed(false);
         cleanup();
         lift.teleopPeakOutput();

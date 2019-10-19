@@ -122,7 +122,7 @@ public class Constants {
 
 	//initalize position encoder values
 	public static final int NINETY_WRIST = 1500000;//1766040;
-	public static final int NINETY_ARM = -1512277;
+	public static final int NINETY_ARM = (int)(1512277*0.95);
 
 	
 }

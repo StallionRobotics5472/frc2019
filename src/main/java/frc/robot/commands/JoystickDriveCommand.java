@@ -24,14 +24,14 @@ public class JoystickDriveCommand extends Command{
 	public void execute() {
 			double y = -controls.getDriveVerticalAxis() * 0.75;
 			double x = controls.getDriveHorizontalAxis() * 0.75; 
-			
+			double j = -controls.getSpeedAxis() * 0.43;
 			y = Math.abs(y) < 0.10 ? 0 : y;
 			x = Math.abs(x) < 0.10 ? 0 : x;
 			// if(Robot.controls.getSpeed()){
 			// 	Robot .drive.drive((y*0.5 + x*0.75), (y*0.5 - x*0.75));
 			// }
 			// else
-				Robot.drive.drive((y*1 + x*1), (y*1 - x*1));
+				Robot.drive.drive((Math.abs(y)*y + Math.abs(x)*x+j), (Math.abs(y)*y - Math.abs(x)*x)+j);
 			Robot.drive.seeVoltage();
 		}	
 	

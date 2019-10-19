@@ -152,6 +152,10 @@ public class Controls {
 		return playerOne.getRawAxis(Constants.Axis_0);
 	}
 
+	public double getSpeedAxis() {
+		return playerOne.getRawAxis(Constants.Axis_5);
+	}
+
 	public void initTargeting(){
 		seekTarget.whenPressed(new ApproachTargetTeleop());
 		seekTarget.whenReleased(new JoystickDriveCommand());

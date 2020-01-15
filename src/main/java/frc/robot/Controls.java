@@ -23,7 +23,6 @@ public class Controls {
 	//other button panel buttons
 	private JoystickButton buttonPanelDiskPush = new JoystickButton(buttonPanel, 4); //button to push the disk out from the button panel
 	private JoystickButton buttonPanelLevelArm = new JoystickButton(buttonPanel, 5); //button to level the arm
-	
 	//BUTTONS FOR SHIFTING GEAR
 	private JoystickButton shiftGear = new JoystickButton(playerOne, Constants.BUTTON_X); // X Button
 	// HEY
@@ -53,6 +52,7 @@ public class Controls {
 	private JoystickButton slowBallReverse = new JoystickButton(playerOne, 6);
 	private JoystickButton holdArm = new JoystickButton(playerTwo, Constants.BUTTON_A);
 	private JoystickButton seekTarget = new JoystickButton(playerOne, Constants.BUTTON_B);
+	// private JoystickButton turretSpin = new JoystickButton(playerOne, Constants.BUTTON_A);
 	// private JoystickButton encoderReseter = new JoystickButton(playerTwo,
 	// Constants.BUTTON_Y);
 

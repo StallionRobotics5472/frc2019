@@ -26,10 +26,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class TurretSubsystem extends Subsystem{
 
 	public CANSparkMax turret;
+	public CANSparkMax wheel;
+
 	public TurretSubsystem() {
 
 		//public Talon motor = new Talon(1);
-		
+		wheel = new CANSparkMax(2, MotorType.kBrushless);
+		wheel .setIdleMode(IdleMode.kBrake);
+		wheel.setSmartCurrentLimit(20);
 		turret = new CANSparkMax(1, MotorType.kBrushless);
 		turret.setIdleMode(IdleMode.kBrake);
 		turret.setSmartCurrentLimit(20);
@@ -41,7 +45,9 @@ public class TurretSubsystem extends Subsystem{
 	}
 
 	public void spin(double speed){
-		
+		wheel.set(speed);
+	
+	
 	}
 
 	@Override

@@ -99,6 +99,6 @@ public class ApproachTargetTeleop extends Command {
     @Override
     public void end() {
         limelight.disableWallTargetPipeline();
-        drive.drive(0, 0);
+        turret.rotate(0);
     }
 }

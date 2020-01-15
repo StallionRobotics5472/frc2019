@@ -5,6 +5,7 @@ import frc.robot.Constants;
 import frc.robot.Limelight;
 import frc.robot.Robot;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.TurretSubsystem;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class ApproachTargetTeleop extends Command {
@@ -16,9 +17,11 @@ public class ApproachTargetTeleop extends Command {
     private boolean finished = false;
     private Limelight limelight;
     private DriveSubsystem drive;
+    private TurretSubsystem turret;
 
     public ApproachTargetTeleop() {
         requires(Robot.drive);
+        turret = Robot.turret;
         drive = Robot.drive;
         limelight = Robot.limelight;
     }
@@ -59,33 +62,32 @@ public class ApproachTargetTeleop extends Command {
 
     @Override
     public void execute() {
-        int liftEncoder = Robot.lift.getEncoder();
-        double area, turn = 0;
+       // int liftEncoder = Robot.lift.getEncoder();
+        double area = 0, turn = 0;
 
-        if (liftEncoder < Constants.LIMELIGHT_HEIGHT_THRESHOLD) {
-            area = Constants.LIMELIGHT_APPROACH_A * Math.pow(limelight.getTargetArea(), Constants.LIMELIGHT_APPROACH_B)
-                    + Constants.LIMELIGHT_APPROACH_C * limelight.getTargetArea() + Constants.LIMELIGHT_APPROACH_D;
+        // if (liftEncoder < Constants.LIMELIGHT_HEIGHT_THRESHOLD) {
+        //     area = Constants.LIMELIGHT_APPROACH_A * Math.pow(limelight.getTargetArea(), Constants.LIMELIGHT_APPROACH_B)
+        //             + Constants.LIMELIGHT_APPROACH_C * limelight.getTargetArea() + Constants.LIMELIGHT_APPROACH_D;
             double horizontalError = limelight.getHorizontalAngle();
             turn = horizontalError * Constants.LIMELIGHT_APPROACH_TARGET_TURNP;
-        } else {
-            area = Constants.LIMELIGHT_HIGH_APPROACH_A
-                    * Math.pow(limelight.getTargetArea(), Constants.LIMELIGHT_HIGH_APPROACH_B)
-                    + Constants.LIMELIGHT_HIGH_APPROACH_C * limelight.getTargetArea()
-                    + Constants.LIMELIGHT_HIGH_APPROACH_D;
-            double horizontalError = limelight.getHorizontalAngle();
-            turn = horizontalError * Constants.LIMELIGHT_APPROACH_TARGET_TURNP;
-        }
+        // } else {
+        //     area = Constants.LIMELIGHT_HIGH_APPROACH_A
+        //             * Math.pow(limelight.getTargetArea(), Constants.LIMELIGHT_HIGH_APPROACH_B)
+        //             + Constants.LIMELIGHT_HIGH_APPROACH_C * limelight.getTargetArea()
+        //             + Constants.LIMELIGHT_HIGH_APPROACH_D;
+        //     double horizontalError = limelight.getHorizontalAngle();
+        //     turn = horizontalError * Constants.LIMELIGHT_APPROACH_TARGET_TURNP;
+        // }
 
         if (limelight.getTargetArea() <= 1e-4) {
             // || limelight.isFrozen()) {
             area = 0;
             turn = 0;
         }
+        
+        turret.rotate(turn);
 
-        drive.drive(area + turn, area - turn);
-
-        SmartDashboard.putNumber("Drive Right", area - turn);
-        SmartDashboard.putNumber("Drive Left", area + turn);
+        SmartDashboard.putNumber("Turret Rotation", turn);
 
     }
 

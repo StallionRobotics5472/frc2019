@@ -38,6 +38,7 @@ public class Robot extends TimedRobot implements DataProvider {
     public static ArmSubsystem arm;
     public static WristSubsystem wrist;
     public static BottomPistonSubsystem bottomPistons;
+    public static TurretSubsystem turret;
     private AnalogInput pressureSensor;
 
     @Override

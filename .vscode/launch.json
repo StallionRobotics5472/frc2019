@@ -8,9 +8,9 @@
     {
       "type": "wpilib",
       "name": "WPILib Desktop Debug",
-      "request": "launch" ,
+      "request": "launch",
       "desktop": true,
-    }, 
+    },
     {
       "type": "wpilib",
       "name": "WPILib roboRIO Debug",
